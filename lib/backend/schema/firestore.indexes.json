@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "investment_data",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "investor_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_time",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
