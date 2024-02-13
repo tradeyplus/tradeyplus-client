@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -141,1916 +142,100 @@ class _BarchartWidgetState extends State<BarchartWidget> {
           child: Builder(
             builder: (context) {
               if (_model.isLoaded == true) {
-                return Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 393.0,
-                    maxHeight: 852.0,
+                return Visibility(
+                  visible: responsiveVisibility(
+                    context: context,
+                    tabletLandscape: false,
+                    desktop: false,
                   ),
-                  decoration: const BoxDecoration(),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 20.0, 0.0, 0.0),
-                          child: Text(
-                            FFLocalizations.of(context).getText(
-                              'alt2v3w0' /* Financial Report */,
+                  child: Container(
+                    width: double.infinity,
+                    constraints: const BoxConstraints(
+                      maxHeight: 852.0,
+                    ),
+                    decoration: const BoxDecoration(),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                'alt2v3w0' /* Financial Report */,
+                              ),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    fontSize: 21.0,
+                                    fontWeight: FontWeight.w600,
+                                    lineHeight: 1.5,
+                                  ),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  fontSize: 21.0,
-                                  fontWeight: FontWeight.w600,
-                                  lineHeight: 1.5,
-                                ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              15.0, 0.0, 15.0, 0.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 40.0, 0.0, 0.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        blurRadius: 6.0,
-                                        color: Color(0x33000000),
-                                        offset: Offset(0.0, 2.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            setState(() {
-                                              _model.investmentDataList = functions
-                                                  .getPeriodicData(
-                                                      _model.investmentDocList!
-                                                          .toList(),
-                                                      3)
-                                                  .toList()
-                                                  .cast<
-                                                      InvestmentDataMapStruct>();
-                                            });
-                                            setState(() {
-                                              _model.depositList = functions
-                                                  .getBarchartData(
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .PROFIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .DEPOSIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      true)
-                                                  .toList()
-                                                  .cast<double>();
-                                              _model.profitList = functions
-                                                  .getBarchartData(
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .PROFIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .DEPOSIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      false)
-                                                  .toList()
-                                                  .cast<double>();
-                                              _model.monthlyDuration = 3;
-                                            });
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'd5zhii8w' /* 3 Months */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            height: 40.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: _model.monthlyDuration == 3
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color: _model
-                                                                  .monthlyDuration ==
-                                                              3
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 1.0, 0.0, 1.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                setState(() {
-                                                  _model.investmentDataList = functions
-                                                      .getPeriodicData(
-                                                          _model
-                                                              .investmentDocList!
-                                                              .toList(),
-                                                          6)
-                                                      .toList()
-                                                      .cast<
-                                                          InvestmentDataMapStruct>();
-                                                });
-                                                setState(() {
-                                                  _model.depositList = functions
-                                                      .getBarchartData(
-                                                          _model
-                                                              .investmentDataList
-                                                              .where((e) =>
-                                                                  e.transactionType ==
-                                                                  TransactionType
-                                                                      .PROFIT)
-                                                              .toList()
-                                                              .sortedList((e) => e
-                                                                  .createdTime!)
-                                                              .map((e) =>
-                                                                  e.amount)
-                                                              .toList(),
-                                                          _model
-                                                              .investmentDataList
-                                                              .where((e) =>
-                                                                  e.transactionType ==
-                                                                  TransactionType
-                                                                      .DEPOSIT)
-                                                              .toList()
-                                                              .sortedList((e) => e
-                                                                  .createdTime!)
-                                                              .map((e) =>
-                                                                  e.amount)
-                                                              .toList(),
-                                                          true)
-                                                      .toList()
-                                                      .cast<double>();
-                                                  _model.profitList = functions
-                                                      .getBarchartData(
-                                                          _model
-                                                              .investmentDataList
-                                                              .where((e) =>
-                                                                  e.transactionType ==
-                                                                  TransactionType
-                                                                      .PROFIT)
-                                                              .toList()
-                                                              .sortedList((e) => e
-                                                                  .createdTime!)
-                                                              .map((e) =>
-                                                                  e.amount)
-                                                              .toList(),
-                                                          _model
-                                                              .investmentDataList
-                                                              .where((e) =>
-                                                                  e.transactionType ==
-                                                                  TransactionType
-                                                                      .DEPOSIT)
-                                                              .toList()
-                                                              .sortedList((e) => e
-                                                                  .createdTime!)
-                                                              .map((e) =>
-                                                                  e.amount)
-                                                              .toList(),
-                                                          false)
-                                                      .toList()
-                                                      .cast<double>();
-                                                  _model.monthlyDuration = 6;
-                                                });
-                                              },
-                                              text: FFLocalizations.of(context)
-                                                  .getText(
-                                                'w2pey891' /* 6 Months */,
-                                              ),
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
-                                                iconPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color: _model.monthlyDuration ==
-                                                        6
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color: _model
-                                                                  .monthlyDuration ==
-                                                              6
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            setState(() {
-                                              _model.investmentDataList = functions
-                                                  .getPeriodicData(
-                                                      _model.investmentDocList!
-                                                          .toList(),
-                                                      12)
-                                                  .toList()
-                                                  .cast<
-                                                      InvestmentDataMapStruct>();
-                                            });
-                                            setState(() {
-                                              _model.depositList = functions
-                                                  .getBarchartData(
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .PROFIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .DEPOSIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      true)
-                                                  .toList()
-                                                  .cast<double>();
-                                              _model.profitList = functions
-                                                  .getBarchartData(
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .PROFIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      _model.investmentDataList
-                                                          .where((e) =>
-                                                              e.transactionType ==
-                                                              TransactionType
-                                                                  .DEPOSIT)
-                                                          .toList()
-                                                          .sortedList((e) =>
-                                                              e.createdTime!)
-                                                          .map((e) => e.amount)
-                                                          .toList(),
-                                                      false)
-                                                  .toList()
-                                                  .cast<double>();
-                                              _model.monthlyDuration = 12;
-                                            });
-                                          },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'ystj5cfm' /* 12 Months */,
-                                          ),
-                                          options: FFButtonOptions(
-                                            height: 40.0,
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: _model.monthlyDuration == 12
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      color: _model
-                                                                  .monthlyDuration ==
-                                                              12
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                              width: 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ].divide(const SizedBox(width: 10.0)),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    5.0, 30.0, 5.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    if (_model.selectedChart == false)
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          'ixnt6vsp' /* Bar Chart */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
-                                              lineHeight: 1.5,
-                                            ),
-                                      ),
-                                    if (_model.selectedChart == true)
-                                      Text(
-                                        FFLocalizations.of(context).getText(
-                                          'qs28zna4' /* Pie Chart */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold,
-                                              lineHeight: 1.5,
-                                            ),
-                                      ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: Container(
-                                        height: 50.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          boxShadow: const [
-                                            BoxShadow(
-                                              blurRadius: 3.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(0.0, 1.0),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            if (_model.selectedChart == true)
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        7.0, 0.0, 7.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    setState(() {
-                                                      _model.selectedChart =
-                                                          false;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    constraints: const BoxConstraints(
-                                                      maxWidth: 50.0,
-                                                    ),
-                                                    decoration: const BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          const BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                0.0),
-                                                      ),
-                                                      child: Image.asset(
-                                                        'assets/images/Vector_(1).png',
-                                                        width: 35.0,
-                                                        height: 35.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            if (_model.selectedChart == false)
-                                              ClipRRect(
-                                                borderRadius: const BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(8.0),
-                                                  bottomRight:
-                                                      Radius.circular(0.0),
-                                                  topLeft: Radius.circular(8.0),
-                                                  topRight:
-                                                      Radius.circular(0.0),
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/images/Frame_70_(2).png',
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            if (_model.selectedChart == true)
-                                              ClipRRect(
-                                                borderRadius: const BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(0.0),
-                                                  bottomRight:
-                                                      Radius.circular(8.0),
-                                                  topLeft: Radius.circular(0.0),
-                                                  topRight:
-                                                      Radius.circular(8.0),
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/images/Frame_70_(3).png',
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            if (_model.selectedChart == false)
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        7.0, 0.0, 7.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    setState(() {
-                                                      _model.selectedChart =
-                                                          true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    constraints: const BoxConstraints(
-                                                      maxWidth: 50.0,
-                                                    ),
-                                                    decoration: const BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        'assets/images/pie_chart.png',
-                                                        width: 35.0,
-                                                        height: 35.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                          ],
-                                        ),
-                                      ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                15.0, 0.0, 15.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 40.0, 0.0, 0.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 6.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      FFLocalizations.of(context).getText(
-                                        'f53kzi9r' /* Total Balance */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Tajawal',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 24.0,
-                                            fontWeight: FontWeight.w500,
-                                            lineHeight: 1.5,
-                                          ),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: AuthUserStreamWidget(
-                                        builder: (context) => Text(
-                                          valueOrDefault<String>(
-                                            formatNumber(
-                                              valueOrDefault(
-                                                  currentUserDocument?.balance,
-                                                  0.0),
-                                              formatType: FormatType.custom,
-                                              currency: '\$',
-                                              format: '0.00',
-                                              locale: 'en_US',
-                                            ),
-                                            '0',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Tajawal',
-                                                fontSize: 32.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
-                                child: Stack(
-                                  children: [
-                                    if (_model.selectedChart == true)
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 265.0,
-                                        child: Stack(
-                                          children: [
-                                            FlutterFlowPieChart(
-                                              data: FFPieChartData(
-                                                values: _model
-                                                    .investmentDataList
-                                                    .where((e) =>
-                                                        (e.transactionType !=
-                                                            TransactionType
-                                                                .COMMISSION) &&
-                                                        (e.transactionType !=
-                                                            TransactionType
-                                                                .WITHDRAW))
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              setState(() {
+                                                _model.investmentDataList = functions
+                                                    .getPeriodicData(
+                                                        _model
+                                                            .investmentDocList!
+                                                            .toList(),
+                                                        3)
                                                     .toList()
-                                                    .sortedList(
-                                                        (e) => e.createdTime!)
-                                                    .map((e) => e.amount)
-                                                    .toList(),
-                                                colors:
-                                                    chartPieChartColorsList1,
-                                                radius: [25.0],
-                                                borderColor: [
-                                                  Colors.transparent
-                                                ],
-                                              ),
-                                              donutHoleRadius: 100.0,
-                                              donutHoleColor:
-                                                  Colors.transparent,
-                                              sectionLabelType:
-                                                  PieChartSectionLabelType
-                                                      .value,
-                                              sectionLabelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                              labelFormatter: LabelFormatter(
-                                                numberFormat: (val) =>
-                                                    formatNumber(
-                                                  val,
-                                                  formatType:
-                                                      FormatType.decimal,
-                                                  decimalType:
-                                                      DecimalType.automatic,
-                                                  currency: '\$',
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 1.2),
-                                              child:
-                                                  FlutterFlowChartLegendWidget(
-                                                entries: _model
-                                                    .investmentDataList
-                                                    .where((e) =>
-                                                        (e.transactionType !=
-                                                            TransactionType
-                                                                .COMMISSION) &&
-                                                        (e.transactionType !=
-                                                            TransactionType
-                                                                .WITHDRAW))
-                                                    .toList()
-                                                    .sortedList(
-                                                        (e) => e.createdTime!)
-                                                    .map((e) =>
-                                                        e.transactionTypeStr)
-                                                    .toList()
-                                                    .asMap()
-                                                    .entries
-                                                    .map(
-                                                      (label) => LegendEntry(
-                                                        chartPieChartColorsList1[
-                                                            label.key %
-                                                                chartPieChartColorsList1
-                                                                    .length],
-                                                        label.value,
-                                                      ),
-                                                    )
-                                                    .toList(),
-                                                width: 100.0,
-                                                height: 60.0,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                                textPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            5.0, 0.0, 0.0, 0.0),
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        10.0, 0.0, 5.0, 0.0),
-                                                borderWidth: 1.0,
-                                                borderColor: Colors.transparent,
-                                                indicatorSize: 10.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    if (_model.selectedChart == false)
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 265.0,
-                                        child: Stack(
-                                          children: [
-                                            FlutterFlowBarChart(
-                                              barData: [
-                                                FFBarChartData(
-                                                  yData: _model.depositList,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  borderWidth: 0.0,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                ),
-                                                FFBarChartData(
-                                                  yData: _model.profitList,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
-                                                )
-                                              ],
-                                              xLabels: _model.investmentDataList
-                                                  .where((e) =>
-                                                      e.transactionType ==
-                                                      TransactionType.DEPOSIT)
-                                                  .toList()
-                                                  .sortedList(
-                                                      (e) => e.createdTime!)
-                                                  .map((e) => dateTimeFormat(
-                                                        'd/M',
-                                                        e.createdTime,
-                                                        locale:
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .languageCode,
-                                                      ))
-                                                  .toList(),
-                                              barWidth: 20.0,
-                                              barBorderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              barSpace: 15.0,
-                                              groupSpace: 15.0,
-                                              chartStylingInfo:
-                                                  ChartStylingInfo(
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                showGrid: true,
-                                                borderColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                borderWidth: 1.0,
-                                              ),
-                                              axisBounds: const AxisBounds(
-                                                minY: 0.0,
-                                                maxY: 20000.0,
-                                              ),
-                                              xAxisLabelInfo: const AxisLabelInfo(),
-                                              yAxisLabelInfo: AxisLabelInfo(
-                                                showLabels: true,
-                                                labelTextStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          fontSize: 7.5,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                        ),
-                                                labelInterval: 5000.0,
-                                                labelFormatter: LabelFormatter(
-                                                  numberFormat: (val) =>
-                                                      formatNumber(
-                                                    val,
-                                                    formatType:
-                                                        FormatType.compact,
-                                                    currency: '\$',
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: const AlignmentDirectional(
-                                                  1.0, 1.0),
-                                              child:
-                                                  FlutterFlowChartLegendWidget(
-                                                entries: [
-                                                  LegendEntry(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '2fqvzc46' /* Deposit */,
-                                                      )),
-                                                  LegendEntry(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'lzew5b3q' /* Profit */,
-                                                      )),
-                                                ],
-                                                width: 70.0,
-                                                height: 46.0,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Tajawal',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 12.0,
-                                                        ),
-                                                textPadding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            2.5, 2.5, 0.0, 0.0),
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 0.0, 0.0, 5.0),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                borderWidth: 1.0,
-                                                borderColor: Colors.black,
-                                                indicatorSize: 10.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              const Divider(
-                                height: 40.0,
-                                thickness: 1.0,
-                                color: Color(0x24000000),
-                              ),
-                              ListView(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Color(0x404B5195),
-                                          Color(0x3FEF9E6E)
-                                        ],
-                                        stops: [0.0, 0.58],
-                                        begin: AlignmentDirectional(0.03, 1.0),
-                                        end: AlignmentDirectional(-0.03, -1.0),
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 7.5, 10.0, 7.5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 35.0,
-                                                    height: 35.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Icon(
-                                                          Icons
-                                                              .keyboard_double_arrow_up_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          size: 18.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'l45bdi9c' /* Deposit */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              lineHeight: 1.5,
-                                                            ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'm5hy7gag' /* +1.24% */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Tajawal',
-                                                              color: const Color(
-                                                                  0xFF00B016),
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              lineHeight: 1.0,
-                                                            ),
-                                                      ),
-                                                    ].divide(
-                                                        const SizedBox(height: 10.0)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
-                                            child: Text(
-                                              formatNumber(
-                                                functions.addInvestmentAmount(
-                                                    _model
-                                                        .investmentDataList
-                                                        .where((e) =>
-                                                            e.transactionType ==
-                                                            TransactionType
-                                                                .DEPOSIT)
-                                                        .toList()
-                                                        .map((e) => e.amount)
-                                                        .toList()),
-                                                formatType: FormatType.custom,
-                                                currency: '\$',
-                                                format: '0.00',
-                                                locale: 'en_US',
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    fontSize: 18.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Color(0x3F4B5195),
-                                          Color(0x58EF9E6E)
-                                        ],
-                                        stops: [0.0, 0.8],
-                                        begin: AlignmentDirectional(0.02, 1.0),
-                                        end: AlignmentDirectional(-0.02, -1.0),
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 7.5, 10.0, 7.5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 35.0,
-                                                    height: 35.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.trending_up_rounded,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      size: 18.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'oznaeblg' /* Yield */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              fontSize: 16.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              lineHeight: 1.5,
-                                                            ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '3xcght3w' /* +1.24% */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Tajawal',
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              lineHeight: 1.0,
-                                                            ),
-                                                      ),
-                                                    ].divide(
-                                                        const SizedBox(height: 10.0)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Align(
-                                            alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
-                                            child: Text(
-                                              formatNumber(
-                                                functions.addInvestmentAmount(
-                                                    _model
-                                                        .investmentDataList
-                                                        .where((e) =>
-                                                            e.transactionType ==
-                                                            TransactionType
-                                                                .PROFIT)
-                                                        .toList()
-                                                        .map((e) => e.amount)
-                                                        .toList()),
-                                                formatType: FormatType.custom,
-                                                currency: '\$',
-                                                format: '0.00',
-                                                locale: 'en_US',
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Inter',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    fontSize: 18.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Color(0x3F4B5195),
-                                          Color(0x58EF9E6E)
-                                        ],
-                                        stops: [0.0, 0.8],
-                                        begin: AlignmentDirectional(0.02, 1.0),
-                                        end: AlignmentDirectional(-0.02, -1.0),
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 35.0,
-                                                    height: 35.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons
-                                                          .keyboard_double_arrow_down,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      size: 18.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                        child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'a95epurh' /* Withdraw */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                lineHeight: 1.5,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'yykct3ki' /* N/A */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Tajawal',
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              lineHeight: 1.0,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              formatNumber(
-                                                functions.addInvestmentAmount(
-                                                    _model
-                                                        .investmentDataList
-                                                        .where((e) =>
-                                                            e.transactionType ==
-                                                            TransactionType
-                                                                .WITHDRAW)
-                                                        .toList()
-                                                        .map((e) => e.amount)
-                                                        .toList()),
-                                                formatType: FormatType.custom,
-                                                currency: '\$',
-                                                format: '0.00',
-                                                locale: 'en_US',
-                                              ),
-                                              '0',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 70.0,
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Color(0x3F4B5195),
-                                          Color(0x58EF9E6E)
-                                        ],
-                                        stops: [0.0, 0.8],
-                                        begin: AlignmentDirectional(0.02, 1.0),
-                                        end: AlignmentDirectional(-0.02, -1.0),
-                                      ),
-                                      borderRadius: BorderRadius.circular(16.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.0),
-                                                ),
-                                                child: Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Container(
-                                                    width: 35.0,
-                                                    height: 35.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.percent_rounded,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      size: 18.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                        child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'qx9h91ml' /* Commission */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                lineHeight: 1.5,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'tn24h80j' /* +1.24% */,
-                                                        ),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Tajawal',
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              lineHeight: 1.0,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              formatNumber(
-                                                functions.addInvestmentAmount(
-                                                    _model
-                                                        .investmentDataList
-                                                        .where((e) =>
-                                                            e.transactionType ==
-                                                            TransactionType
-                                                                .COMMISSION)
-                                                        .toList()
-                                                        .map((e) => e.amount)
-                                                        .toList()),
-                                                formatType: FormatType.custom,
-                                                currency: '\$',
-                                                format: '0.00',
-                                                locale: 'en_US',
-                                              ),
-                                              '0',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ].divide(const SizedBox(height: 15.0)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 20.0, 20.0, 20.0),
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 0.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Container(
-                              constraints: const BoxConstraints(
-                                maxHeight: 350.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Builder(
-                                builder: (context) {
-                                  final currentInvestmentDataList = _model
-                                      .investmentDataList
-                                      .where((e) =>
-                                          e.transactionType !=
-                                          TransactionType.COMMISSION)
-                                      .toList()
-                                      .sortedList((e) => e.createdTime!)
-                                      .toList();
-                                  return FlutterFlowDataTable<
-                                      InvestmentDataMapStruct>(
-                                    controller:
-                                        _model.paginatedDataTableController,
-                                    data: currentInvestmentDataList,
-                                    columnsBuilder: (onSortChanged) => [
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'd6rxr02m' /* Date */,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 52.0,
-                                      ),
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'sl69n0g5' /* Deposit */,
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 70.0,
-                                      ),
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'w253ubyi' /* Yield */,
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 50.0,
-                                      ),
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'wi6zknvq' /* % */,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 30.0,
-                                      ),
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'xgerrqro' /* Withdraw */,
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 70.0,
-                                      ),
-                                      DataColumn2(
-                                        label: DefaultTextStyle.merge(
-                                          softWrap: true,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'tuwj0467' /* Balance */,
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .labelLarge
-                                                  .override(
-                                                    fontFamily: 'Tajawal',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBackground,
-                                                    fontSize: 12.0,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        fixedWidth: 60.0,
-                                      ),
-                                    ],
-                                    dataRowBuilder:
-                                        (currentInvestmentDataListItem,
-                                                currentInvestmentDataListIndex,
-                                                selected,
-                                                onSelectChanged) =>
-                                            DataRow(
-                                      color: MaterialStateProperty.all(
-                                        currentInvestmentDataListIndex % 2 == 0
-                                            ? FlutterFlowTheme.of(context)
-                                                .secondaryBackground
-                                            : const Color(0x1FE45604),
-                                      ),
-                                      cells: [
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Text(
-                                            dateTimeFormat(
-                                              'd/M/y',
-                                              currentInvestmentDataListItem
-                                                  .createdTime!,
-                                              locale:
-                                                  FFLocalizations.of(context)
-                                                      .languageCode,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Tajawal',
-                                                  fontSize: 11.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: currentInvestmentDataListItem
-                                                  .transactionType ==
-                                              TransactionType.DEPOSIT,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              formatNumber(
-                                                currentInvestmentDataListItem
-                                                    .amount,
-                                                formatType: FormatType.decimal,
-                                                decimalType:
-                                                    DecimalType.automatic,
-                                                currency: '\$',
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Tajawal',
-                                                        fontSize: 11.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: currentInvestmentDataListItem
-                                                  .transactionType ==
-                                              TransactionType.PROFIT,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              formatNumber(
-                                                currentInvestmentDataListItem
-                                                    .amount,
-                                                formatType: FormatType.decimal,
-                                                decimalType:
-                                                    DecimalType.automatic,
-                                                currency: '\$',
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Tajawal',
-                                                        fontSize: 11.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: currentInvestmentDataListItem
-                                                  .transactionType ==
-                                              TransactionType.PROFIT,
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
-                                            child: Text(
-                                              formatNumber(
-                                                currentInvestmentDataListItem
-                                                        .amount /
-                                                    functions.addInvestmentAmount(
+                                                    .cast<
+                                                        InvestmentDataMapStruct>();
+                                              });
+                                              setState(() {
+                                                _model.depositList = functions
+                                                    .getBarchartData(
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .PROFIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
                                                         _model
                                                             .investmentDataList
                                                             .where((e) =>
@@ -2058,10 +243,1766 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                 TransactionType
                                                                     .DEPOSIT)
                                                             .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
                                                             .map(
                                                                 (e) => e.amount)
-                                                            .toList()),
-                                                formatType: FormatType.percent,
+                                                            .toList(),
+                                                        true)
+                                                    .toList()
+                                                    .cast<double>();
+                                                _model.profitList = functions
+                                                    .getBarchartData(
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .PROFIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .DEPOSIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        false)
+                                                    .toList()
+                                                    .cast<double>();
+                                                _model.monthlyDuration = 3;
+                                              });
+                                            },
+                                            text: FFLocalizations.of(context)
+                                                .getText(
+                                              'd5zhii8w' /* 3 Months */,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: _model.monthlyDuration == 3
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color: _model
+                                                                .monthlyDuration ==
+                                                            3
+                                                        ? FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryBackground
+                                                        : FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 0.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 1.0, 0.0, 1.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    _model.investmentDataList =
+                                                        functions
+                                                            .getPeriodicData(
+                                                                _model
+                                                                    .investmentDocList!
+                                                                    .toList(),
+                                                                6)
+                                                            .toList()
+                                                            .cast<
+                                                                InvestmentDataMapStruct>();
+                                                  });
+                                                  setState(() {
+                                                    _model.depositList = functions
+                                                        .getBarchartData(
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .PROFIT)
+                                                                .toList()
+                                                                .sortedList((e) => e
+                                                                    .createdTime!)
+                                                                .map((e) =>
+                                                                    e.amount)
+                                                                .toList(),
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .DEPOSIT)
+                                                                .toList()
+                                                                .sortedList((e) => e
+                                                                    .createdTime!)
+                                                                .map((e) =>
+                                                                    e.amount)
+                                                                .toList(),
+                                                            true)
+                                                        .toList()
+                                                        .cast<double>();
+                                                    _model.profitList = functions
+                                                        .getBarchartData(
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .PROFIT)
+                                                                .toList()
+                                                                .sortedList((e) => e
+                                                                    .createdTime!)
+                                                                .map((e) =>
+                                                                    e.amount)
+                                                                .toList(),
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .DEPOSIT)
+                                                                .toList()
+                                                                .sortedList((e) => e
+                                                                    .createdTime!)
+                                                                .map((e) =>
+                                                                    e.amount)
+                                                                .toList(),
+                                                            false)
+                                                        .toList()
+                                                        .cast<double>();
+                                                    _model.monthlyDuration = 6;
+                                                  });
+                                                },
+                                                text:
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                  'w2pey891' /* 6 Months */,
+                                                ),
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 0.0, 24.0, 0.0),
+                                                  iconPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: _model
+                                                              .monthlyDuration ==
+                                                          6
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: _model
+                                                                        .monthlyDuration ==
+                                                                    6
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                          ),
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              setState(() {
+                                                _model.investmentDataList = functions
+                                                    .getPeriodicData(
+                                                        _model
+                                                            .investmentDocList!
+                                                            .toList(),
+                                                        12)
+                                                    .toList()
+                                                    .cast<
+                                                        InvestmentDataMapStruct>();
+                                              });
+                                              setState(() {
+                                                _model.depositList = functions
+                                                    .getBarchartData(
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .PROFIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .DEPOSIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        true)
+                                                    .toList()
+                                                    .cast<double>();
+                                                _model.profitList = functions
+                                                    .getBarchartData(
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .PROFIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        _model
+                                                            .investmentDataList
+                                                            .where((e) =>
+                                                                e.transactionType ==
+                                                                TransactionType
+                                                                    .DEPOSIT)
+                                                            .toList()
+                                                            .sortedList((e) =>
+                                                                e.createdTime!)
+                                                            .map(
+                                                                (e) => e.amount)
+                                                            .toList(),
+                                                        false)
+                                                    .toList()
+                                                    .cast<double>();
+                                                _model.monthlyDuration = 12;
+                                              });
+                                            },
+                                            text: FFLocalizations.of(context)
+                                                .getText(
+                                              'ystj5cfm' /* 12 Months */,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: const EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: _model.monthlyDuration ==
+                                                      12
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color: _model
+                                                                .monthlyDuration ==
+                                                            12
+                                                        ? FlutterFlowTheme.of(
+                                                                context)
+                                                            .secondaryBackground
+                                                        : FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                              borderSide: const BorderSide(
+                                                color: Colors.transparent,
+                                                width: 0.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ].divide(const SizedBox(width: 10.0)),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      5.0, 30.0, 5.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (_model.selectedChart == false)
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'ixnt6vsp' /* Bar Chart */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                                lineHeight: 1.5,
+                                              ),
+                                        ),
+                                      if (_model.selectedChart == true)
+                                        Text(
+                                          FFLocalizations.of(context).getText(
+                                            'qs28zna4' /* Pie Chart */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                                lineHeight: 1.5,
+                                              ),
+                                        ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Container(
+                                          height: 50.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                blurRadius: 3.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0.0, 1.0),
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              if (_model.selectedChart == true)
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          7.0, 0.0, 7.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        _model.selectedChart =
+                                                            false;
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                        maxWidth: 50.0,
+                                                      ),
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  0.0),
+                                                        ),
+                                                        child: Image.asset(
+                                                          'assets/images/Vector_(1).png',
+                                                          width: 35.0,
+                                                          height: 35.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (_model.selectedChart == false)
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(8.0),
+                                                    bottomRight:
+                                                        Radius.circular(0.0),
+                                                    topLeft:
+                                                        Radius.circular(8.0),
+                                                    topRight:
+                                                        Radius.circular(0.0),
+                                                  ),
+                                                  child: Image.asset(
+                                                    'assets/images/Frame_70_(2).png',
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              if (_model.selectedChart == true)
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(0.0),
+                                                    bottomRight:
+                                                        Radius.circular(8.0),
+                                                    topLeft:
+                                                        Radius.circular(0.0),
+                                                    topRight:
+                                                        Radius.circular(8.0),
+                                                  ),
+                                                  child: Image.asset(
+                                                    'assets/images/Frame_70_(3).png',
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              if (_model.selectedChart == false)
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          7.0, 0.0, 7.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      setState(() {
+                                                        _model.selectedChart =
+                                                            true;
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                        maxWidth: 50.0,
+                                                      ),
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/pie_chart.png',
+                                                          width: 35.0,
+                                                          height: 35.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 30.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        FFLocalizations.of(context).getText(
+                                          'f53kzi9r' /* Total Balance */,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Tajawal',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              fontSize: 24.0,
+                                              fontWeight: FontWeight.w500,
+                                              lineHeight: 1.5,
+                                            ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: AuthUserStreamWidget(
+                                          builder: (context) => Text(
+                                            valueOrDefault<String>(
+                                              formatNumber(
+                                                valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.balance,
+                                                    0.0),
+                                                formatType: FormatType.custom,
+                                                currency: '\$',
+                                                format: '0.00',
+                                                locale: 'en_US',
+                                              ),
+                                              '0',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Tajawal',
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 30.0, 0.0, 0.0),
+                                  child: Stack(
+                                    children: [
+                                      if (_model.selectedChart == true)
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 265.0,
+                                          child: Stack(
+                                            children: [
+                                              FlutterFlowPieChart(
+                                                data: FFPieChartData(
+                                                  values: _model
+                                                      .investmentDataList
+                                                      .where((e) =>
+                                                          (e.transactionType !=
+                                                              TransactionType
+                                                                  .COMMISSION) &&
+                                                          (e.transactionType !=
+                                                              TransactionType
+                                                                  .WITHDRAW))
+                                                      .toList()
+                                                      .sortedList(
+                                                          (e) => e.createdTime!)
+                                                      .map((e) => e.amount)
+                                                      .toList(),
+                                                  colors:
+                                                      chartPieChartColorsList1,
+                                                  radius: [25.0],
+                                                  borderColor: [
+                                                    Colors.transparent
+                                                  ],
+                                                ),
+                                                donutHoleRadius: 100.0,
+                                                donutHoleColor:
+                                                    Colors.transparent,
+                                                sectionLabelType:
+                                                    PieChartSectionLabelType
+                                                        .value,
+                                                sectionLabelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                labelFormatter: LabelFormatter(
+                                                  numberFormat: (val) =>
+                                                      formatNumber(
+                                                    val,
+                                                    formatType:
+                                                        FormatType.decimal,
+                                                    decimalType:
+                                                        DecimalType.automatic,
+                                                    currency: '\$',
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    1.0, 1.2),
+                                                child:
+                                                    FlutterFlowChartLegendWidget(
+                                                  entries: _model
+                                                      .investmentDataList
+                                                      .where((e) =>
+                                                          (e.transactionType !=
+                                                              TransactionType
+                                                                  .COMMISSION) &&
+                                                          (e.transactionType !=
+                                                              TransactionType
+                                                                  .WITHDRAW))
+                                                      .toList()
+                                                      .sortedList(
+                                                          (e) => e.createdTime!)
+                                                      .map((e) =>
+                                                          e.transactionTypeStr)
+                                                      .toList()
+                                                      .asMap()
+                                                      .entries
+                                                      .map(
+                                                        (label) => LegendEntry(
+                                                          chartPieChartColorsList1[
+                                                              label.key %
+                                                                  chartPieChartColorsList1
+                                                                      .length],
+                                                          label.value,
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                  width: 100.0,
+                                                  height: 60.0,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium,
+                                                  textPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(5.0, 0.0,
+                                                              0.0, 0.0),
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 5.0, 0.0),
+                                                  borderWidth: 1.0,
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  indicatorSize: 10.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      if (_model.selectedChart == false)
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 265.0,
+                                          child: FlutterFlowBarChart(
+                                            barData: [
+                                              FFBarChartData(
+                                                yData: _model.depositList,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderWidth: 0.0,
+                                                borderColor: Colors.transparent,
+                                              ),
+                                              FFBarChartData(
+                                                yData: _model.profitList,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              )
+                                            ],
+                                            xLabels: List.generate(
+                                                random_data.randomInteger(2, 2),
+                                                (index) =>
+                                                    random_data.randomString(
+                                                      8,
+                                                      8,
+                                                      true,
+                                                      true,
+                                                      false,
+                                                    )),
+                                            barWidth: 15.0,
+                                            barBorderRadius:
+                                                BorderRadius.circular(8.0),
+                                            barSpace: 0.0,
+                                            groupSpace: 0.0,
+                                            alignment:
+                                                BarChartAlignment.spaceAround,
+                                            chartStylingInfo: ChartStylingInfo(
+                                              enableTooltip: true,
+                                              tooltipBackgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              showGrid: true,
+                                              borderColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              borderWidth: 1.0,
+                                            ),
+                                            axisBounds: const AxisBounds(
+                                              minY: 0.0,
+                                              maxY: 20000.0,
+                                            ),
+                                            xAxisLabelInfo: const AxisLabelInfo(),
+                                            yAxisLabelInfo: AxisLabelInfo(
+                                              showLabels: true,
+                                              labelTextStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        fontSize: 7.5,
+                                                        fontWeight:
+                                                            FontWeight.w800,
+                                                      ),
+                                              labelInterval: 5000.0,
+                                              labelFormatter: LabelFormatter(
+                                                numberFormat: (val) =>
+                                                    formatNumber(
+                                                  val,
+                                                  formatType:
+                                                      FormatType.compact,
+                                                  currency: '\$',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                const Divider(
+                                  height: 40.0,
+                                  thickness: 1.0,
+                                  color: Color(0x24000000),
+                                ),
+                                ListView(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: [
+                                    Container(
+                                      width: double.infinity,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0x404B5195),
+                                            Color(0x3FEF9E6E)
+                                          ],
+                                          stops: [0.0, 0.58],
+                                          begin:
+                                              AlignmentDirectional(0.03, 1.0),
+                                          end:
+                                              AlignmentDirectional(-0.03, -1.0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 7.5, 10.0, 7.5),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Container(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_double_arrow_up_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            size: 18.0,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(15.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'l45bdi9c' /* Deposit */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                lineHeight: 1.5,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'm5hy7gag' /* N/A */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                color: const Color(
+                                                                    0xFF00B016),
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                lineHeight: 1.0,
+                                                              ),
+                                                        ),
+                                                      ].divide(const SizedBox(
+                                                          height: 10.0)),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  functions.addInvestmentAmount(
+                                                      _model
+                                                          .investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .map((e) => e.amount)
+                                                          .toList()),
+                                                  formatType: FormatType.custom,
+                                                  currency: '\$',
+                                                  format: '0.00',
+                                                  locale: 'en_US',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0x3F4B5195),
+                                            Color(0x58EF9E6E)
+                                          ],
+                                          stops: [0.0, 0.8],
+                                          begin:
+                                              AlignmentDirectional(0.02, 1.0),
+                                          end:
+                                              AlignmentDirectional(-0.02, -1.0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 7.5, 10.0, 7.5),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Container(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons
+                                                            .trending_up_rounded,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 18.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(15.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'oznaeblg' /* Yield */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 16.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                lineHeight: 1.5,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            '3xcght3w' /* +1.24% */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                lineHeight: 1.0,
+                                                              ),
+                                                        ),
+                                                      ].divide(const SizedBox(
+                                                          height: 10.0)),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  functions.addInvestmentAmount(
+                                                      _model
+                                                          .investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .PROFIT)
+                                                          .toList()
+                                                          .map((e) => e.amount)
+                                                          .toList()),
+                                                  formatType: FormatType.custom,
+                                                  currency: '\$',
+                                                  format: '0.00',
+                                                  locale: 'en_US',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0x3F4B5195),
+                                            Color(0x58EF9E6E)
+                                          ],
+                                          stops: [0.0, 0.8],
+                                          begin:
+                                              AlignmentDirectional(0.02, 1.0),
+                                          end:
+                                              AlignmentDirectional(-0.02, -1.0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Container(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons
+                                                            .keyboard_double_arrow_down,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 18.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(15.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      5.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'a95epurh' /* Withdraw */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      1.5,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'yykct3ki' /* N/A */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                lineHeight: 1.0,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              valueOrDefault<String>(
+                                                formatNumber(
+                                                  functions.addInvestmentAmount(
+                                                      _model
+                                                          .investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .WITHDRAW)
+                                                          .toList()
+                                                          .map((e) => e.amount)
+                                                          .toList()),
+                                                  formatType: FormatType.custom,
+                                                  currency: '\$',
+                                                  format: '0.00',
+                                                  locale: 'en_US',
+                                                ),
+                                                '0',
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 70.0,
+                                      decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Color(0x3F4B5195),
+                                            Color(0x58EF9E6E)
+                                          ],
+                                          stops: [0.0, 0.8],
+                                          begin:
+                                              AlignmentDirectional(0.02, 1.0),
+                                          end:
+                                              AlignmentDirectional(-0.02, -1.0),
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Container(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.percent_rounded,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 18.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(15.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      5.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'qx9h91ml' /* Commission */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      1.5,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'tn24h80j' /* +1.24% */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                lineHeight: 1.0,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              valueOrDefault<String>(
+                                                formatNumber(
+                                                  functions.addInvestmentAmount(
+                                                      _model
+                                                          .investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .COMMISSION)
+                                                          .toList()
+                                                          .map((e) => e.amount)
+                                                          .toList()),
+                                                  formatType: FormatType.custom,
+                                                  currency: '\$',
+                                                  format: '0.00',
+                                                  locale: 'en_US',
+                                                ),
+                                                '0',
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    fontSize: 18.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ].divide(const SizedBox(height: 15.0)),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20.0, 20.0, 20.0, 20.0),
+                            child: Material(
+                              color: Colors.transparent,
+                              elevation: 0.0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: const BoxConstraints(
+                                  maxHeight: 350.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Builder(
+                                  builder: (context) {
+                                    final currentInvestmentDataList = _model
+                                        .investmentDataList
+                                        .where((e) =>
+                                            e.transactionType !=
+                                            TransactionType.COMMISSION)
+                                        .toList()
+                                        .sortedList((e) => e.createdTime!)
+                                        .toList();
+                                    return FlutterFlowDataTable<
+                                        InvestmentDataMapStruct>(
+                                      controller:
+                                          _model.paginatedDataTableController,
+                                      data: currentInvestmentDataList,
+                                      columnsBuilder: (onSortChanged) => [
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'd6rxr02m' /* Date */,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.13,
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'sl69n0g5' /* Deposit */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.16,
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'w253ubyi' /* Yield */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.12,
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'wi6zknvq' /* % */,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.08,
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'xgerrqro' /* Withdraw */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.17,
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'tuwj0467' /* Balance */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          fixedWidth:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.17,
+                                        ),
+                                      ],
+                                      dataRowBuilder:
+                                          (currentInvestmentDataListItem,
+                                                  currentInvestmentDataListIndex,
+                                                  selected,
+                                                  onSelectChanged) =>
+                                              DataRow(
+                                        color: MaterialStateProperty.all(
+                                          currentInvestmentDataListIndex % 2 ==
+                                                  0
+                                              ? FlutterFlowTheme.of(context)
+                                                  .secondaryBackground
+                                              : const Color(0x1FE45604),
+                                        ),
+                                        cells: [
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(0.0, 0.0),
+                                            child: Text(
+                                              dateTimeFormat(
+                                                'd/M/y',
+                                                currentInvestmentDataListItem
+                                                    .createdTime!,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
                                               ),
                                               textAlign: TextAlign.center,
                                               style:
@@ -2075,18 +2016,143 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       ),
                                             ),
                                           ),
-                                        ),
-                                        Visibility(
-                                          visible: currentInvestmentDataListItem
-                                                  .transactionType ==
-                                              TransactionType.WITHDRAW,
-                                          child: Align(
+                                          Visibility(
+                                            visible:
+                                                currentInvestmentDataListItem
+                                                        .transactionType ==
+                                                    TransactionType.DEPOSIT,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  currentInvestmentDataListItem
+                                                      .amount,
+                                                  formatType:
+                                                      FormatType.decimal,
+                                                  decimalType:
+                                                      DecimalType.automatic,
+                                                  currency: '\$',
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          fontSize: 11.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                currentInvestmentDataListItem
+                                                        .transactionType ==
+                                                    TransactionType.PROFIT,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  currentInvestmentDataListItem
+                                                      .amount,
+                                                  formatType:
+                                                      FormatType.decimal,
+                                                  decimalType:
+                                                      DecimalType.automatic,
+                                                  currency: '\$',
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          fontSize: 11.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                currentInvestmentDataListItem
+                                                        .transactionType ==
+                                                    TransactionType.PROFIT,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  currentInvestmentDataListItem
+                                                          .amount /
+                                                      functions.addInvestmentAmount(_model
+                                                          .investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .map((e) => e.amount)
+                                                          .toList()),
+                                                  formatType:
+                                                      FormatType.percent,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          fontSize: 11.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                currentInvestmentDataListItem
+                                                        .transactionType ==
+                                                    TransactionType.WITHDRAW,
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Text(
+                                                formatNumber(
+                                                  currentInvestmentDataListItem
+                                                      .amount,
+                                                  formatType:
+                                                      FormatType.decimal,
+                                                  decimalType:
+                                                      DecimalType.automatic,
+                                                  currency: '\$',
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Tajawal',
+                                                          fontSize: 11.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
                                             alignment:
                                                 const AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               formatNumber(
                                                 currentInvestmentDataListItem
-                                                    .amount,
+                                                    .investorBalance,
                                                 formatType: FormatType.decimal,
                                                 decimalType:
                                                     DecimalType.automatic,
@@ -2104,52 +2170,31 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       ),
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
-                                          child: Text(
-                                            formatNumber(
-                                              currentInvestmentDataListItem
-                                                  .investorBalance,
-                                              formatType: FormatType.decimal,
-                                              decimalType:
-                                                  DecimalType.automatic,
-                                              currency: '\$',
-                                            ),
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Tajawal',
-                                                  fontSize: 11.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
-                                      ].map((c) => DataCell(c)).toList(),
-                                    ),
-                                    paginated: false,
-                                    selectable: false,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 1.0,
-                                    headingRowHeight: 56.0,
-                                    dataRowHeight: 48.0,
-                                    columnSpacing: 8.0,
-                                    headingRowColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    addHorizontalDivider: true,
-                                    horizontalDividerColor: const Color(0x1FE45604),
-                                    horizontalDividerThickness: 1.0,
-                                    addVerticalDivider: false,
-                                  );
-                                },
+                                        ].map((c) => DataCell(c)).toList(),
+                                      ),
+                                      paginated: false,
+                                      selectable: false,
+                                      width: double.infinity,
+                                      headingRowHeight: 56.0,
+                                      dataRowHeight: 48.0,
+                                      columnSpacing: 5.0,
+                                      headingRowColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      addHorizontalDivider: true,
+                                      horizontalDividerColor: const Color(0x1FE45604),
+                                      horizontalDividerThickness: 0.5,
+                                      addVerticalDivider: true,
+                                      verticalDividerColor: const Color(0x1FE45604),
+                                      verticalDividerThickness: 0.5,
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );

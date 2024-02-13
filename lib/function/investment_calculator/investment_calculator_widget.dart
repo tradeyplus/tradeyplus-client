@@ -72,10 +72,13 @@ class _InvestmentCalculatorWidgetState
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        // CUSTOM_CODE_STARTED
+        resizeToAvoidBottomInset: false,
+        // CUSTOM_CODE_ENDED
         body: SafeArea(
           top: true,
           child: Container(
-            height: double.infinity,
+            width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0x32E45604), Color(0x4C26577C)],
@@ -92,8 +95,8 @@ class _InvestmentCalculatorWidgetState
                 Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 20.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'v3x568tj' /* Investment Calculator */,
@@ -111,15 +114,15 @@ class _InvestmentCalculatorWidgetState
                 Align(
                   alignment: const AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 0.0, 20.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           FFLocalizations.of(context).getText(
-                            'zwhvq5l9' /* Monthly Amount */,
+                            'zwhvq5l9' /* Total Profit */,
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -241,7 +244,6 @@ class _InvestmentCalculatorWidgetState
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 70.0,
                                   decoration: const BoxDecoration(),
                                   child: SizedBox(
                                     width: double.infinity,
@@ -252,9 +254,9 @@ class _InvestmentCalculatorWidgetState
                                         '_model.billAmountController',
                                         const Duration(milliseconds: 100),
                                         () async {
-                                          if (_model.billAmountController
-                                                      .text ==
-                                                  '') {
+                                          if (_model
+                                                  .billAmountController.text ==
+                                              '') {
                                             setState(() {
                                               _model.monthlyAmountController
                                                   ?.text = '0';
@@ -359,7 +361,8 @@ class _InvestmentCalculatorWidgetState
                                           borderRadius:
                                               BorderRadius.circular(18.0),
                                         ),
-                                        contentPadding: const EdgeInsets.all(16.0),
+                                        contentPadding:
+                                            const EdgeInsets.all(16.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -399,10 +402,12 @@ class _InvestmentCalculatorWidgetState
                                     ),
                                   ),
                                   child: Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                                    alignment:
+                                        const AlignmentDirectional(-1.0, 0.0),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              12.0, 0.0, 0.0, 0.0),
                                       child: SizedBox(
                                         width: double.infinity,
                                         child: TextFormField(

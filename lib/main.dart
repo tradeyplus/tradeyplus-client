@@ -127,16 +127,19 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'HomePage': const HomePageWidget(),
       'Barchart': const BarchartWidget(),
       'HistoryPage': const HistoryPageWidget(),
-      'Profile': const ProfileWidget(),
       'InvestmentCalculator': const InvestmentCalculatorWidget(),
-      'HomePage': const HomePageWidget(),
+      'Profile': const ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
       body: _currentPage ?? tabs[_currentPageName],
+      // CUSTOM_CODE_STARTED
+      resizeToAvoidBottomInset: false,
+      // CUSTOM_CODE_ENDED
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() {
@@ -152,7 +155,25 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(
-              Icons.stacked_bar_chart_outlined,
+              Icons.home_outlined,
+              size: 30.0,
+            ),
+            activeIcon: const Icon(
+              Icons.home_rounded,
+              size: 30.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              'xdzb9t6g' /* Home */,
+            ),
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(
+              Icons.insert_chart_outlined,
+              size: 30.0,
+            ),
+            activeIcon: const Icon(
+              Icons.insert_chart_rounded,
               size: 30.0,
             ),
             label: FFLocalizations.of(context).getText(
@@ -176,16 +197,6 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: const Icon(
-              Icons.settings_outlined,
-              size: 30.0,
-            ),
-            label: FFLocalizations.of(context).getText(
-              '8rtqp82g' /* Settings */,
-            ),
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
               Icons.add_circle_outline,
               size: 30.0,
             ),
@@ -196,15 +207,11 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: const Icon(
-              Icons.home_outlined,
-              size: 30.0,
-            ),
-            activeIcon: const Icon(
-              Icons.home_rounded,
+              Icons.settings_outlined,
               size: 30.0,
             ),
             label: FFLocalizations.of(context).getText(
-              'xdzb9t6g' /* Home */,
+              '8rtqp82g' /* Settings */,
             ),
             tooltip: '',
           )

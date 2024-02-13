@@ -107,7 +107,7 @@ Locale createLocale(String language) => language.contains('_')
 final kTranslationsMap = <Map<String, Map<String, String>>>[
   // HomePage
   {
-    'lzkek1yo': {
+    'dzmqd1ya': {
       'en': 'Total Balance',
       'ar': '',
     },
@@ -123,26 +123,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'USD',
       'ar': '',
     },
-    'ongltyzn': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'ttylcuxb': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '1o7tz734': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'mv6kd468': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'qqg40no3': {
-      'en': 'Hello World',
-      'ar': '',
-    },
     '7tt4o1yq': {
       'en': 'EUR',
       'ar': '',
@@ -153,26 +133,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'clkyv586': {
       'en': 'USD',
-      'ar': '',
-    },
-    '9awonphn': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '9zocdg5u': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'brt7rdtr': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'j00fv2fb': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '1lay4iy1': {
-      'en': 'Hello World',
       'ar': '',
     },
     'sr1qjb6g': {
@@ -187,26 +147,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'USD',
       'ar': '',
     },
-    '6dnkvgzr': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'ncf5swvg': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'y65tyk88': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '3euwhk38': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '899njg57': {
-      'en': 'Hello World',
-      'ar': '',
-    },
     'okg69ni5': {
       'en': 'NZD',
       'ar': '',
@@ -217,26 +157,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '5kgvyy5y': {
       'en': 'USD',
-      'ar': '',
-    },
-    'gkcegg4u': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'us4e277i': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'q1w9kt7r': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'zcggbni9': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'boyneasb': {
-      'en': 'Hello World',
       'ar': '',
     },
     '5zbhs54r': {
@@ -251,26 +171,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'USD',
       'ar': '',
     },
-    'hzrgwhmw': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '18s8w8f7': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'b2ixhe1q': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'j1ekx0g4': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'tamxhpr5': {
-      'en': 'Hello World',
-      'ar': '',
-    },
     'lm62pibz': {
       'en': 'CHF',
       'ar': '',
@@ -283,26 +183,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'USD',
       'ar': '',
     },
-    'f2h1tksb': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'y709xmf6': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '6ljbhhni': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '8pax3uwt': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'vihmha0w': {
-      'en': 'Hello World',
-      'ar': '',
-    },
     'ss7dq4zr': {
       'en': 'JPY',
       'ar': '',
@@ -313,26 +193,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'ivy9afeo': {
       'en': 'USD',
-      'ar': '',
-    },
-    'ukinrzsd': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'qhit51i9': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'i9hjdirp': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'gbf89uw4': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'fo8gyizk': {
-      'en': 'Hello World',
       'ar': '',
     },
     'xdzb9t6g': {
@@ -455,6 +315,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Balance: ',
       'ar': '',
     },
+    'v36vqs0o': {
+      'en': ' Package',
+      'ar': '',
+    },
     'f2go4u6e': {
       'en': 'Wallet',
       'ar': '',
@@ -479,7 +343,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     'zwhvq5l9': {
-      'en': 'Monthly Amount',
+      'en': 'Total Profit',
       'ar': '',
     },
     'a9jox3tw': {
@@ -609,7 +473,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     'm5hy7gag': {
-      'en': '+1.24%',
+      'en': 'N/A',
       'ar': '',
     },
     'oznaeblg': {
@@ -667,8 +531,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // edit_profile
   {
+    '7ecc2zoh': {
+      'en': 'Your Name',
+      'ar': '',
+    },
     '70zkn3fq': {
-      'en': 'Name',
+      'en': '',
       'ar': '',
     },
     'a6q6wnu5': {
@@ -679,16 +547,32 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Email',
       'ar': '',
     },
-    'ovm1ro8h': {
+    '0o2b2ulh': {
+      'en': '',
+      'ar': '',
+    },
+    'cp5547hl': {
       'en': 'Phone Number',
       'ar': '',
     },
-    '6xafw6z7': {
+    'ovm1ro8h': {
+      'en': '',
+      'ar': '',
+    },
+    's3r2j8g3': {
+      'en': 'Date of Birth',
+      'ar': '',
+    },
+    'te0wzduc': {
       'en': 'Address',
       'ar': '',
     },
+    '6xafw6z7': {
+      'en': '',
+      'ar': '',
+    },
     'w5kbhsxw': {
-      'en': 'Your address',
+      'en': '123 Main Street, Cityville,...',
       'ar': '',
     },
     'sewuq6ez': {
@@ -728,7 +612,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     'keaiq67e': {
-      'en': 'Create your Profile',
+      'en': 'Profile',
       'ar': '',
     },
   },
@@ -754,19 +638,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Hello World',
       'ar': '',
     },
-    '4qg80sht': {
+    '8ffnuimw': {
       'en': 'Hello World',
       'ar': '',
     },
-    'zecg88vu': {
+    'l573xbin': {
       'en': 'Hello World',
       'ar': '',
     },
-    'vcd8ckcv': {
+    'l3bceawl': {
       'en': 'Hello World',
       'ar': '',
     },
-    '7hhg2uy8': {
+    'bkjc5qqi': {
       'en': 'Hello World',
       'ar': '',
     },
@@ -962,6 +846,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Hello World',
       'ar': '',
     },
+    '6sdl0e7s': {
+      'en': 'AUD',
+      'ar': '',
+    },
+    'xs1wobee': {
+      'en': ' / ',
+      'ar': '',
+    },
+    '32rikq2w': {
+      'en': 'USD',
+      'ar': '',
+    },
     'frang85c': {
       'en': 'HomeDev',
       'ar': '',
@@ -1085,11 +981,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Miscellaneous
   {
-    '0o2b2ulh': {
+    'vbtdimcq': {
       'en': '',
       'ar': '',
     },
-    'vbtdimcq': {
+    'r0fpxvbk': {
       'en': '',
       'ar': '',
     },

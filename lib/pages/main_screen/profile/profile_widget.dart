@@ -58,47 +58,48 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Container(
+        body: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0, -1),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Container(
                   width: double.infinity,
                   height: MediaQuery.sizeOf(context).height * 0.4,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Color(0x32E45604),
                         Color(0x3FC1C1C1),
                         Color(0x8026577C)
                       ],
-                      stops: [0, 0.4, 1],
-                      begin: AlignmentDirectional(1, 0.87),
-                      end: AlignmentDirectional(-1, -0.87),
+                      stops: [0.0, 0.4, 1.0],
+                      begin: AlignmentDirectional(1.0, 0.87),
+                      end: AlignmentDirectional(-1.0, -0.87),
                     ),
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(23),
-                      bottomRight: Radius.circular(23),
-                      topLeft: Radius.circular(0),
-                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(23.0),
+                      bottomRight: Radius.circular(23.0),
+                      topLeft: Radius.circular(0.0),
+                      topRight: Radius.circular(0.0),
                     ),
                   ),
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 0.0, 20.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
                           height: MediaQuery.sizeOf(context).height * 0.45,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,59 +114,63 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Align(
-                                          alignment: AlignmentDirectional(0, 0),
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 0.0),
                                           child: Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: 60,
-                                              maxHeight: 60,
+                                            constraints: const BoxConstraints(
+                                              maxWidth: 60.0,
+                                              maxHeight: 60.0,
                                             ),
                                             decoration: BoxDecoration(
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
-                                                  blurRadius: 6,
+                                                  blurRadius: 6.0,
                                                   color: Color(0x33000000),
-                                                  offset: Offset(2, 0),
+                                                  offset: Offset(2.0, 0.0),
                                                 )
                                               ],
-                                              gradient: LinearGradient(
+                                              gradient: const LinearGradient(
                                                 colors: [
                                                   Color(0x4DE45604),
                                                   Color(0x4D26577C)
                                                 ],
-                                                stops: [0, 1],
+                                                stops: [0.0, 1.0],
                                                 begin: AlignmentDirectional(
-                                                    0.87, 1),
+                                                    0.87, 1.0),
                                                 end: AlignmentDirectional(
-                                                    -0.87, -1),
+                                                    -0.87, -1.0),
                                               ),
                                               borderRadius:
-                                                  BorderRadius.circular(16),
+                                                  BorderRadius.circular(16.0),
                                             ),
                                             alignment:
-                                                AlignmentDirectional(0, 0),
+                                                const AlignmentDirectional(
+                                                    0.0, 0.0),
                                             child: Align(
                                               alignment:
-                                                  AlignmentDirectional(0, 0),
+                                                  const AlignmentDirectional(
+                                                      0.0, 0.0),
                                               child: Padding(
-                                                padding: EdgeInsets.all(4),
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
                                                 child: AuthUserStreamWidget(
                                                   builder: (context) =>
                                                       ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            12),
+                                                            12.0),
                                                     child: Image.network(
                                                       currentUserPhoto,
-                                                      width: 50,
-                                                      height: 50,
+                                                      width: 50.0,
+                                                      height: 50.0,
                                                       fit: BoxFit.cover,
                                                       errorBuilder: (context,
                                                               error,
                                                               stackTrace) =>
                                                           Image.asset(
                                                         'assets/images/error_image.png',
-                                                        width: 50,
-                                                        height: 50,
+                                                        width: 50.0,
+                                                        height: 50.0,
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
@@ -176,9 +181,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  15, 0, 0, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(15.0, 0.0, 0.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
@@ -192,7 +196,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
-                                                        fontSize: 30,
+                                                        fontSize: 30.0,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -220,7 +224,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
-                                                                fontSize: 16,
+                                                                fontSize: 16.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -247,7 +251,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                         'Inter',
                                                         fontWeight:
                                                             FontWeight.normal,
-                                                        fontSize: 18,
+                                                        fontSize: 18.0,
                                                       ),
                                                     )
                                                   ],
@@ -260,11 +264,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .secondaryText,
-                                                        fontSize: 18,
+                                                        fontSize: 18.0,
                                                       ),
                                                 ),
                                               ),
-                                            ].divide(SizedBox(height: 5)),
+                                            ].divide(
+                                                const SizedBox(height: 5.0)),
                                           ),
                                         ),
                                       ],
@@ -282,10 +287,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       Icons.settings_outlined,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
-                                      size: 30,
+                                      size: 30.0,
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 10)),
+                                ].divide(const SizedBox(width: 10.0)),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -299,9 +304,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 15, 0),
+                                          padding: const EdgeInsetsDirectional
+                                              .fromSTEB(0.0, 0.0, 15.0, 0.0),
                                           child: Builder(
                                             builder: (context) {
                                               if (currentUserDocument
@@ -309,11 +313,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   Package.DIAMOND) {
                                                 return ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(24),
+                                                      BorderRadius.circular(
+                                                          24.0),
                                                   child: Image.network(
                                                     'https://cdn-icons-png.flaticon.com/512/1874/1874188.png',
-                                                    width: 40,
-                                                    height: 40,
+                                                    width: 40.0,
+                                                    height: 40.0,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 );
@@ -321,8 +326,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                       ?.package ==
                                                   Package.SILVER) {
                                                 return Container(
-                                                  width: 0,
-                                                  height: 0,
+                                                  width: 0.0,
+                                                  height: 0.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -333,8 +338,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                       ?.package ==
                                                   Package.GOLD) {
                                                 return Container(
-                                                  width: 0,
-                                                  height: 0,
+                                                  width: 0.0,
+                                                  height: 0.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -343,8 +348,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 );
                                               } else {
                                                 return Container(
-                                                  width: 0,
-                                                  height: 0,
+                                                  width: 0.0,
+                                                  height: 0.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -378,17 +383,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                           if (currentUserDocument
                                                                   ?.package ==
                                                               Package.DIAMOND) {
-                                                            return Color(
+                                                            return const Color(
                                                                 0xFF00BA92);
                                                           } else if (currentUserDocument
                                                                   ?.package ==
                                                               Package.GOLD) {
-                                                            return Color(
+                                                            return const Color(
                                                                 0xFFFFD700);
                                                           } else if (currentUserDocument
                                                                   ?.package ==
                                                               Package.SILVER) {
-                                                            return Color(
+                                                            return const Color(
                                                                 0xFFC0C0C0);
                                                           } else {
                                                             return FlutterFlowTheme
@@ -400,7 +405,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                 context)
                                                             .secondaryText,
                                                       ),
-                                                      fontSize: 21,
+                                                      fontSize: 21.0,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -414,7 +419,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 style: GoogleFonts.getFont(
                                                   'Inter',
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: 18,
+                                                  fontSize: 18.0,
                                                 ),
                                               )
                                             ],
@@ -422,13 +427,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 .bodyMedium,
                                           ),
                                         ),
-                                      ].divide(SizedBox(width: 0)),
+                                      ].divide(const SizedBox(width: 0.0)),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 10)),
+                                ].divide(const SizedBox(width: 10.0)),
                               ),
                               Stack(
-                                alignment: AlignmentDirectional(0, 1),
+                                alignment: const AlignmentDirectional(0.0, 1.0),
                                 children: [
                                   Builder(
                                     builder: (context) {
@@ -436,7 +441,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           Package.DIAMOND) {
                                         return ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(24),
+                                              BorderRadius.circular(24.0),
                                           child: Image.asset(
                                             'assets/images/Card3.png',
                                             fit: BoxFit.contain,
@@ -446,7 +451,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           Package.SILVER) {
                                         return ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(24),
+                                              BorderRadius.circular(24.0),
                                           child: Image.asset(
                                             'assets/images/silver.png',
                                             fit: BoxFit.contain,
@@ -456,7 +461,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           Package.GOLD) {
                                         return ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(24),
+                                              BorderRadius.circular(24.0),
                                           child: Image.asset(
                                             'assets/images/gold.png',
                                             fit: BoxFit.contain,
@@ -465,7 +470,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       } else {
                                         return ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(24),
+                                              BorderRadius.circular(24.0),
                                           child: Image.asset(
                                             'assets/images/bronze.png',
                                             fit: BoxFit.contain,
@@ -475,8 +480,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     },
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 20),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 20.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) => Text(
                                         currentUserDisplayName,
@@ -494,8 +500,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -508,20 +514,22 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Container(
-                                      width: 55,
-                                      height: 55,
+                                      width: 55.0,
+                                      height: 55.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                       child: Align(
-                                        alignment: AlignmentDirectional(0, 0),
+                                        alignment: const AlignmentDirectional(
+                                            0.0, 0.0),
                                         child: FaIcon(
                                           FontAwesomeIcons.wallet,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
-                                          size: 30,
+                                          size: 30.0,
                                         ),
                                       ),
                                     ),
@@ -533,41 +541,42 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            fontSize: 20,
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 20)),
+                                  ].divide(const SizedBox(width: 20.0)),
                                 ),
                               ),
                             ),
-                            Divider(
-                              thickness: 1,
-                              indent: 5,
-                              endIndent: 5,
+                            const Divider(
+                              thickness: 1.0,
+                              indent: 5.0,
+                              endIndent: 5.0,
                               color: Color(0x24000000),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Container(
-                                    width: 55,
-                                    height: 55,
+                                    width: 55.0,
+                                    height: 55.0,
                                     decoration: BoxDecoration(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment:
+                                          const AlignmentDirectional(0.0, 0.0),
                                       child: Icon(
                                         Icons.file_upload_outlined,
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBackground,
-                                        size: 35,
+                                        size: 35.0,
                                       ),
                                     ),
                                   ),
@@ -579,22 +588,22 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Inter',
-                                          fontSize: 20,
+                                          fontSize: 20.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
-                                ].divide(SizedBox(width: 20)),
+                                ].divide(const SizedBox(width: 20.0)),
                               ),
                             ),
-                            Divider(
-                              thickness: 1,
-                              indent: 5,
-                              endIndent: 5,
+                            const Divider(
+                              thickness: 1.0,
+                              indent: 5.0,
+                              endIndent: 5.0,
                               color: Color(0x24000000),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 5),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 5.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -611,18 +620,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Container(
-                                      width: 55,
-                                      height: 55,
+                                      width: 55.0,
+                                      height: 55.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondary,
-                                        borderRadius: BorderRadius.circular(10),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                       child: Icon(
                                         Icons.logout_sharp,
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBackground,
-                                        size: 30,
+                                        size: 30.0,
                                       ),
                                     ),
                                     Text(
@@ -633,19 +643,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            fontSize: 20,
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 20)),
+                                  ].divide(const SizedBox(width: 20.0)),
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(height: 15)),
+                          ].divide(const SizedBox(height: 15.0)),
                         ),
                       ]
-                          .divide(SizedBox(height: 40))
-                          .addToEnd(SizedBox(height: 40)),
+                          .divide(const SizedBox(height: 40.0))
+                          .addToEnd(const SizedBox(height: 40.0)),
                     ),
                   ),
                 ),
