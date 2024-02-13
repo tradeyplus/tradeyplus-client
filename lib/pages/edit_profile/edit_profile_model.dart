@@ -7,6 +7,8 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   DateTime? dob;
 
+  bool isChanged = false;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

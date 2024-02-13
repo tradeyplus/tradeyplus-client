@@ -75,7 +75,7 @@ class _InvestmentCalculatorWidgetState
         body: SafeArea(
           top: true,
           child: Container(
-            height: double.infinity,
+            width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0x32E45604), Color(0x4C26577C)],
@@ -119,7 +119,7 @@ class _InvestmentCalculatorWidgetState
                       children: [
                         Text(
                           FFLocalizations.of(context).getText(
-                            'zwhvq5l9' /* Monthly Amount */,
+                            'zwhvq5l9' /* Total Profit */,
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -241,7 +241,6 @@ class _InvestmentCalculatorWidgetState
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  height: 70.0,
                                   decoration: const BoxDecoration(),
                                   child: SizedBox(
                                     width: double.infinity,
