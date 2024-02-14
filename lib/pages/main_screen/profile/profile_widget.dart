@@ -1,7 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -274,7 +277,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('edit_profile');
+                                      context.pushNamed('EditProfile');
                                     },
                                     child: Icon(
                                       Icons.settings_outlined,
@@ -551,40 +554,66 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 55.0,
-                                    height: 55.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      borderRadius: BorderRadius.circular(10.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  _model.investmentDocList =
+                                      await queryInvestmentDataRecordOnce(
+                                    queryBuilder: (investmentDataRecord) =>
+                                        investmentDataRecord.where(
+                                      'investor_ref',
+                                      isEqualTo: currentUserReference,
                                     ),
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: Icon(
-                                        Icons.file_upload_outlined,
+                                  );
+                                  await actions.createExcel(
+                                    functions
+                                        .mapInvestmentData(
+                                            _model.investmentDocList?.toList())
+                                        .toList(),
+                                  );
+
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: 55.0,
+                                      height: 55.0,
+                                      decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        size: 35.0,
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Icon(
+                                          Icons.file_upload_outlined,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 35.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      '4p4zchqx' /* Export Data */,
+                                    Text(
+                                      FFLocalizations.of(context).getText(
+                                        '4p4zchqx' /* Export Data */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ].divide(const SizedBox(width: 20.0)),
+                                  ].divide(const SizedBox(width: 20.0)),
+                                ),
                               ),
                             ),
                             const Divider(

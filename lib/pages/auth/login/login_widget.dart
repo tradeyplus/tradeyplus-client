@@ -311,7 +311,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           }
 
                                           context.goNamedAuth(
-                                              'HomePage', context.mounted);
+                                              'InvestmentCalculator',
+                                              context.mounted);
                                         },
                                         text:
                                             FFLocalizations.of(context).getText(
@@ -406,7 +407,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     mouseCursor: SystemMouseCursors.click,
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () async {
-                                        context.goNamed('Login');
+                                        context.goNamed('Register');
                                       },
                                   )
                                 ],

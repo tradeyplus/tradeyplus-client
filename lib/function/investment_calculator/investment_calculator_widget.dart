@@ -30,10 +30,24 @@ class _InvestmentCalculatorWidgetState
 
     _model.monthlyAmountController ??= TextEditingController();
     _model.monthlyAmountFocusNode ??= FocusNode();
-
+    _model.monthlyAmountFocusNode!.addListener(
+      () async {
+        setState(() {
+          _model.billFocused = false;
+          _model.profitFocused = true;
+        });
+      },
+    );
     _model.billAmountController ??= TextEditingController();
     _model.billAmountFocusNode ??= FocusNode();
-
+    _model.billAmountFocusNode!.addListener(
+      () async {
+        setState(() {
+          _model.billFocused = true;
+          _model.profitFocused = false;
+        });
+      },
+    );
     _model.yieldPercentageController ??= TextEditingController();
     _model.yieldPercentageFocusNode ??= FocusNode();
 
@@ -169,7 +183,6 @@ class _InvestmentCalculatorWidgetState
                               }
                             },
                           ),
-                          autofocus: true,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelStyle: FlutterFlowTheme.of(context)
@@ -305,6 +318,9 @@ class _InvestmentCalculatorWidgetState
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
                                               fontSize: 21.0,
                                               fontWeight: FontWeight.normal,
                                               lineHeight: 1.25,
@@ -479,31 +495,93 @@ class _InvestmentCalculatorWidgetState
                                   ],
                                   onChanged: (val) async {
                                     setState(() => _model.dropDownValue = val);
-                                    setState(() {
-                                      _model.monthlyAmountController?.text =
-                                          formatNumber(
-                                        double.parse(_model
-                                                .billAmountController.text) *
-                                            0.08 *
-                                            () {
-                                              if (_model.dropDownValue == 3) {
-                                                return 3.0;
-                                              } else if (_model.dropDownValue ==
-                                                  6) {
-                                                return 6.0;
-                                              } else if (_model.dropDownValue ==
-                                                  9) {
-                                                return 9.0;
-                                              } else {
-                                                return 12.0;
-                                              }
-                                            }(),
-                                        formatType: FormatType.custom,
-                                        currency: '\$',
-                                        format: '0.00',
-                                        locale: 'en_US',
-                                      );
-                                    });
+                                    if (_model.billFocused == true) {
+                                      setState(() {
+                                        _model.monthlyAmountController?.text =
+                                            formatNumber(
+                                          double.parse(_model
+                                                  .billAmountController.text) *
+                                              0.08 *
+                                              () {
+                                                if (_model.dropDownValue == 3) {
+                                                  return 3.0;
+                                                } else if (_model
+                                                        .dropDownValue ==
+                                                    6) {
+                                                  return 6.0;
+                                                } else if (_model
+                                                        .dropDownValue ==
+                                                    9) {
+                                                  return 9.0;
+                                                } else {
+                                                  return 12.0;
+                                                }
+                                              }(),
+                                          formatType: FormatType.custom,
+                                          currency: '\$',
+                                          format: '0.00',
+                                          locale: 'en_US',
+                                        );
+                                      });
+                                    } else if (_model.profitFocused == true) {
+                                      setState(() {
+                                        _model.billAmountController?.text =
+                                            formatNumber(
+                                          double.parse(_model
+                                                  .monthlyAmountController
+                                                  .text) /
+                                              (0.08 *
+                                                  () {
+                                                    if (_model.dropDownValue ==
+                                                        3) {
+                                                      return 3.0;
+                                                    } else if (_model
+                                                            .dropDownValue ==
+                                                        6) {
+                                                      return 6.0;
+                                                    } else if (_model
+                                                            .dropDownValue ==
+                                                        9) {
+                                                      return 9.0;
+                                                    } else {
+                                                      return 12.0;
+                                                    }
+                                                  }()),
+                                          formatType: FormatType.custom,
+                                          currency: '\$',
+                                          format: '0.00',
+                                          locale: 'en_US',
+                                        );
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _model.monthlyAmountController?.text =
+                                            formatNumber(
+                                          double.parse(_model
+                                                  .billAmountController.text) *
+                                              0.08 *
+                                              () {
+                                                if (_model.dropDownValue == 3) {
+                                                  return 3.0;
+                                                } else if (_model
+                                                        .dropDownValue ==
+                                                    6) {
+                                                  return 6.0;
+                                                } else if (_model
+                                                        .dropDownValue ==
+                                                    9) {
+                                                  return 9.0;
+                                                } else {
+                                                  return 12.0;
+                                                }
+                                              }(),
+                                          formatType: FormatType.custom,
+                                          currency: '\$',
+                                          format: '0.00',
+                                          locale: 'en_US',
+                                        );
+                                      });
+                                    }
                                   },
                                   width: double.infinity,
                                   height: 65.0,

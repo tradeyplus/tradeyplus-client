@@ -245,10 +245,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Deposit',
       'ar': '',
     },
-    'xfl6s89h': {
-      'en': '+1.24%',
-      'ar': '',
-    },
     '4eouor8q': {
       'en': 'Yield',
       'ar': '',
@@ -332,7 +328,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     '8rtqp82g': {
-      'en': 'Settings',
+      'en': 'Profile',
       'ar': '',
     },
   },
@@ -472,32 +468,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Deposit',
       'ar': '',
     },
-    'm5hy7gag': {
-      'en': 'N/A',
-      'ar': '',
-    },
     'oznaeblg': {
       'en': 'Yield',
-      'ar': '',
-    },
-    '3xcght3w': {
-      'en': '+1.24%',
       'ar': '',
     },
     'a95epurh': {
       'en': 'Withdraw',
       'ar': '',
     },
-    'yykct3ki': {
-      'en': 'N/A',
-      'ar': '',
-    },
     'qx9h91ml': {
       'en': 'Commission',
-      'ar': '',
-    },
-    'tn24h80j': {
-      'en': '+1.24%',
       'ar': '',
     },
     'd6rxr02m': {
@@ -529,7 +509,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
   },
-  // edit_profile
+  // EditProfile
   {
     '7ecc2zoh': {
       'en': 'Your Name',
@@ -540,7 +520,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     'a6q6wnu5': {
-      'en': 'John Doe',
+      'en': '',
       'ar': '',
     },
     '5l1clr8k': {
@@ -563,6 +543,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Date of Birth',
       'ar': '',
     },
+    'r0fpxvbk': {
+      'en': '',
+      'ar': '',
+    },
+    'vbtdimcq': {
+      'en': '',
+      'ar': '',
+    },
     'te0wzduc': {
       'en': 'Address',
       'ar': '',
@@ -572,7 +560,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
     'w5kbhsxw': {
-      'en': '123 Main Street, Cityville,...',
+      'en': '',
       'ar': '',
     },
     'sewuq6ez': {
@@ -613,253 +601,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'keaiq67e': {
       'en': 'Profile',
-      'ar': '',
-    },
-  },
-  // HomePage-UIDev
-  {
-    '48q8pnmo': {
-      'en': 'Total Balance',
-      'ar': '',
-    },
-    'kah1e1ic': {
-      'en': 'AUD',
-      'ar': '',
-    },
-    '7dk5cege': {
-      'en': ' / ',
-      'ar': '',
-    },
-    'dcfhotzx': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'vmyvlg24': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '8ffnuimw': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'l573xbin': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'l3bceawl': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'bkjc5qqi': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'teqcfdv5': {
-      'en': 'EUR',
-      'ar': '',
-    },
-    '1tmdgzln': {
-      'en': ' / ',
-      'ar': '',
-    },
-    'vrk60az7': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'i1jeh3bv': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'n168l929': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'bjws8yht': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '8zpmje6v': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'o5ovtbtw': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '5xk0llx9': {
-      'en': 'GBP',
-      'ar': '',
-    },
-    '208s3fbj': {
-      'en': ' / ',
-      'ar': '',
-    },
-    '7wqsl065': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'fvfpl5d3': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '26aoyzmg': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '7d2aqf1j': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '04uleged': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'qkyayaf9': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'zvjy7ykn': {
-      'en': 'NZD',
-      'ar': '',
-    },
-    'kjz3iofd': {
-      'en': ' / ',
-      'ar': '',
-    },
-    'p2fcjr6z': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'w4s8vny2': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'h1be6fbi': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '9u3mlax4': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'hnkf9vck': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'hti491s5': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'qjwy16hh': {
-      'en': 'CAD',
-      'ar': '',
-    },
-    'y223228a': {
-      'en': ' / ',
-      'ar': '',
-    },
-    'zwvka93q': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'qsebyg5a': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'hxnfrz9b': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '4mc9kbgg': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '6jcpxk6o': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'amav6yjx': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'gmz1sq0g': {
-      'en': 'CHF',
-      'ar': '',
-    },
-    'r25is1r0': {
-      'en': ' / ',
-      'ar': '',
-    },
-    '6tr7qpqh': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'pi9chbhv': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'e66011t8': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '8mwwp0r6': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'n0rzcywm': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'fgsda3q5': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'rjoh1aq5': {
-      'en': 'JPY',
-      'ar': '',
-    },
-    'vt2tbc7g': {
-      'en': ' / ',
-      'ar': '',
-    },
-    '7htgpqu3': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'es7xvjwt': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'njukegs5': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '4qvxzuw7': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'sbfmkq3p': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    'mqa0vkoz': {
-      'en': 'Hello World',
-      'ar': '',
-    },
-    '6sdl0e7s': {
-      'en': 'AUD',
-      'ar': '',
-    },
-    'xs1wobee': {
-      'en': ' / ',
-      'ar': '',
-    },
-    '32rikq2w': {
-      'en': 'USD',
-      'ar': '',
-    },
-    'frang85c': {
-      'en': 'HomeDev',
       'ar': '',
     },
   },
@@ -981,11 +722,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Miscellaneous
   {
-    'vbtdimcq': {
+    'l8xgscnz': {
       'en': '',
       'ar': '',
     },
-    'r0fpxvbk': {
+    'fq2nnvxz': {
       'en': '',
       'ar': '',
     },

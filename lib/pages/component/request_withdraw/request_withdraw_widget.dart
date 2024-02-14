@@ -266,7 +266,7 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                               mailRecordReference);
                                       Navigator.pop(context);
                                       await showDialog(
-                                        barrierColor: Colors.transparent,
+                                        barrierColor: const Color(0x28000000),
                                         context: context,
                                         builder: (dialogContext) {
                                           return Dialog(

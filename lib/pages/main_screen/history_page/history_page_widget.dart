@@ -348,10 +348,17 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'xfl6s89h' /* +1.24% */,
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    dateTimeFormat(
+                                                                      'jm',
+                                                                      toDateInvestmentDataItem
+                                                                          .createdTime,
+                                                                      locale: FFLocalizations.of(
+                                                                              context)
+                                                                          .languageCode,
+                                                                    ),
+                                                                    'N/A',
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -364,7 +371,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         lineHeight:
-                                                                            1.0,
+                                                                            1.25,
                                                                       ),
                                                                 ),
                                                               ],

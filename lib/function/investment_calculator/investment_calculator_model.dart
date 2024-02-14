@@ -9,6 +9,10 @@ class InvestmentCalculatorModel
 
   double investmentCalculator = 0.0;
 
+  bool? billFocused;
+
+  bool? profitFocused;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

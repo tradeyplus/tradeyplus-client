@@ -18,10 +18,10 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   String uploadedFileUrl = '';
 
   // State field(s) for name widget.
-  FocusNode? nameFocusNode;
-  TextEditingController? nameController;
-  String? Function(BuildContext, String?)? nameControllerValidator;
-  String? _nameControllerValidator(BuildContext context, String? val) {
+  FocusNode? nameFocusNode1;
+  TextEditingController? nameController1;
+  String? Function(BuildContext, String?)? nameController1Validator;
+  String? _nameController1Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
         'sewuq6ez' /* Name is required */,
@@ -40,6 +40,10 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   TextEditingController? phonenumberController;
   String? Function(BuildContext, String?)? phonenumberControllerValidator;
   DateTime? datePicked;
+  // State field(s) for name widget.
+  FocusNode? nameFocusNode2;
+  TextEditingController? nameController2;
+  String? Function(BuildContext, String?)? nameController2Validator;
   // State field(s) for address widget.
   FocusNode? addressFocusNode;
   TextEditingController? addressController;
@@ -58,20 +62,23 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   @override
   void initState(BuildContext context) {
-    nameControllerValidator = _nameControllerValidator;
+    nameController1Validator = _nameController1Validator;
     addressControllerValidator = _addressControllerValidator;
   }
 
   @override
   void dispose() {
-    nameFocusNode?.dispose();
-    nameController?.dispose();
+    nameFocusNode1?.dispose();
+    nameController1?.dispose();
 
     emailFocusNode?.dispose();
     emailController?.dispose();
 
     phonenumberFocusNode?.dispose();
     phonenumberController?.dispose();
+
+    nameFocusNode2?.dispose();
+    nameController2?.dispose();
 
     addressFocusNode?.dispose();
     addressController?.dispose();

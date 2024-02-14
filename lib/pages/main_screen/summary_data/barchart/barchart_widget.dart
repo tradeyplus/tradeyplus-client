@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
+import '/components/empty_list_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_data_table.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -44,15 +45,10 @@ class _BarchartWidgetState extends State<BarchartWidget> {
         _model.isLoaded = false;
       });
       _model.investmentDocList = await queryInvestmentDataRecordOnce(
-        queryBuilder: (investmentDataRecord) => investmentDataRecord
-            .where(
-              'investor_ref',
-              isEqualTo: currentUserReference,
-            )
-            .where(
-              'created_time',
-              isLessThan: getCurrentTimestamp,
-            ),
+        queryBuilder: (investmentDataRecord) => investmentDataRecord.where(
+          'investor_ref',
+          isEqualTo: currentUserReference,
+        ),
       );
       setState(() {
         _model.investmentDataList = functions
@@ -1161,10 +1157,35 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                               ),
                                                         ),
                                                         Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'm5hy7gag' /* N/A */,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            '${functions.addInvestmentAmount(functions.getPeriodicData(_model.investmentDocList!.where((e) => e.transactionType == TransactionType.DEPOSIT).toList(), 3).map((e) => e.amount).toList()) > functions.addInvestmentAmount(_model.investmentDataList.where((e) => e.transactionType == TransactionType.DEPOSIT).toList().map((e) => e.amount).toList()) ? '- ' : '+ '}${valueOrDefault<String>(
+                                                              formatNumber(
+                                                                (functions.addInvestmentAmount(_model
+                                                                            .investmentDataList
+                                                                            .where((e) =>
+                                                                                e.transactionType ==
+                                                                                TransactionType
+                                                                                    .DEPOSIT)
+                                                                            .toList()
+                                                                            .map((e) => e
+                                                                                .amount)
+                                                                            .toList()) -
+                                                                        functions.addInvestmentAmount(functions
+                                                                            .getPeriodicData(_model.investmentDocList!.where((e) => e.transactionType == TransactionType.DEPOSIT).toList(),
+                                                                                3)
+                                                                            .map((e) => e.amount)
+                                                                            .toList())) /
+                                                                    functions.addInvestmentAmount(functions.getPeriodicData(_model.investmentDocList!.where((e) => e.transactionType == TransactionType.DEPOSIT).toList(), 3).map((e) => e.amount).toList()),
+                                                                formatType:
+                                                                    FormatType
+                                                                        .custom,
+                                                                format: '0.00%',
+                                                                locale: 'en_US',
+                                                              ),
+                                                              'N/A',
+                                                            )}',
+                                                            'N/A',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1335,10 +1356,47 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                               ),
                                                         ),
                                                         Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            '3xcght3w' /* +1.24% */,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            '${functions.addInvestmentAmount(functions.getPeriodicData(_model.investmentDocList!.where((e) => e.transactionType == TransactionType.DEPOSIT).toList(), 3).map((e) => e.amount).toList()) > functions.addInvestmentAmount(_model.investmentDataList.where((e) => e.transactionType == TransactionType.DEPOSIT).toList().map((e) => e.amount).toList()) ? '- ' : '+ '}${valueOrDefault<String>(
+                                                              formatNumber(
+                                                                (valueOrDefault<
+                                                                            double>(
+                                                                          functions.addInvestmentAmount(_model
+                                                                              .investmentDataList
+                                                                              .where((e) => e.transactionType == TransactionType.PROFIT)
+                                                                              .toList()
+                                                                              .map((e) => e.amount)
+                                                                              .toList()),
+                                                                          0.0,
+                                                                        ) -
+                                                                        valueOrDefault<
+                                                                            double>(
+                                                                          functions.addInvestmentAmount(functions
+                                                                              .getPeriodicData(_model.investmentDocList!.where((e) => e.transactionType == TransactionType.PROFIT).toList(), 3)
+                                                                              .map((e) => e.amount)
+                                                                              .toList()),
+                                                                          0.0,
+                                                                        )) /
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                                      functions.addInvestmentAmount(functions
+                                                                          .getPeriodicData(
+                                                                              _model.investmentDocList!.where((e) => e.transactionType == TransactionType.PROFIT).toList(),
+                                                                              3)
+                                                                          .map((e) => e.amount)
+                                                                          .toList()),
+                                                                      0.0,
+                                                                    ),
+                                                                formatType:
+                                                                    FormatType
+                                                                        .custom,
+                                                                format: '0.00%',
+                                                                locale: 'en_US',
+                                                              ),
+                                                              'N/A',
+                                                            )}',
+                                                            'N/A',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -1346,11 +1404,14 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Tajawal',
+                                                                color: const Color(
+                                                                    0xFF00B016),
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
-                                                                lineHeight: 1.0,
+                                                                lineHeight:
+                                                                    1.25,
                                                               ),
                                                         ),
                                                       ].divide(const SizedBox(
@@ -1517,22 +1578,38 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'yykct3ki' /* N/A */,
-                                                          ),
+                                                          'Latest: ${dateTimeFormat(
+                                                            'yMMMd',
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .WITHDRAW)
+                                                                .toList()
+                                                                .sortedList((e) =>
+                                                                    e.createdTime!)
+                                                                .last
+                                                                .createdTime,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
+                                                          )}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Tajawal',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
-                                                                lineHeight: 1.0,
+                                                                lineHeight:
+                                                                    1.25,
                                                               ),
                                                         ),
                                                       ],
@@ -1695,17 +1772,32 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'tn24h80j' /* +1.24% */,
-                                                          ),
+                                                          'Latest: ${dateTimeFormat(
+                                                            'yMMMd',
+                                                            _model
+                                                                .investmentDataList
+                                                                .where((e) =>
+                                                                    e.transactionType ==
+                                                                    TransactionType
+                                                                        .COMMISSION)
+                                                                .toList()
+                                                                .sortedList((e) =>
+                                                                    e.createdTime!)
+                                                                .last
+                                                                .createdTime,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
+                                                          )}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Tajawal',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1772,7 +1864,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                               child: Container(
                                 width: double.infinity,
                                 constraints: const BoxConstraints(
-                                  maxHeight: 350.0,
+                                  maxHeight: 400.0,
                                 ),
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
@@ -1781,14 +1873,15 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                 ),
                                 child: Builder(
                                   builder: (context) {
-                                    final currentInvestmentDataList = _model
-                                        .investmentDataList
-                                        .where((e) =>
-                                            e.transactionType !=
-                                            TransactionType.COMMISSION)
-                                        .toList()
+                                    final currentInvestmentDataList = functions
+                                        .getPeriodicData(
+                                            _model.investmentDocList!.toList(),
+                                            _model.monthlyDuration)
                                         .sortedList((e) => e.createdTime!)
                                         .toList();
+                                    if (currentInvestmentDataList.isEmpty) {
+                                      return const EmptyListWidget();
+                                    }
                                     return FlutterFlowDataTable<
                                         InvestmentDataMapStruct>(
                                       controller:
@@ -1824,7 +1917,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           ),
                                           fixedWidth:
                                               MediaQuery.sizeOf(context).width *
-                                                  0.13,
+                                                  0.14,
                                         ),
                                         DataColumn2(
                                           label: DefaultTextStyle.merge(
@@ -2172,8 +2265,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           ),
                                         ].map((c) => DataCell(c)).toList(),
                                       ),
-                                      paginated: false,
+                                      emptyBuilder: () => const EmptyListWidget(),
+                                      paginated: true,
                                       selectable: false,
+                                      hidePaginator: false,
+                                      showFirstLastButtons: true,
                                       width: double.infinity,
                                       headingRowHeight: 56.0,
                                       dataRowHeight: 48.0,

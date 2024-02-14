@@ -11,5 +11,3 @@ export '/pages/transaction/transaction_widget.dart' show TransactionWidget;
 export '/pages/main_screen/summary_data/barchart/barchart_widget.dart'
     show BarchartWidget;
 export '/pages/edit_profile/edit_profile_widget.dart' show EditProfileWidget;
-export '/pages/main_screen/home_page_u_i_dev/home_page_u_i_dev_widget.dart'
-    show HomePageUIDevWidget;
