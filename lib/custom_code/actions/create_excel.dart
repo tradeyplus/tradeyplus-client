@@ -16,49 +16,51 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:path/path.dart' as p;
 
-Future createExcel(List<InvestmentDataMapStruct> investmentDataList) async {
-  // Add your function code here!
+Future<void> createExcel(
+    List<InvestmentDataMapStruct> investmentDataList) async {
   var excel = Excel.createExcel(); // Create a new Excel document
   var sheetName = 'Investments'; // Name of the sheet
-  var sheet = excel[sheetName]; // Create or Get a sheet by name
+  Sheet sheet = excel[sheetName]!; // Create or Get a sheet by name
 
   // Define the headers
   List<String> headers = [
-    'Profit Ratio',
-    'Investment Ref',
-    'Investor Ref',
-    'Investment ID',
-    'Duration',
     'Amount',
-    'Points',
-    'Investor Evaluation',
-    'Created Time',
     'Transaction Type',
-    'Transaction Type Str',
+    'Entry Date',
+    'Duration',
     'Investor Balance',
   ];
 
   // Insert headers into the first row
-  sheet.appendRow(headers);
+  for (int i = 0; i < headers.length; i++) {
+    sheet.cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0)).value =
+        TextCellValue(headers[i]);
+  }
 
   // Iterate through the investment data list and append rows
-  investmentDataList.forEach((data) {
-    sheet.appendRow([
-      data.profitRatio,
-      data.investmentRef,
-      data.investorRef,
-      data.investmentId,
-      data.duration,
-      data.amount,
-      data.points,
-      data.investorEvaluation,
-      data.createdTime
-          .toString(), // Assuming you want to convert DateTime to String
-      data.transactionType.toString(), // Convert enum to String if necessary
-      data.transactionTypeStr,
-      data.investorBalance,
-    ]);
-  });
+  for (var rowIndex = 1; rowIndex <= investmentDataList.length; rowIndex++) {
+    var data = investmentDataList[rowIndex - 1];
+
+    // Ensure amount and investorBalance are not null and are doubles, otherwise use 0.0 as fallback
+    var amount = data.amount ?? 0.0;
+    var investorBalance = data.investorBalance ?? 0.0;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: rowIndex))
+        .value = TextCellValue(amount.toStringAsFixed(2));
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: rowIndex))
+        .value = TextCellValue(data.transactionTypeStr);
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: rowIndex))
+        .value = TextCellValue(data.createdTime!.toIso8601String());
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: rowIndex))
+        .value = TextCellValue(data.duration.toString());
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: rowIndex))
+        .value = TextCellValue(investorBalance.toStringAsFixed(2));
+  }
 
   // Save the file to disk - example path, adjust according to your needs
   var fileBytes = excel.save();
