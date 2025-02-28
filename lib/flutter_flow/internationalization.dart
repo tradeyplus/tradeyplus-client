@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,18 +77,47 @@ class FFLocalizations {
   };
 }
 
+/// Used if the locale is not supported by GlobalMaterialLocalizations.
+class FallbackMaterialLocalizationDelegate
+    extends LocalizationsDelegate<MaterialLocalizations> {
+  const FallbackMaterialLocalizationDelegate();
+
+  @override
+  bool isSupported(Locale locale) => _isSupportedLocale(locale);
+
+  @override
+  Future<MaterialLocalizations> load(Locale locale) async =>
+      SynchronousFuture<MaterialLocalizations>(
+        const DefaultMaterialLocalizations(),
+      );
+
+  @override
+  bool shouldReload(FallbackMaterialLocalizationDelegate old) => false;
+}
+
+/// Used if the locale is not supported by GlobalCupertinoLocalizations.
+class FallbackCupertinoLocalizationDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalizationDelegate();
+
+  @override
+  bool isSupported(Locale locale) => _isSupportedLocale(locale);
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      SynchronousFuture<CupertinoLocalizations>(
+        const DefaultCupertinoLocalizations(),
+      );
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalizationDelegate old) => false;
+}
+
 class FFLocalizationsDelegate extends LocalizationsDelegate<FFLocalizations> {
   const FFLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
-    final language = locale.toString();
-    return FFLocalizations.languages().contains(
-      language.endsWith('_')
-          ? language.substring(0, language.length - 1)
-          : language,
-    );
-  }
+  bool isSupported(Locale locale) => _isSupportedLocale(locale);
 
   @override
   Future<FFLocalizations> load(Locale locale) =>
@@ -103,6 +133,15 @@ Locale createLocale(String language) => language.contains('_')
         scriptCode: language.split('_').last,
       )
     : Locale(language);
+
+bool _isSupportedLocale(Locale locale) {
+  final language = locale.toString();
+  return FFLocalizations.languages().contains(
+    language.endsWith('_')
+        ? language.substring(0, language.length - 1)
+        : language,
+  );
+}
 
 final kTranslationsMap = <Map<String, Map<String, String>>>[
   // HomePage
@@ -249,24 +288,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Yield',
       'ar': '',
     },
-    '1lj1bb0o': {
-      'en': '+1.24%',
-      'ar': '',
-    },
     'lkq09o6q': {
       'en': 'Withdraw',
       'ar': '',
     },
-    'o9tss0b8': {
-      'en': '+1.24%',
-      'ar': '',
-    },
     'cxjhiweb': {
       'en': 'Commission',
-      'ar': '',
-    },
-    'y16t6l9v': {
-      'en': '+1.24%',
       'ar': '',
     },
     'edgxpi7f': {
@@ -358,6 +385,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Yield Percentage (8%)',
       'ar': '',
     },
+    'ujv7ojr1': {
+      'en': 'Period',
+      'ar': '',
+    },
+    '9k69ewez': {
+      'en': 'Search for an item...',
+      'ar': '',
+    },
     '96jr92mg': {
       'en': '3 Months',
       'ar': '',
@@ -372,14 +407,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'iwwzomol': {
       'en': '12 Months',
-      'ar': '',
-    },
-    'ujv7ojr1': {
-      'en': 'Period',
-      'ar': '',
-    },
-    '9k69ewez': {
-      'en': 'Search for an item...',
       'ar': '',
     },
     'xw8oe4n4': {
@@ -604,6 +631,25 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
     },
   },
+  // TestTextFieldPage
+  {
+    'ptzwo3jd': {
+      'en': 'TextField is required',
+      'ar': '',
+    },
+    '6qkuf6kd': {
+      'en': 'Please choose an option from the dropdown',
+      'ar': '',
+    },
+    'q3kqe1ff': {
+      'en': 'TextField',
+      'ar': '',
+    },
+    'ktuqiuz6': {
+      'en': 'Home',
+      'ar': '',
+    },
+  },
   // RequestWithdraw
   {
     '8pufspr6': {
@@ -668,6 +714,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Custom Wallet',
       'ar': '',
     },
+    'yxbuz7je': {
+      'en': 'Choose Wallet',
+      'ar': '',
+    },
+    'pivlr7el': {
+      'en': 'Search for an item...',
+      'ar': '',
+    },
     'v3sjvnyy': {
       'en': 'Custom Wallet',
       'ar': '',
@@ -678,14 +732,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '9lr8kigt': {
       'en': 'Stock Wallet',
-      'ar': '',
-    },
-    'yxbuz7je': {
-      'en': 'Choose Wallet',
-      'ar': '',
-    },
-    'pivlr7el': {
-      'en': 'Search for an item...',
       'ar': '',
     },
     'wh6834yv': {
@@ -717,6 +763,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'o3revl70': {
       'en':
           'Thank you for submitting your request.\nWe will reach out to you shortly.',
+      'ar': '',
+    },
+  },
+  // TestTextField
+  {
+    '7yndyje4': {
+      'en': 'TextField',
       'ar': '',
     },
   },

@@ -19,9 +19,9 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   // State field(s) for name widget.
   FocusNode? nameFocusNode1;
-  TextEditingController? nameController1;
-  String? Function(BuildContext, String?)? nameController1Validator;
-  String? _nameController1Validator(BuildContext context, String? val) {
+  TextEditingController? nameTextController1;
+  String? Function(BuildContext, String?)? nameTextController1Validator;
+  String? _nameTextController1Validator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
         'sewuq6ez' /* Name is required */,
@@ -33,22 +33,22 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
 
   // State field(s) for email widget.
   FocusNode? emailFocusNode;
-  TextEditingController? emailController;
-  String? Function(BuildContext, String?)? emailControllerValidator;
+  TextEditingController? emailTextController;
+  String? Function(BuildContext, String?)? emailTextControllerValidator;
   // State field(s) for phonenumber widget.
   FocusNode? phonenumberFocusNode;
-  TextEditingController? phonenumberController;
-  String? Function(BuildContext, String?)? phonenumberControllerValidator;
+  TextEditingController? phonenumberTextController;
+  String? Function(BuildContext, String?)? phonenumberTextControllerValidator;
   DateTime? datePicked;
   // State field(s) for name widget.
   FocusNode? nameFocusNode2;
-  TextEditingController? nameController2;
-  String? Function(BuildContext, String?)? nameController2Validator;
+  TextEditingController? nameTextController2;
+  String? Function(BuildContext, String?)? nameTextController2Validator;
   // State field(s) for address widget.
   FocusNode? addressFocusNode;
-  TextEditingController? addressController;
-  String? Function(BuildContext, String?)? addressControllerValidator;
-  String? _addressControllerValidator(BuildContext context, String? val) {
+  TextEditingController? addressTextController;
+  String? Function(BuildContext, String?)? addressTextControllerValidator;
+  String? _addressTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
         'qqnardpe' /* Address is required */,
@@ -58,33 +58,27 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
     return null;
   }
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    nameController1Validator = _nameController1Validator;
-    addressControllerValidator = _addressControllerValidator;
+    nameTextController1Validator = _nameTextController1Validator;
+    addressTextControllerValidator = _addressTextControllerValidator;
   }
 
   @override
   void dispose() {
     nameFocusNode1?.dispose();
-    nameController1?.dispose();
+    nameTextController1?.dispose();
 
     emailFocusNode?.dispose();
-    emailController?.dispose();
+    emailTextController?.dispose();
 
     phonenumberFocusNode?.dispose();
-    phonenumberController?.dispose();
+    phonenumberTextController?.dispose();
 
     nameFocusNode2?.dispose();
-    nameController2?.dispose();
+    nameTextController2?.dispose();
 
     addressFocusNode?.dispose();
-    addressController?.dispose();
+    addressTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

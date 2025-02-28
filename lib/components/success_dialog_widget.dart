@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'success_dialog_model.dart';
 export 'success_dialog_model.dart';
 
@@ -37,10 +36,8 @@ class _SuccessDialogWidgetState extends State<SuccessDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
       child: Material(
         color: Colors.transparent,
         elevation: 4.0,
@@ -49,7 +46,7 @@ class _SuccessDialogWidgetState extends State<SuccessDialogWidget> {
         ),
         child: Container(
           width: double.infinity,
-          constraints: const BoxConstraints(
+          constraints: BoxConstraints(
             maxWidth: 400.0,
             maxHeight: 200.0,
           ),
@@ -58,12 +55,12 @@ class _SuccessDialogWidgetState extends State<SuccessDialogWidget> {
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
+            padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 20.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Lottie.asset(
-                  'assets/lottie_animations/success.json',
+                  'assets/jsons/success.json',
                   height: 100.0,
                   fit: BoxFit.contain,
                   animate: true,
@@ -76,12 +73,13 @@ class _SuccessDialogWidgetState extends State<SuccessDialogWidget> {
                         fontFamily: 'Inter',
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: 18.0,
+                        letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
                         lineHeight: 1.5,
                       ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                   child: Text(
                     FFLocalizations.of(context).getText(
                       'o3revl70' /* Thank you for submitting your ... */,
@@ -91,6 +89,7 @@ class _SuccessDialogWidgetState extends State<SuccessDialogWidget> {
                           fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontSize: 12.0,
+                          letterSpacing: 0.0,
                           lineHeight: 1.5,
                         ),
                   ),

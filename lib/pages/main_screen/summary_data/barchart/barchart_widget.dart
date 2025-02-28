@@ -9,11 +9,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import 'barchart_model.dart';
 export 'barchart_model.dart';
 
@@ -21,9 +20,12 @@ class BarchartWidget extends StatefulWidget {
   const BarchartWidget({
     super.key,
     int? rows,
-  }) : rows = rows ?? 3;
+  }) : this.rows = rows ?? 3;
 
   final int rows;
+
+  static String routeName = 'Barchart';
+  static String routePath = '/barchart';
 
   @override
   State<BarchartWidget> createState() => _BarchartWidgetState();
@@ -41,65 +43,61 @@ class _BarchartWidgetState extends State<BarchartWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.isLoaded = false;
-      });
+      _model.isLoaded = false;
+      safeSetState(() {});
       _model.investmentDocList = await queryInvestmentDataRecordOnce(
         queryBuilder: (investmentDataRecord) => investmentDataRecord.where(
           'investor_ref',
           isEqualTo: currentUserReference,
         ),
       );
-      setState(() {
-        _model.investmentDataList = functions
-            .getPeriodicData(_model.investmentDocList!.toList(), 3)
-            .toList()
-            .cast<InvestmentDataMapStruct>();
-      });
-      setState(() {
-        _model.depositList = functions
-            .getBarchartData(
-                _model.investmentDataList
-                    .where((e) => e.transactionType == TransactionType.PROFIT)
-                    .toList()
-                    .sortedList((e) => e.createdTime!)
-                    .map((e) => e.amount)
-                    .toList()
-                    .toList(),
-                _model.investmentDataList
-                    .where((e) => e.transactionType == TransactionType.DEPOSIT)
-                    .toList()
-                    .sortedList((e) => e.createdTime!)
-                    .map((e) => e.amount)
-                    .toList()
-                    .toList(),
-                true)
-            .toList()
-            .cast<double>();
-        _model.profitList = functions
-            .getBarchartData(
-                _model.investmentDataList
-                    .where((e) => e.transactionType == TransactionType.PROFIT)
-                    .toList()
-                    .sortedList((e) => e.createdTime!)
-                    .map((e) => e.amount)
-                    .toList()
-                    .toList(),
-                _model.investmentDataList
-                    .where((e) => e.transactionType == TransactionType.DEPOSIT)
-                    .toList()
-                    .sortedList((e) => e.createdTime!)
-                    .map((e) => e.amount)
-                    .toList()
-                    .toList(),
-                false)
-            .toList()
-            .cast<double>();
-        _model.monthlyDuration = 3;
-      });
-      setState(() {
-        _model.isLoaded = true;
-      });
+      _model.investmentDataList = functions
+          .getPeriodicData(_model.investmentDocList!.toList(), 3)
+          .toList()
+          .cast<InvestmentDataMapStruct>();
+      safeSetState(() {});
+      _model.depositList = functions
+          .getBarchartData(
+              _model.investmentDataList
+                  .where((e) => e.transactionType == TransactionType.PROFIT)
+                  .toList()
+                  .sortedList(keyOf: (e) => e.createdTime!, desc: false)
+                  .map((e) => e.amount)
+                  .toList()
+                  .toList(),
+              _model.investmentDataList
+                  .where((e) => e.transactionType == TransactionType.DEPOSIT)
+                  .toList()
+                  .sortedList(keyOf: (e) => e.createdTime!, desc: false)
+                  .map((e) => e.amount)
+                  .toList()
+                  .toList(),
+              true)
+          .toList()
+          .cast<double>();
+      _model.profitList = functions
+          .getBarchartData(
+              _model.investmentDataList
+                  .where((e) => e.transactionType == TransactionType.PROFIT)
+                  .toList()
+                  .sortedList(keyOf: (e) => e.createdTime!, desc: false)
+                  .map((e) => e.amount)
+                  .toList()
+                  .toList(),
+              _model.investmentDataList
+                  .where((e) => e.transactionType == TransactionType.DEPOSIT)
+                  .toList()
+                  .sortedList(keyOf: (e) => e.createdTime!, desc: false)
+                  .map((e) => e.amount)
+                  .toList()
+                  .toList(),
+              false)
+          .toList()
+          .cast<double>();
+      _model.monthlyDuration = 3;
+      safeSetState(() {});
+      _model.isLoaded = true;
+      safeSetState(() {});
     });
   }
 
@@ -112,24 +110,15 @@ class _BarchartWidgetState extends State<BarchartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
     final chartPieChartColorsList1 = [
       FlutterFlowTheme.of(context).primary,
       FlutterFlowTheme.of(context).secondary
     ];
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -146,17 +135,17 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                   ),
                   child: Container(
                     width: double.infinity,
-                    constraints: const BoxConstraints(
+                    constraints: BoxConstraints(
                       maxHeight: 852.0,
                     ),
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 20.0, 0.0, 0.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
@@ -168,13 +157,14 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     fontSize: 21.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     lineHeight: 1.5,
                                   ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 15.0, 0.0, 15.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -182,18 +172,21 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 40.0, 0.0, 0.0),
                                   child: Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      boxShadow: const [
+                                      boxShadow: [
                                         BoxShadow(
                                           blurRadius: 6.0,
                                           color: Color(0x33000000),
-                                          offset: Offset(0.0, 2.0),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
                                         )
                                       ],
                                       borderRadius: BorderRadius.circular(8.0),
@@ -206,78 +199,75 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                         Expanded(
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              setState(() {
-                                                _model.investmentDataList = functions
-                                                    .getPeriodicData(
-                                                        _model
-                                                            .investmentDocList!
-                                                            .toList(),
-                                                        3)
-                                                    .toList()
-                                                    .cast<
-                                                        InvestmentDataMapStruct>();
-                                              });
-                                              setState(() {
-                                                _model.depositList = functions
-                                                    .getBarchartData(
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .PROFIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .DEPOSIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        true)
-                                                    .toList()
-                                                    .cast<double>();
-                                                _model.profitList = functions
-                                                    .getBarchartData(
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .PROFIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .DEPOSIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        false)
-                                                    .toList()
-                                                    .cast<double>();
-                                                _model.monthlyDuration = 3;
-                                              });
+                                              _model.investmentDataList = functions
+                                                  .getPeriodicData(
+                                                      _model.investmentDocList!
+                                                          .toList(),
+                                                      3)
+                                                  .toList()
+                                                  .cast<
+                                                      InvestmentDataMapStruct>();
+                                              safeSetState(() {});
+                                              _model.depositList = functions
+                                                  .getBarchartData(
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .PROFIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      true)
+                                                  .toList()
+                                                  .cast<double>();
+                                              _model.profitList = functions
+                                                  .getBarchartData(
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .PROFIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      false)
+                                                  .toList()
+                                                  .cast<double>();
+                                              _model.monthlyDuration = 3;
+                                              safeSetState(() {});
                                             },
                                             text: FFLocalizations.of(context)
                                                 .getText(
@@ -285,10 +275,10 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             ),
                                             options: FFButtonOptions(
                                               height: 40.0,
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
+                                              iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: _model.monthlyDuration == 3
                                                   ? FlutterFlowTheme.of(context)
@@ -309,9 +299,10 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         : FlutterFlowTheme.of(
                                                                 context)
                                                             .primaryText,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                              borderSide: const BorderSide(
+                                              borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 0.0,
                                               ),
@@ -323,85 +314,90 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                         Expanded(
                                           child: Align(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 1.0, 0.0, 1.0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  setState(() {
-                                                    _model.investmentDataList =
-                                                        functions
-                                                            .getPeriodicData(
-                                                                _model
-                                                                    .investmentDocList!
-                                                                    .toList(),
-                                                                6)
-                                                            .toList()
-                                                            .cast<
-                                                                InvestmentDataMapStruct>();
-                                                  });
-                                                  setState(() {
-                                                    _model.depositList = functions
-                                                        .getBarchartData(
-                                                            _model
-                                                                .investmentDataList
-                                                                .where((e) =>
-                                                                    e.transactionType ==
-                                                                    TransactionType
-                                                                        .PROFIT)
-                                                                .toList()
-                                                                .sortedList((e) => e
-                                                                    .createdTime!)
-                                                                .map((e) =>
-                                                                    e.amount)
-                                                                .toList(),
-                                                            _model
-                                                                .investmentDataList
-                                                                .where((e) =>
-                                                                    e.transactionType ==
-                                                                    TransactionType
-                                                                        .DEPOSIT)
-                                                                .toList()
-                                                                .sortedList((e) => e
-                                                                    .createdTime!)
-                                                                .map((e) =>
-                                                                    e.amount)
-                                                                .toList(),
-                                                            true)
-                                                        .toList()
-                                                        .cast<double>();
-                                                    _model.profitList = functions
-                                                        .getBarchartData(
-                                                            _model
-                                                                .investmentDataList
-                                                                .where((e) =>
-                                                                    e.transactionType ==
-                                                                    TransactionType
-                                                                        .PROFIT)
-                                                                .toList()
-                                                                .sortedList((e) => e
-                                                                    .createdTime!)
-                                                                .map((e) =>
-                                                                    e.amount)
-                                                                .toList(),
-                                                            _model
-                                                                .investmentDataList
-                                                                .where((e) =>
-                                                                    e.transactionType ==
-                                                                    TransactionType
-                                                                        .DEPOSIT)
-                                                                .toList()
-                                                                .sortedList((e) => e
-                                                                    .createdTime!)
-                                                                .map((e) =>
-                                                                    e.amount)
-                                                                .toList(),
-                                                            false)
-                                                        .toList()
-                                                        .cast<double>();
-                                                    _model.monthlyDuration = 6;
-                                                  });
+                                                  _model.investmentDataList = functions
+                                                      .getPeriodicData(
+                                                          _model
+                                                              .investmentDocList!
+                                                              .toList(),
+                                                          6)
+                                                      .toList()
+                                                      .cast<
+                                                          InvestmentDataMapStruct>();
+                                                  safeSetState(() {});
+                                                  _model.depositList = functions
+                                                      .getBarchartData(
+                                                          _model
+                                                              .investmentDataList
+                                                              .where((e) =>
+                                                                  e.transactionType ==
+                                                                  TransactionType
+                                                                      .PROFIT)
+                                                              .toList()
+                                                              .sortedList(
+                                                                  keyOf: (e) => e
+                                                                      .createdTime!,
+                                                                  desc: false)
+                                                              .map((e) =>
+                                                                  e.amount)
+                                                              .toList(),
+                                                          _model
+                                                              .investmentDataList
+                                                              .where((e) =>
+                                                                  e.transactionType ==
+                                                                  TransactionType
+                                                                      .DEPOSIT)
+                                                              .toList()
+                                                              .sortedList(
+                                                                  keyOf: (e) => e
+                                                                      .createdTime!,
+                                                                  desc: false)
+                                                              .map(
+                                                                  (e) => e.amount)
+                                                              .toList(),
+                                                          true)
+                                                      .toList()
+                                                      .cast<double>();
+                                                  _model.profitList = functions
+                                                      .getBarchartData(
+                                                          _model
+                                                              .investmentDataList
+                                                              .where((e) =>
+                                                                  e.transactionType ==
+                                                                  TransactionType
+                                                                      .PROFIT)
+                                                              .toList()
+                                                              .sortedList(
+                                                                  keyOf: (e) => e
+                                                                      .createdTime!,
+                                                                  desc: false)
+                                                              .map((e) =>
+                                                                  e.amount)
+                                                              .toList(),
+                                                          _model
+                                                              .investmentDataList
+                                                              .where((e) =>
+                                                                  e.transactionType ==
+                                                                  TransactionType
+                                                                      .DEPOSIT)
+                                                              .toList()
+                                                              .sortedList(
+                                                                  keyOf: (e) => e
+                                                                      .createdTime!,
+                                                                  desc: false)
+                                                              .map(
+                                                                  (e) => e.amount)
+                                                              .toList(),
+                                                          false)
+                                                      .toList()
+                                                      .cast<double>();
+                                                  _model.monthlyDuration = 6;
+                                                  safeSetState(() {});
                                                 },
                                                 text:
                                                     FFLocalizations.of(context)
@@ -410,11 +406,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                                 options: FFButtonOptions(
                                                   height: 40.0,
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           24.0, 0.0, 24.0, 0.0),
                                                   iconPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(0.0, 0.0,
                                                               0.0, 0.0),
                                                   color: _model
@@ -441,8 +437,9 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                 : FlutterFlowTheme.of(
                                                                         context)
                                                                     .primaryText,
+                                                            letterSpacing: 0.0,
                                                           ),
-                                                  borderSide: const BorderSide(
+                                                  borderSide: BorderSide(
                                                     color: Colors.transparent,
                                                     width: 1.0,
                                                   ),
@@ -457,78 +454,75 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                         Expanded(
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              setState(() {
-                                                _model.investmentDataList = functions
-                                                    .getPeriodicData(
-                                                        _model
-                                                            .investmentDocList!
-                                                            .toList(),
-                                                        12)
-                                                    .toList()
-                                                    .cast<
-                                                        InvestmentDataMapStruct>();
-                                              });
-                                              setState(() {
-                                                _model.depositList = functions
-                                                    .getBarchartData(
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .PROFIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .DEPOSIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        true)
-                                                    .toList()
-                                                    .cast<double>();
-                                                _model.profitList = functions
-                                                    .getBarchartData(
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .PROFIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        _model
-                                                            .investmentDataList
-                                                            .where((e) =>
-                                                                e.transactionType ==
-                                                                TransactionType
-                                                                    .DEPOSIT)
-                                                            .toList()
-                                                            .sortedList((e) =>
-                                                                e.createdTime!)
-                                                            .map(
-                                                                (e) => e.amount)
-                                                            .toList(),
-                                                        false)
-                                                    .toList()
-                                                    .cast<double>();
-                                                _model.monthlyDuration = 12;
-                                              });
+                                              _model.investmentDataList = functions
+                                                  .getPeriodicData(
+                                                      _model.investmentDocList!
+                                                          .toList(),
+                                                      12)
+                                                  .toList()
+                                                  .cast<
+                                                      InvestmentDataMapStruct>();
+                                              safeSetState(() {});
+                                              _model.depositList = functions
+                                                  .getBarchartData(
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .PROFIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      true)
+                                                  .toList()
+                                                  .cast<double>();
+                                              _model.profitList = functions
+                                                  .getBarchartData(
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .PROFIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      _model.investmentDataList
+                                                          .where((e) =>
+                                                              e.transactionType ==
+                                                              TransactionType
+                                                                  .DEPOSIT)
+                                                          .toList()
+                                                          .sortedList(
+                                                              keyOf: (e) => e
+                                                                  .createdTime!,
+                                                              desc: false)
+                                                          .map((e) => e.amount)
+                                                          .toList(),
+                                                      false)
+                                                  .toList()
+                                                  .cast<double>();
+                                              _model.monthlyDuration = 12;
+                                              safeSetState(() {});
                                             },
                                             text: FFLocalizations.of(context)
                                                 .getText(
@@ -536,10 +530,10 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             ),
                                             options: FFButtonOptions(
                                               height: 40.0,
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
+                                              iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color: _model.monthlyDuration ==
                                                       12
@@ -561,9 +555,10 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         : FlutterFlowTheme.of(
                                                                 context)
                                                             .primaryText,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                              borderSide: const BorderSide(
+                                              borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 0.0,
                                               ),
@@ -572,12 +567,12 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             ),
                                           ),
                                         ),
-                                      ].divide(const SizedBox(width: 10.0)),
+                                      ].divide(SizedBox(width: 10.0)),
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 30.0, 5.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -594,6 +589,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               .override(
                                                 fontFamily: 'Inter',
                                                 fontSize: 18.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 lineHeight: 1.5,
                                               ),
@@ -608,23 +604,27 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               .override(
                                                 fontFamily: 'Inter',
                                                 fontSize: 18.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                                 lineHeight: 1.5,
                                               ),
                                         ),
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Container(
                                           height: 50.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
-                                            boxShadow: const [
+                                            boxShadow: [
                                               BoxShadow(
                                                 blurRadius: 3.0,
                                                 color: Color(0x33000000),
-                                                offset: Offset(0.0, 1.0),
+                                                offset: Offset(
+                                                  0.0,
+                                                  1.0,
+                                                ),
                                               )
                                             ],
                                             borderRadius:
@@ -639,7 +639,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             children: [
                                               if (_model.selectedChart == true)
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           7.0, 0.0, 7.0, 0.0),
                                                   child: InkWell(
@@ -652,21 +652,20 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      setState(() {
-                                                        _model.selectedChart =
-                                                            false;
-                                                      });
+                                                      _model.selectedChart =
+                                                          false;
+                                                      safeSetState(() {});
                                                     },
                                                     child: Container(
                                                       constraints:
-                                                          const BoxConstraints(
+                                                          BoxConstraints(
                                                         maxWidth: 50.0,
                                                       ),
                                                       decoration:
-                                                          const BoxDecoration(),
+                                                          BoxDecoration(),
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                            const BorderRadius.only(
+                                                            BorderRadius.only(
                                                           bottomLeft:
                                                               Radius.circular(
                                                                   0.0),
@@ -693,7 +692,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               if (_model.selectedChart == false)
                                                 ClipRRect(
                                                   borderRadius:
-                                                      const BorderRadius.only(
+                                                      BorderRadius.only(
                                                     bottomLeft:
                                                         Radius.circular(8.0),
                                                     bottomRight:
@@ -713,7 +712,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               if (_model.selectedChart == true)
                                                 ClipRRect(
                                                   borderRadius:
-                                                      const BorderRadius.only(
+                                                      BorderRadius.only(
                                                     bottomLeft:
                                                         Radius.circular(0.0),
                                                     bottomRight:
@@ -732,7 +731,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                               if (_model.selectedChart == false)
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           7.0, 0.0, 7.0, 0.0),
                                                   child: InkWell(
@@ -745,18 +744,17 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      setState(() {
-                                                        _model.selectedChart =
-                                                            true;
-                                                      });
+                                                      _model.selectedChart =
+                                                          true;
+                                                      safeSetState(() {});
                                                     },
                                                     child: Container(
                                                       constraints:
-                                                          const BoxConstraints(
+                                                          BoxConstraints(
                                                         maxWidth: 50.0,
                                                       ),
                                                       decoration:
-                                                          const BoxDecoration(),
+                                                          BoxDecoration(),
                                                       child: ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
@@ -779,7 +777,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 30.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -796,13 +794,14 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 24.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               lineHeight: 1.5,
                                             ),
                                       ),
                                       Align(
                                         alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Text(
                                             valueOrDefault<String>(
@@ -823,6 +822,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 .override(
                                                   fontFamily: 'Tajawal',
                                                   fontSize: 32.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                           ),
@@ -832,12 +832,12 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 30.0, 0.0, 0.0),
                                   child: Stack(
                                     children: [
                                       if (_model.selectedChart == true)
-                                        SizedBox(
+                                        Container(
                                           width: double.infinity,
                                           height: 265.0,
                                           child: Stack(
@@ -855,7 +855,9 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .WITHDRAW))
                                                       .toList()
                                                       .sortedList(
-                                                          (e) => e.createdTime!)
+                                                          keyOf: (e) =>
+                                                              e.createdTime!,
+                                                          desc: false)
                                                       .map((e) => e.amount)
                                                       .toList(),
                                                   colors:
@@ -877,6 +879,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           fontSize: 16.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -893,7 +896,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     1.0, 1.2),
                                                 child:
                                                     FlutterFlowChartLegendWidget(
@@ -908,7 +911,9 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .WITHDRAW))
                                                       .toList()
                                                       .sortedList(
-                                                          (e) => e.createdTime!)
+                                                          keyOf: (e) =>
+                                                              e.createdTime!,
+                                                          desc: false)
                                                       .map((e) =>
                                                           e.transactionTypeStr)
                                                       .toList()
@@ -926,15 +931,18 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       .toList(),
                                                   width: 100.0,
                                                   height: 60.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Tajawal',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                   textPadding:
-                                                      const EdgeInsetsDirectional
+                                                      EdgeInsetsDirectional
                                                           .fromSTEB(5.0, 0.0,
                                                               0.0, 0.0),
-                                                  padding: const EdgeInsetsDirectional
+                                                  padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           10.0, 0.0, 5.0, 0.0),
                                                   borderWidth: 1.0,
@@ -947,7 +955,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           ),
                                         ),
                                       if (_model.selectedChart == false)
-                                        SizedBox(
+                                        Container(
                                           width: double.infinity,
                                           height: 265.0,
                                           child: FlutterFlowBarChart(
@@ -997,11 +1005,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       .secondaryText,
                                               borderWidth: 1.0,
                                             ),
-                                            axisBounds: const AxisBounds(
+                                            axisBounds: AxisBounds(
                                               minY: 0.0,
                                               maxY: 20000.0,
                                             ),
-                                            xAxisLabelInfo: const AxisLabelInfo(),
+                                            xAxisLabelInfo: AxisLabelInfo(),
                                             yAxisLabelInfo: AxisLabelInfo(
                                               showLabels: true,
                                               labelTextStyle:
@@ -1010,6 +1018,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         fontSize: 7.5,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w800,
                                                       ),
@@ -1029,7 +1038,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                     ],
                                   ),
                                 ),
-                                const Divider(
+                                Divider(
                                   height: 40.0,
                                   thickness: 1.0,
                                   color: Color(0x24000000),
@@ -1043,7 +1052,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                       width: double.infinity,
                                       height: 70.0,
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
+                                        gradient: LinearGradient(
                                           colors: [
                                             Color(0x404B5195),
                                             Color(0x3FEF9E6E)
@@ -1058,7 +1067,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             10.0, 7.5, 10.0, 7.5),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -1081,7 +1090,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   ),
                                                   child: Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Container(
                                                       width: 35.0,
@@ -1117,11 +1126,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(15.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Column(
@@ -1150,6 +1159,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                         context)
                                                                     .primary,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1193,16 +1204,18 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Tajawal',
-                                                                color: const Color(
+                                                                color: Color(
                                                                     0xFF00B016),
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
                                                                 lineHeight: 1.0,
                                                               ),
                                                         ),
-                                                      ].divide(const SizedBox(
+                                                      ].divide(SizedBox(
                                                           height: 10.0)),
                                                     ),
                                                   ),
@@ -1210,7 +1223,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               ],
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   1.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -1238,6 +1251,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primary,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -1251,7 +1265,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                       width: double.infinity,
                                       height: 70.0,
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
+                                        gradient: LinearGradient(
                                           colors: [
                                             Color(0x3F4B5195),
                                             Color(0x58EF9E6E)
@@ -1266,7 +1280,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             10.0, 7.5, 10.0, 7.5),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -1289,7 +1303,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   ),
                                                   child: Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Container(
                                                       width: 35.0,
@@ -1316,11 +1330,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(15.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Column(
@@ -1349,6 +1363,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                         context)
                                                                     .primary,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1404,9 +1420,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Tajawal',
-                                                                color: const Color(
+                                                                color: Color(
                                                                     0xFF00B016),
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1414,7 +1432,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                     1.25,
                                                               ),
                                                         ),
-                                                      ].divide(const SizedBox(
+                                                      ].divide(SizedBox(
                                                           height: 10.0)),
                                                     ),
                                                   ),
@@ -1422,7 +1440,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                               ],
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   1.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -1450,6 +1468,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primary,
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -1463,7 +1482,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                       width: double.infinity,
                                       height: 70.0,
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
+                                        gradient: LinearGradient(
                                           colors: [
                                             Color(0x3F4B5195),
                                             Color(0x58EF9E6E)
@@ -1478,7 +1497,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1500,7 +1519,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   ),
                                                   child: Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Container(
                                                       width: 35.0,
@@ -1527,11 +1546,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(15.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Column(
@@ -1546,7 +1565,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -1569,6 +1588,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                       .primary,
                                                                   fontSize:
                                                                       16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -1579,7 +1600,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         ),
                                                         Text(
                                                           'Latest: ${dateTimeFormat(
-                                                            'yMMMd',
+                                                            "yMMMd",
                                                             _model
                                                                 .investmentDataList
                                                                 .where((e) =>
@@ -1587,10 +1608,12 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                     TransactionType
                                                                         .WITHDRAW)
                                                                 .toList()
-                                                                .sortedList((e) =>
-                                                                    e.createdTime!)
-                                                                .last
-                                                                .createdTime,
+                                                                .sortedList(
+                                                                    keyOf: (e) =>
+                                                                        e.createdTime!,
+                                                                    desc: false)
+                                                                .lastOrNull
+                                                                ?.createdTime,
                                                             locale: FFLocalizations
                                                                     .of(context)
                                                                 .languageCode,
@@ -1605,6 +1628,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1647,6 +1672,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                             context)
                                                         .primary,
                                                     fontSize: 18.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
@@ -1658,7 +1684,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                       width: double.infinity,
                                       height: 70.0,
                                       decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
+                                        gradient: LinearGradient(
                                           colors: [
                                             Color(0x3F4B5195),
                                             Color(0x58EF9E6E)
@@ -1673,7 +1699,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                             BorderRadius.circular(16.0),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1695,7 +1721,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   ),
                                                   child: Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Container(
                                                       width: 35.0,
@@ -1721,11 +1747,11 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      const AlignmentDirectional(
+                                                      AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(15.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Column(
@@ -1740,7 +1766,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsetsDirectional
+                                                              EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
                                                                       0.0,
@@ -1763,6 +1789,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                       .primary,
                                                                   fontSize:
                                                                       16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -1773,7 +1801,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         ),
                                                         Text(
                                                           'Latest: ${dateTimeFormat(
-                                                            'yMMMd',
+                                                            "yMMMd",
                                                             _model
                                                                 .investmentDataList
                                                                 .where((e) =>
@@ -1781,10 +1809,12 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                     TransactionType
                                                                         .COMMISSION)
                                                                 .toList()
-                                                                .sortedList((e) =>
-                                                                    e.createdTime!)
-                                                                .last
-                                                                .createdTime,
+                                                                .sortedList(
+                                                                    keyOf: (e) =>
+                                                                        e.createdTime!,
+                                                                    desc: false)
+                                                                .lastOrNull
+                                                                ?.createdTime,
                                                             locale: FFLocalizations
                                                                     .of(context)
                                                                 .languageCode,
@@ -1799,6 +1829,8 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 14.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1840,6 +1872,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                             context)
                                                         .primary,
                                                     fontSize: 18.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
@@ -1847,13 +1880,13 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                         ),
                                       ),
                                     ),
-                                  ].divide(const SizedBox(height: 15.0)),
+                                  ].divide(SizedBox(height: 15.0)),
                                 ),
                               ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 20.0, 20.0, 20.0, 20.0),
                             child: Material(
                               color: Colors.transparent,
@@ -1863,7 +1896,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                               ),
                               child: Container(
                                 width: double.infinity,
-                                constraints: const BoxConstraints(
+                                constraints: BoxConstraints(
                                   maxHeight: 400.0,
                                 ),
                                 decoration: BoxDecoration(
@@ -1877,11 +1910,14 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                         .getPeriodicData(
                                             _model.investmentDocList!.toList(),
                                             _model.monthlyDuration)
-                                        .sortedList((e) => e.createdTime!)
+                                        .sortedList(
+                                            keyOf: (e) => e.createdTime!,
+                                            desc: false)
                                         .toList();
                                     if (currentInvestmentDataList.isEmpty) {
-                                      return const EmptyListWidget();
+                                      return EmptyListWidget();
                                     }
+
                                     return FlutterFlowDataTable<
                                         InvestmentDataMapStruct>(
                                       controller:
@@ -1892,7 +1928,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -1909,6 +1945,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -1923,7 +1960,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -1939,6 +1976,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -1953,7 +1991,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -1969,6 +2007,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -1983,7 +2022,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -2000,6 +2039,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -2014,7 +2054,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -2030,6 +2070,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -2044,7 +2085,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           label: DefaultTextStyle.merge(
                                             softWrap: true,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 FFLocalizations.of(context)
@@ -2060,6 +2101,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                                   .of(context)
                                                               .primaryBackground,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
@@ -2077,20 +2119,20 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                   selected,
                                                   onSelectChanged) =>
                                               DataRow(
-                                        color: MaterialStateProperty.all(
+                                        color: WidgetStateProperty.all(
                                           currentInvestmentDataListIndex % 2 ==
                                                   0
                                               ? FlutterFlowTheme.of(context)
                                                   .secondaryBackground
-                                              : const Color(0x1FE45604),
+                                              : Color(0x1FE45604),
                                         ),
                                         cells: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               dateTimeFormat(
-                                                'd/M/y',
+                                                "d/M/y",
                                                 currentInvestmentDataListItem
                                                     .createdTime!,
                                                 locale:
@@ -2104,6 +2146,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       .override(
                                                         fontFamily: 'Tajawal',
                                                         fontSize: 11.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
@@ -2115,7 +2158,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .transactionType ==
                                                     TransactionType.DEPOSIT,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -2134,6 +2177,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .override(
                                                           fontFamily: 'Tajawal',
                                                           fontSize: 11.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -2146,7 +2190,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .transactionType ==
                                                     TransactionType.PROFIT,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -2165,6 +2209,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .override(
                                                           fontFamily: 'Tajawal',
                                                           fontSize: 11.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -2177,7 +2222,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .transactionType ==
                                                     TransactionType.PROFIT,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -2202,6 +2247,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .override(
                                                           fontFamily: 'Tajawal',
                                                           fontSize: 11.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -2214,7 +2260,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .transactionType ==
                                                     TransactionType.WITHDRAW,
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 formatNumber(
@@ -2233,6 +2279,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                         .override(
                                                           fontFamily: 'Tajawal',
                                                           fontSize: 11.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -2241,7 +2288,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(0.0, 0.0),
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               formatNumber(
                                                 currentInvestmentDataListItem
@@ -2258,6 +2305,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                                       .override(
                                                         fontFamily: 'Tajawal',
                                                         fontSize: 11.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                       ),
@@ -2265,7 +2313,7 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           ),
                                         ].map((c) => DataCell(c)).toList(),
                                       ),
-                                      emptyBuilder: () => const EmptyListWidget(),
+                                      emptyBuilder: () => EmptyListWidget(),
                                       paginated: true,
                                       selectable: false,
                                       hidePaginator: false,
@@ -2278,10 +2326,12 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                                           FlutterFlowTheme.of(context).primary,
                                       borderRadius: BorderRadius.circular(12.0),
                                       addHorizontalDivider: true,
-                                      horizontalDividerColor: const Color(0x1FE45604),
+                                      addTopAndBottomDivider: false,
+                                      hideDefaultHorizontalDivider: false,
+                                      horizontalDividerColor: Color(0x1FE45604),
                                       horizontalDividerThickness: 0.5,
                                       addVerticalDivider: true,
-                                      verticalDividerColor: const Color(0x1FE45604),
+                                      verticalDividerColor: Color(0x1FE45604),
                                       verticalDividerThickness: 0.5,
                                     );
                                   },
@@ -2296,9 +2346,9 @@ class _BarchartWidgetState extends State<BarchartWidget> {
                 );
               } else {
                 return Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Lottie.asset(
-                    'assets/lottie_animations/barchart.json',
+                    'assets/jsons/barchart.json',
                     width: 150.0,
                     height: 130.0,
                     fit: BoxFit.contain,

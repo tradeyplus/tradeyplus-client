@@ -9,13 +9,13 @@ export 'package:fl_chart/fl_chart.dart'
 
 class FlutterFlowLineChart extends StatelessWidget {
   const FlutterFlowLineChart({
-    super.key,
+    Key? key,
     required this.data,
     required this.xAxisLabelInfo,
     required this.yAxisLabelInfo,
     required this.axisBounds,
     this.chartStylingInfo = const ChartStylingInfo(),
-  });
+  }) : super(key: key);
 
   final List<FFLineChartData> data;
   final AxisLabelInfo xAxisLabelInfo;
@@ -32,7 +32,8 @@ class FlutterFlowLineChart extends StatelessWidget {
           lineTouchData: LineTouchData(
             handleBuiltInTouches: chartStylingInfo.enableTooltip,
             touchTooltipData: LineTouchTooltipData(
-              tooltipBgColor: chartStylingInfo.tooltipBackgroundColor,
+              getTooltipColor: (group) =>
+                  chartStylingInfo.tooltipBackgroundColor ?? Colors.black,
             ),
           ),
           gridData: FlGridData(show: chartStylingInfo.showGrid),
@@ -59,7 +60,7 @@ class FlutterFlowLineChart extends StatelessWidget {
 
 class FlutterFlowBarChart extends StatelessWidget {
   const FlutterFlowBarChart({
-    super.key,
+    Key? key,
     required this.barData,
     required this.xLabels,
     required this.xAxisLabelInfo,
@@ -72,7 +73,7 @@ class FlutterFlowBarChart extends StatelessWidget {
     this.groupSpace,
     this.alignment = BarChartAlignment.center,
     this.chartStylingInfo = const ChartStylingInfo(),
-  });
+  }) : super(key: key);
 
   final List<FFBarChartData> barData;
   final List<String> xLabels;
@@ -153,7 +154,8 @@ class FlutterFlowBarChart extends StatelessWidget {
         barTouchData: BarTouchData(
           handleBuiltInTouches: chartStylingInfo.enableTooltip,
           touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: chartStylingInfo.tooltipBackgroundColor,
+            getTooltipColor: (group) =>
+                chartStylingInfo.tooltipBackgroundColor ?? Colors.black,
           ),
         ),
         alignment: alignment,
@@ -191,14 +193,14 @@ enum PieChartSectionLabelType {
 
 class FlutterFlowPieChart extends StatelessWidget {
   const FlutterFlowPieChart({
-    super.key,
+    Key? key,
     required this.data,
     this.donutHoleRadius = 0,
     this.donutHoleColor = Colors.transparent,
     this.sectionLabelType = PieChartSectionLabelType.none,
     this.sectionLabelStyle,
     this.labelFormatter = const LabelFormatter(),
-  });
+  }) : super(key: key);
 
   final FFPieChartData data;
   final double donutHoleRadius;
@@ -261,7 +263,7 @@ class FlutterFlowPieChart extends StatelessWidget {
 
 class FlutterFlowChartLegendWidget extends StatelessWidget {
   const FlutterFlowChartLegendWidget({
-    super.key,
+    Key? key,
     required this.entries,
     this.width,
     this.height,
@@ -274,7 +276,7 @@ class FlutterFlowChartLegendWidget extends StatelessWidget {
     this.indicatorSize = 10,
     this.indicatorBorderRadius,
     this.textPadding = const EdgeInsets.all(0),
-  });
+  }) : super(key: key);
 
   final List<LegendEntry> entries;
   final double? width;
@@ -365,6 +367,7 @@ class AxisLabelInfo {
     this.labelTextStyle,
     this.labelInterval,
     this.labelFormatter = const LabelFormatter(),
+    this.reservedSize,
   });
 
   final String title;
@@ -373,6 +376,7 @@ class AxisLabelInfo {
   final TextStyle? labelTextStyle;
   final double? labelInterval;
   final LabelFormatter labelFormatter;
+  final double? reservedSize;
 }
 
 class LabelFormatter {
@@ -498,7 +502,7 @@ FlTitlesData getTitlesData(
               ),
         axisNameSize: xAxisLabelInfo.titleTextStyle?.fontSize != null
             ? xAxisLabelInfo.titleTextStyle!.fontSize! + 12
-            : null,
+            : 16,
         sideTitles: SideTitles(
           getTitlesWidget: (val, _) => getXTitlesWidget != null
               ? getXTitlesWidget(val, _)
@@ -508,6 +512,7 @@ FlTitlesData getTitlesData(
                 ),
           showTitles: xAxisLabelInfo.showLabels,
           interval: xAxisLabelInfo.labelInterval,
+          reservedSize: xAxisLabelInfo.reservedSize ?? 22,
         ),
       ),
       rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -521,7 +526,7 @@ FlTitlesData getTitlesData(
               ),
         axisNameSize: yAxisLabelInfo.titleTextStyle?.fontSize != null
             ? yAxisLabelInfo.titleTextStyle!.fontSize! + 12
-            : null,
+            : 16,
         sideTitles: SideTitles(
           getTitlesWidget: (val, _) => Text(
             formatLabel(yAxisLabelInfo.labelFormatter, val),
@@ -529,6 +534,7 @@ FlTitlesData getTitlesData(
           ),
           showTitles: yAxisLabelInfo.showLabels,
           interval: yAxisLabelInfo.labelInterval,
+          reservedSize: yAxisLabelInfo.reservedSize ?? 22,
         ),
       ),
     );

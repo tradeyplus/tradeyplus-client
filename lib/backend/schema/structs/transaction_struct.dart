@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class TransactionStruct extends FFFirebaseStruct {
@@ -23,19 +21,23 @@ class TransactionStruct extends FFFirebaseStruct {
   TransactionType get transactionType =>
       _transactionType ?? TransactionType.DEPOSIT;
   set transactionType(TransactionType? val) => _transactionType = val;
+
   bool hasTransactionType() => _transactionType != null;
 
   // "amount" field.
   double? _amount;
   double get amount => _amount ?? 0.0;
   set amount(double? val) => _amount = val;
-  void incrementAmount(double amount) => _amount = amount + amount;
+
+  void incrementAmount(double amount) => amount = amount + amount;
+
   bool hasAmount() => _amount != null;
 
   static TransactionStruct fromMap(Map<String, dynamic> data) =>
       TransactionStruct(
-        transactionType:
-            deserializeEnum<TransactionType>(data['transaction_type']),
+        transactionType: data['transaction_type'] is TransactionType
+            ? data['transaction_type']
+            : deserializeEnum<TransactionType>(data['transaction_type']),
         amount: castToType<double>(data['amount']),
       );
 

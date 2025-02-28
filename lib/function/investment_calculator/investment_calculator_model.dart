@@ -15,42 +15,35 @@ class InvestmentCalculatorModel
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for monthlyAmount widget.
   FocusNode? monthlyAmountFocusNode;
-  TextEditingController? monthlyAmountController;
-  String? Function(BuildContext, String?)? monthlyAmountControllerValidator;
+  TextEditingController? monthlyAmountTextController;
+  String? Function(BuildContext, String?)? monthlyAmountTextControllerValidator;
   // State field(s) for billAmount widget.
   FocusNode? billAmountFocusNode;
-  TextEditingController? billAmountController;
-  String? Function(BuildContext, String?)? billAmountControllerValidator;
+  TextEditingController? billAmountTextController;
+  String? Function(BuildContext, String?)? billAmountTextControllerValidator;
   // State field(s) for yieldPercentage widget.
   FocusNode? yieldPercentageFocusNode;
-  TextEditingController? yieldPercentageController;
-  String? Function(BuildContext, String?)? yieldPercentageControllerValidator;
+  TextEditingController? yieldPercentageTextController;
+  String? Function(BuildContext, String?)?
+      yieldPercentageTextControllerValidator;
   // State field(s) for DropDown widget.
   int? dropDownValue;
   FormFieldController<int>? dropDownValueController;
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     monthlyAmountFocusNode?.dispose();
-    monthlyAmountController?.dispose();
+    monthlyAmountTextController?.dispose();
 
     billAmountFocusNode?.dispose();
-    billAmountController?.dispose();
+    billAmountTextController?.dispose();
 
     yieldPercentageFocusNode?.dispose();
-    yieldPercentageController?.dispose();
+    yieldPercentageTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

@@ -3,9 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class ForexDataStruct extends FFFirebaseStruct {
@@ -33,52 +31,64 @@ class ForexDataStruct extends FFFirebaseStruct {
   String? _currency;
   String get currency => _currency ?? '';
   set currency(String? val) => _currency = val;
+
   bool hasCurrency() => _currency != null;
 
   // "endpoint" field.
   String? _endpoint;
   String get endpoint => _endpoint ?? '';
   set endpoint(String? val) => _endpoint = val;
+
   bool hasEndpoint() => _endpoint != null;
 
   // "close" field.
   double? _close;
   double get close => _close ?? 0.0;
   set close(double? val) => _close = val;
-  void incrementClose(double amount) => _close = close + amount;
+
+  void incrementClose(double amount) => close = close + amount;
+
   bool hasClose() => _close != null;
 
   // "high" field.
   double? _high;
   double get high => _high ?? 0.0;
   set high(double? val) => _high = val;
-  void incrementHigh(double amount) => _high = high + amount;
+
+  void incrementHigh(double amount) => high = high + amount;
+
   bool hasHigh() => _high != null;
 
   // "low" field.
   double? _low;
   double get low => _low ?? 0.0;
   set low(double? val) => _low = val;
-  void incrementLow(double amount) => _low = low + amount;
+
+  void incrementLow(double amount) => low = low + amount;
+
   bool hasLow() => _low != null;
 
   // "open" field.
   double? _open;
   double get open => _open ?? 0.0;
   set open(double? val) => _open = val;
-  void incrementOpen(double amount) => _open = open + amount;
+
+  void incrementOpen(double amount) => open = open + amount;
+
   bool hasOpen() => _open != null;
 
   // "date_time" field.
   String? _dateTime;
   String get dateTime => _dateTime ?? '';
   set dateTime(String? val) => _dateTime = val;
+
   bool hasDateTime() => _dateTime != null;
 
   // "request_time" field.
   String? _requestTime;
   String get requestTime => _requestTime ?? '';
   set requestTime(String? val) => _requestTime = val;
+
   bool hasRequestTime() => _requestTime != null;
 
   static ForexDataStruct fromMap(Map<String, dynamic> data) => ForexDataStruct(

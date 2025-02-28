@@ -9,12 +9,14 @@ import '/flutter_flow/upload_data.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
 class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({super.key});
+
+  static String routeName = 'EditProfile';
+  static String routePath = '/editProfile';
 
   @override
   State<EditProfileWidget> createState() => _EditProfileWidgetState();
@@ -30,27 +32,28 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     super.initState();
     _model = createModel(context, () => EditProfileModel());
 
-    _model.nameController1 ??=
+    _model.nameTextController1 ??=
         TextEditingController(text: currentUserDisplayName);
     _model.nameFocusNode1 ??= FocusNode();
 
-    _model.emailController ??= TextEditingController(text: currentUserEmail);
+    _model.emailTextController ??=
+        TextEditingController(text: currentUserEmail);
     _model.emailFocusNode ??= FocusNode();
 
-    _model.phonenumberController ??=
+    _model.phonenumberTextController ??=
         TextEditingController(text: currentPhoneNumber);
     _model.phonenumberFocusNode ??= FocusNode();
 
-    _model.nameController2 ??= TextEditingController(
+    _model.nameTextController2 ??= TextEditingController(
         text: valueOrDefault<String>(
       _model.datePicked != null
           ? dateTimeFormat(
-              'yMMMd',
+              "yMMMd",
               _model.datePicked,
               locale: FFLocalizations.of(context).languageCode,
             )
           : dateTimeFormat(
-              'yMMMd',
+              "yMMMd",
               currentUserDocument?.dob,
               locale: FFLocalizations.of(context).languageCode,
             ),
@@ -58,7 +61,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
     ));
     _model.nameFocusNode2 ??= FocusNode();
 
-    _model.addressController ??= TextEditingController(
+    _model.addressTextController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.address, ''));
     _model.addressFocusNode ??= FocusNode();
   }
@@ -72,17 +75,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
@@ -111,10 +103,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 fontFamily: 'Outfit',
                 color: FlutterFlowTheme.of(context).primary,
                 fontSize: 22.0,
+                letterSpacing: 0.0,
                 fontWeight: FontWeight.normal,
               ),
         ),
-        actions: const [],
+        actions: [],
         centerTitle: true,
         elevation: 0.0,
       ),
@@ -124,7 +117,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,14 +133,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         context: context,
                         imageQuality: 80,
                         allowPhoto: true,
-                        backgroundColor: const Color(0xFFF1F4F8),
-                        textColor: const Color(0xFF14181B),
+                        backgroundColor: Color(0xFFF1F4F8),
+                        textColor: Color(0xFF14181B),
                         pickerFontFamily: 'Outfit',
                       );
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => _model.isDataUploading = true);
+                        safeSetState(() => _model.isDataUploading = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         var downloadUrls = <String>[];
@@ -183,22 +176,21 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         if (selectedUploadedFiles.length ==
                                 selectedMedia.length &&
                             downloadUrls.length == selectedMedia.length) {
-                          setState(() {
+                          safeSetState(() {
                             _model.uploadedLocalFile =
                                 selectedUploadedFiles.first;
                             _model.uploadedFileUrl = downloadUrls.first;
                           });
                           showUploadMessage(context, 'Success!');
                         } else {
-                          setState(() {});
+                          safeSetState(() {});
                           showUploadMessage(context, 'Failed to upload data');
                           return;
                         }
                       }
 
-                      setState(() {
-                        _model.isChanged = true;
-                      });
+                      _model.isChanged = true;
+                      safeSetState(() {});
                     },
                     child: Container(
                       width: 100.0,
@@ -211,7 +203,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       child: Stack(
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 10.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => ClipRRect(
@@ -229,12 +221,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(1.0, 1.0),
+                            alignment: AlignmentDirectional(1.0, 1.0),
                             child: Container(
                               width: MediaQuery.sizeOf(context).width * 0.07,
                               height: MediaQuery.sizeOf(context).height * 0.03,
                               decoration: BoxDecoration(
-                                color: const Color(0xFFAAC8E0),
+                                color: Color(0xFFAAC8E0),
                                 borderRadius: BorderRadius.circular(8.0),
                                 border: Border.all(
                                   color: FlutterFlowTheme.of(context)
@@ -263,14 +255,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 '7ecc2zoh' /* Your Name */,
@@ -281,29 +273,29 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     fontFamily: 'Tajawal',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ),
                           AuthUserStreamWidget(
                             builder: (context) => TextFormField(
-                              controller: _model.nameController1,
+                              controller: _model.nameTextController1,
                               focusNode: _model.nameFocusNode1,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.nameController1',
-                                const Duration(milliseconds: 100),
+                                '_model.nameTextController1',
+                                Duration(milliseconds: 100),
                                 () async {
-                                  setState(() {
-                                    _model.isChanged = true;
-                                  });
+                                  _model.isChanged = true;
+                                  safeSetState(() {});
                                 },
                               ),
-                              autofillHints: const [AutofillHints.name],
+                              autofillHints: [AutofillHints.name],
                               textCapitalization: TextCapitalization.words,
                               textInputAction: TextInputAction.done,
                               obscureText: false,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 1.0,
                                   ),
@@ -318,14 +310,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
@@ -334,7 +326,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 24.0, 0.0, 24.0),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -344,26 +336,27 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
-                              validator: _model.nameController1Validator
+                              validator: _model.nameTextController1Validator
                                   .asValidator(context),
                             ),
                           ),
-                        ].divide(const SizedBox(height: 4.0)),
+                        ].divide(SizedBox(height: 4.0)),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 '5l1clr8k' /* Email */,
@@ -374,11 +367,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     fontFamily: 'Tajawal',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ),
                           TextFormField(
-                            controller: _model.emailController,
+                            controller: _model.emailTextController,
                             focusNode: _model.emailFocusNode,
                             textCapitalization: TextCapitalization.words,
                             readOnly: true,
@@ -391,10 +385,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFFE0E3E7),
                                   width: 1.0,
                                 ),
@@ -409,22 +404,22 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFFFF5963),
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFFFF5963),
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               filled: true,
-                              fillColor: const Color(0xFF9B9B9B),
-                              contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                              fillColor: Color(0xFF9B9B9B),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
                                   20.0, 24.0, 0.0, 24.0),
                             ),
                             style: FlutterFlowTheme.of(context)
@@ -434,25 +429,26 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   fontSize: 14.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
-                            validator: _model.emailControllerValidator
+                            validator: _model.emailTextControllerValidator
                                 .asValidator(context),
                           ),
-                        ].divide(const SizedBox(height: 4.0)),
+                        ].divide(SizedBox(height: 4.0)),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 'cp5547hl' /* Phone Number */,
@@ -463,17 +459,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     fontFamily: 'Tajawal',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ),
                           AuthUserStreamWidget(
                             builder: (context) => TextFormField(
-                              controller: _model.phonenumberController,
+                              controller: _model.phonenumberTextController,
                               focusNode: _model.phonenumberFocusNode,
                               textCapitalization: TextCapitalization.words,
                               readOnly: true,
                               obscureText: false,
                               decoration: InputDecoration(
+                                isDense: false,
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -481,6 +479,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
@@ -490,10 +489,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 1.0,
                                   ),
@@ -508,22 +508,22 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 filled: true,
-                                fillColor: const Color(0xFF9B9B9B),
-                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                fillColor: Color(0xFF9B9B9B),
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 24.0, 0.0, 24.0),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -533,27 +533,29 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                               keyboardType: TextInputType.number,
-                              validator: _model.phonenumberControllerValidator
+                              validator: _model
+                                  .phonenumberTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
-                        ].divide(const SizedBox(height: 4.0)),
+                        ].divide(SizedBox(height: 4.0)),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 's3r2j8g3' /* Date of Birth */,
@@ -564,18 +566,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     fontFamily: 'Tajawal',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, 0.0),
+                            alignment: AlignmentDirectional(-1.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final datePickedDate = await showDatePicker(
+                                final _datePickedDate = await showDatePicker(
                                   context: context,
                                   initialDate: getCurrentTimestamp,
                                   firstDate: DateTime(1900),
@@ -594,6 +597,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                               .override(
                                                 fontFamily: 'Inter',
                                                 fontSize: 32.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                       pickerBackgroundColor:
@@ -614,18 +618,21 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   },
                                 );
 
-                                if (datePickedDate != null) {
+                                if (_datePickedDate != null) {
                                   safeSetState(() {
                                     _model.datePicked = DateTime(
-                                      datePickedDate.year,
-                                      datePickedDate.month,
-                                      datePickedDate.day,
+                                      _datePickedDate.year,
+                                      _datePickedDate.month,
+                                      _datePickedDate.day,
                                     );
                                   });
+                                } else if (_model.datePicked != null) {
+                                  safeSetState(() {
+                                    _model.datePicked = getCurrentTimestamp;
+                                  });
                                 }
-                                setState(() {
-                                  _model.isChanged = true;
-                                });
+                                _model.isChanged = true;
+                                safeSetState(() {});
                               },
                               child: Container(
                                 width: double.infinity,
@@ -639,18 +646,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
                                 ),
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
-                                    controller: _model.nameController2,
+                                    controller: _model.nameTextController2,
                                     focusNode: _model.nameFocusNode2,
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.nameController2',
-                                      const Duration(milliseconds: 100),
+                                      '_model.nameTextController2',
+                                      Duration(milliseconds: 100),
                                       () async {
-                                        setState(() {
-                                          _model.isChanged = true;
-                                        });
+                                        _model.isChanged = true;
+                                        safeSetState(() {});
                                       },
                                     ),
                                     textCapitalization:
@@ -659,7 +665,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 1.0,
                                         ),
@@ -676,7 +682,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       errorBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 1.0,
                                         ),
@@ -684,7 +690,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 1.0,
                                         ),
@@ -695,7 +701,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       fillColor: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                       contentPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               20.0, 24.0, 0.0, 24.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
@@ -705,29 +711,31 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           fontSize: 14.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
                                         ),
-                                    validator: _model.nameController2Validator
+                                    validator: _model
+                                        .nameTextController2Validator
                                         .asValidator(context),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ].divide(const SizedBox(height: 4.0)),
+                        ].divide(SizedBox(height: 4.0)),
                       ),
                     ),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: Container(
-                      decoration: const BoxDecoration(),
+                      decoration: BoxDecoration(),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
+                            alignment: AlignmentDirectional(-1.0, -1.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
                                 'te0wzduc' /* Address */,
@@ -738,23 +746,23 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     fontFamily: 'Tajawal',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ),
                           AuthUserStreamWidget(
                             builder: (context) => TextFormField(
-                              controller: _model.addressController,
+                              controller: _model.addressTextController,
                               focusNode: _model.addressFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.addressController',
-                                const Duration(milliseconds: 100),
+                                '_model.addressTextController',
+                                Duration(milliseconds: 100),
                                 () async {
-                                  setState(() {
-                                    _model.isChanged = true;
-                                  });
+                                  _model.isChanged = true;
+                                  safeSetState(() {});
                                 },
                               ),
-                              autofillHints: const [AutofillHints.streetAddressLine1],
+                              autofillHints: [AutofillHints.streetAddressLine1],
                               textCapitalization: TextCapitalization.sentences,
                               textInputAction: TextInputAction.done,
                               obscureText: false,
@@ -763,8 +771,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: const Color(0xFF57636C),
+                                      color: Color(0xFF57636C),
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
@@ -774,10 +783,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       fontSize: 14.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.normal,
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 1.0,
                                   ),
@@ -791,14 +801,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
+                                  borderSide: BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 1.0,
                                   ),
@@ -807,7 +817,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 filled: true,
                                 fillColor: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 24.0, 0.0, 24.0),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -817,6 +827,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                               textAlign: TextAlign.start,
@@ -830,11 +841,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                       maxLength}) =>
                                   null,
                               keyboardType: TextInputType.streetAddress,
-                              validator: _model.addressControllerValidator
+                              validator: _model.addressTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
-                        ].divide(const SizedBox(height: 4.0)),
+                        ].divide(SizedBox(height: 4.0)),
                       ),
                     ),
                   ),
@@ -842,14 +853,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               ),
             ),
             Align(
-              alignment: const AlignmentDirectional(0.0, 0.05),
+              alignment: AlignmentDirectional(0.0, 0.05),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: ((_model.isChanged == false) ||
                           (_model.datePicked == null) ||
-                          (_model.nameController1.text == '') ||
-                          (_model.addressController.text == ''))
+                          (_model.nameTextController1.text == '') ||
+                          (_model.addressTextController.text == ''))
                       ? null
                       : () async {
                           if (_model.formKey.currentState == null ||
@@ -859,8 +870,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
                           await currentUserReference!
                               .update(createUsersRecordData(
-                            displayName: _model.nameController1.text,
-                            address: _model.addressController.text,
+                            displayName: _model.nameTextController1.text,
+                            address: _model.addressTextController.text,
                             dob: _model.datePicked,
                           ));
                         },
@@ -870,24 +881,25 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   options: FFButtonOptions(
                     width: 270.0,
                     height: 50.0,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle:
                         FlutterFlowTheme.of(context).titleMedium.override(
                               fontFamily: 'Plus Jakarta Sans',
                               color: Colors.white,
                               fontSize: 18.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.normal,
                             ),
                     elevation: 2.0,
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
-                    disabledColor: const Color(0xFF9B9B9B),
+                    disabledColor: Color(0xFF9B9B9B),
                   ),
                 ),
               ),

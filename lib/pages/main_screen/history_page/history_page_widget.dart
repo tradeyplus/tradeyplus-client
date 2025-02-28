@@ -7,13 +7,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'history_page_model.dart';
 export 'history_page_model.dart';
 
 class HistoryPageWidget extends StatefulWidget {
   const HistoryPageWidget({super.key});
+
+  static String routeName = 'HistoryPage';
+  static String routePath = '/historyPage';
 
   @override
   State<HistoryPageWidget> createState() => _HistoryPageWidgetState();
@@ -39,17 +40,6 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return FutureBuilder<List<InvestmentDataRecord>>(
       future: queryInvestmentDataRecordOnce(
         queryBuilder: (investmentDataRecord) => investmentDataRecord.where(
@@ -77,10 +67,12 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
         }
         List<InvestmentDataRecord> historyPageInvestmentDataRecordList =
             snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -93,10 +85,10 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
                             '38pz7vq5' /* History */,
@@ -105,6 +97,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                               FlutterFlowTheme.of(context).titleLarge.override(
                                     fontFamily: 'Inter',
                                     fontSize: 21.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     lineHeight: 1.5,
                                   ),
@@ -113,16 +106,16 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration: const BoxDecoration(),
+                              decoration: BoxDecoration(),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 20.0, 0.0, 0.0),
                                 child: FlutterFlowCalendar(
                                   color: FlutterFlowTheme.of(context).primary,
@@ -139,41 +132,48 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                     }
                                     _model.calendarSelectedDay =
                                         newSelectedDate;
-                                    setState(() {
-                                      _model.currentInvestmentData = functions
-                                          .mapInvestmentData(
-                                              historyPageInvestmentDataRecordList
-                                                  .toList())
-                                          .where((e) =>
-                                              dateTimeFormat(
-                                                'd/M/y',
-                                                e.createdTime,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ) ==
-                                              dateTimeFormat(
-                                                'd/M/y',
-                                                _model
-                                                    .calendarSelectedDay?.start,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ))
-                                          .toList()
-                                          .cast<InvestmentDataMapStruct>();
-                                    });
-                                    setState(() {});
+                                    _model.currentInvestmentData = functions
+                                        .mapInvestmentData(
+                                            historyPageInvestmentDataRecordList
+                                                .toList())
+                                        .where((e) =>
+                                            dateTimeFormat(
+                                              "d/M/y",
+                                              e.createdTime,
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
+                                            ) ==
+                                            dateTimeFormat(
+                                              "d/M/y",
+                                              _model.calendarSelectedDay?.start,
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
+                                            ))
+                                        .toList()
+                                        .cast<InvestmentDataMapStruct>();
+                                    safeSetState(() {});
+                                    safeSetState(() {});
                                   },
-                                  titleStyle:
-                                      FlutterFlowTheme.of(context).titleLarge,
-                                  dayOfWeekStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                  titleStyle: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  dayOfWeekStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Tajawal',
+                                        letterSpacing: 0.0,
+                                      ),
                                   dateStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Tajawal',
                                         fontSize: 14.0,
+                                        letterSpacing: 0.0,
                                       ),
                                   selectedDateStyle:
                                       FlutterFlowTheme.of(context)
@@ -181,33 +181,40 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                           .override(
                                             fontFamily: 'Tajawal',
                                             fontSize: 16.0,
+                                            letterSpacing: 0.0,
                                             lineHeight: 2.0,
                                           ),
                                   inactiveDateStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                      FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Tajawal',
+                                            letterSpacing: 0.0,
+                                          ),
                                   locale:
                                       FFLocalizations.of(context).languageCode,
                                 ),
                               ),
                             ),
-                            const Divider(
+                            Divider(
                               thickness: 2.0,
                               indent: 100.0,
                               endIndent: 100.0,
                               color: Color(0x2A14181B),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 20.0, 0.0, 0.0),
                               child: Builder(
                                 builder: (context) {
                                   final toDateInvestmentData =
                                       _model.currentInvestmentData.toList();
                                   if (toDateInvestmentData.isEmpty) {
-                                    return const Center(
+                                    return Center(
                                       child: EmptyListWidget(),
                                     );
                                   }
+
                                   return Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: List.generate(
@@ -225,7 +232,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
+                                                gradient: LinearGradient(
                                                   colors: [
                                                     Color(0x32E45604),
                                                     Color(0x3426577C)
@@ -240,7 +247,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(7.5),
+                                                padding: EdgeInsets.all(7.5),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -268,7 +275,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                           ),
                                                           child: Align(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Container(
                                                               width: 24.0,
@@ -296,11 +303,11 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
+                                                              AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         15.0,
                                                                         0.0,
@@ -318,7 +325,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                       .start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -340,6 +347,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                               FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           lineHeight:
@@ -351,7 +360,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   valueOrDefault<
                                                                       String>(
                                                                     dateTimeFormat(
-                                                                      'jm',
+                                                                      "jm",
                                                                       toDateInvestmentDataItem
                                                                           .createdTime,
                                                                       locale: FFLocalizations.of(
@@ -368,6 +377,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                             'Tajawal',
                                                                         fontSize:
                                                                             14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         lineHeight:
@@ -399,6 +410,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                     .of(context)
                                                                 .primary,
                                                             fontSize: 18.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -414,7 +426,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
+                                                gradient: LinearGradient(
                                                   colors: [
                                                     Color(0x32E45604),
                                                     Color(0x3426577C)
@@ -429,7 +441,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(7.5),
+                                                padding: EdgeInsets.all(7.5),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -457,7 +469,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                           ),
                                                           child: Align(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Container(
                                                               width: 24.0,
@@ -485,11 +497,11 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
+                                                              AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         15.0,
                                                                         0.0,
@@ -507,7 +519,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                       .start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -529,6 +541,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                               FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           lineHeight:
@@ -537,10 +551,13 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    '1lj1bb0o' /* +1.24% */,
+                                                                  dateTimeFormat(
+                                                                    "jm",
+                                                                    toDateInvestmentDataItem
+                                                                        .createdTime!,
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -550,6 +567,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                             'Tajawal',
                                                                         fontSize:
                                                                             14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         lineHeight:
@@ -581,6 +600,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                     .of(context)
                                                                 .primary,
                                                             fontSize: 18.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -596,7 +616,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
+                                                gradient: LinearGradient(
                                                   colors: [
                                                     Color(0x32E45604),
                                                     Color(0x3426577C)
@@ -611,7 +631,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(7.5),
+                                                padding: EdgeInsets.all(7.5),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -639,7 +659,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                           ),
                                                           child: Align(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Container(
                                                               width: 24.0,
@@ -667,11 +687,11 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
+                                                              AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         15.0,
                                                                         0.0,
@@ -689,7 +709,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                       .start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -711,6 +731,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                               FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           lineHeight:
@@ -719,10 +741,13 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'o9tss0b8' /* +1.24% */,
+                                                                  dateTimeFormat(
+                                                                    "jm",
+                                                                    toDateInvestmentDataItem
+                                                                        .createdTime!,
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -732,6 +757,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                             'Tajawal',
                                                                         fontSize:
                                                                             14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         lineHeight:
@@ -763,6 +790,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                     .of(context)
                                                                 .primary,
                                                             fontSize: 18.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -776,7 +804,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(
-                                                gradient: const LinearGradient(
+                                                gradient: LinearGradient(
                                                   colors: [
                                                     Color(0x32E45604),
                                                     Color(0x3426577C)
@@ -791,7 +819,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                     BorderRadius.circular(16.0),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(7.5),
+                                                padding: EdgeInsets.all(7.5),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -819,7 +847,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                           ),
                                                           child: Align(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Container(
                                                               width: 24.0,
@@ -847,11 +875,11 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                         ),
                                                         Align(
                                                           alignment:
-                                                              const AlignmentDirectional(
+                                                              AlignmentDirectional(
                                                                   0.0, 0.0),
                                                           child: Padding(
                                                             padding:
-                                                                const EdgeInsetsDirectional
+                                                                EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         15.0,
                                                                         0.0,
@@ -869,7 +897,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                       .start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: const EdgeInsetsDirectional
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
@@ -891,6 +919,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                               FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           lineHeight:
@@ -899,10 +929,13 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'y16t6l9v' /* +1.24% */,
+                                                                  dateTimeFormat(
+                                                                    "jm",
+                                                                    toDateInvestmentDataItem
+                                                                        .createdTime!,
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -912,6 +945,8 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                             'Tajawal',
                                                                         fontSize:
                                                                             14.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w500,
                                                                         lineHeight:
@@ -943,6 +978,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                                                     .of(context)
                                                                 .primary,
                                                             fontSize: 18.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -954,7 +990,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                                           }
                                         },
                                       );
-                                    }).divide(const SizedBox(height: 15.0)),
+                                    }).divide(SizedBox(height: 15.0)),
                                   );
                                 },
                               ),
@@ -963,7 +999,7 @@ class _HistoryPageWidgetState extends State<HistoryPageWidget> {
                         ),
                       ),
                     ),
-                  ].addToEnd(const SizedBox(height: 40.0)),
+                  ].addToEnd(SizedBox(height: 40.0)),
                 ),
               ),
             ),

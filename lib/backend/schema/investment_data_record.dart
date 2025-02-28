@@ -10,9 +10,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class InvestmentDataRecord extends FirestoreRecord {
   InvestmentDataRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -87,8 +87,9 @@ class InvestmentDataRecord extends FirestoreRecord {
     _investorEvaluation =
         castToType<double>(snapshotData['investor_evaluation']);
     _createdTime = snapshotData['created_time'] as DateTime?;
-    _transactionType =
-        deserializeEnum<TransactionType>(snapshotData['transaction_type']);
+    _transactionType = snapshotData['transaction_type'] is TransactionType
+        ? snapshotData['transaction_type']
+        : deserializeEnum<TransactionType>(snapshotData['transaction_type']);
     _transactionTypeStr = snapshotData['transaction_type_str'] as String?;
     _investorBalance = castToType<double>(snapshotData['investor_balance']);
   }

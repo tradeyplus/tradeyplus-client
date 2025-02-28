@@ -5,12 +5,13 @@ import 'package:collection/collection.dart';
 import '/backend/schema/util/firestore_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class MailRecord extends FirestoreRecord {
   MailRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -25,7 +26,9 @@ class MailRecord extends FirestoreRecord {
   bool hasTo() => _to != null;
 
   void _initializeFields() {
-    _message = MailMessageStruct.maybeFromMap(snapshotData['message']);
+    _message = snapshotData['message'] is MailMessageStruct
+        ? snapshotData['message']
+        : MailMessageStruct.maybeFromMap(snapshotData['message']);
     _to = snapshotData['to'] as String?;
   }
 

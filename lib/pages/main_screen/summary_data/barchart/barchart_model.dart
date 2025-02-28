@@ -51,24 +51,17 @@ class BarchartModel extends FlutterFlowModel<BarchartWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Barchart widget.
   List<InvestmentDataRecord>? investmentDocList;
   // State field(s) for PaginatedDataTable widget.
   final paginatedDataTableController =
       FlutterFlowDataTableController<InvestmentDataMapStruct>();
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
+    paginatedDataTableController.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

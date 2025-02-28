@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 import '/backend/schema/enums/enums.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class InvestmentDataMapStruct extends FFFirebaseStruct {
@@ -42,81 +40,99 @@ class InvestmentDataMapStruct extends FFFirebaseStruct {
   double? _profitRatio;
   double get profitRatio => _profitRatio ?? 0.0;
   set profitRatio(double? val) => _profitRatio = val;
+
   void incrementProfitRatio(double amount) =>
-      _profitRatio = profitRatio + amount;
+      profitRatio = profitRatio + amount;
+
   bool hasProfitRatio() => _profitRatio != null;
 
   // "investment_ref" field.
   DocumentReference? _investmentRef;
   DocumentReference? get investmentRef => _investmentRef;
   set investmentRef(DocumentReference? val) => _investmentRef = val;
+
   bool hasInvestmentRef() => _investmentRef != null;
 
   // "investor_ref" field.
   DocumentReference? _investorRef;
   DocumentReference? get investorRef => _investorRef;
   set investorRef(DocumentReference? val) => _investorRef = val;
+
   bool hasInvestorRef() => _investorRef != null;
 
   // "investment_id" field.
   String? _investmentId;
   String get investmentId => _investmentId ?? '';
   set investmentId(String? val) => _investmentId = val;
+
   bool hasInvestmentId() => _investmentId != null;
 
   // "duration" field.
   int? _duration;
   int get duration => _duration ?? 0;
   set duration(int? val) => _duration = val;
-  void incrementDuration(int amount) => _duration = duration + amount;
+
+  void incrementDuration(int amount) => duration = duration + amount;
+
   bool hasDuration() => _duration != null;
 
   // "points" field.
   double? _points;
   double get points => _points ?? 0.0;
   set points(double? val) => _points = val;
-  void incrementPoints(double amount) => _points = points + amount;
+
+  void incrementPoints(double amount) => points = points + amount;
+
   bool hasPoints() => _points != null;
 
   // "amount" field.
   double? _amount;
   double get amount => _amount ?? 0.0;
   set amount(double? val) => _amount = val;
-  void incrementAmount(double amount) => _amount = amount + amount;
+
+  void incrementAmount(double amount) => amount = amount + amount;
+
   bool hasAmount() => _amount != null;
 
   // "created_time" field.
   DateTime? _createdTime;
   DateTime? get createdTime => _createdTime;
   set createdTime(DateTime? val) => _createdTime = val;
+
   bool hasCreatedTime() => _createdTime != null;
 
   // "investor_evaluation" field.
   double? _investorEvaluation;
   double get investorEvaluation => _investorEvaluation ?? 0.0;
   set investorEvaluation(double? val) => _investorEvaluation = val;
+
   void incrementInvestorEvaluation(double amount) =>
-      _investorEvaluation = investorEvaluation + amount;
+      investorEvaluation = investorEvaluation + amount;
+
   bool hasInvestorEvaluation() => _investorEvaluation != null;
 
   // "transaction_type" field.
   TransactionType? _transactionType;
   TransactionType? get transactionType => _transactionType;
   set transactionType(TransactionType? val) => _transactionType = val;
+
   bool hasTransactionType() => _transactionType != null;
 
   // "transaction_type_str" field.
   String? _transactionTypeStr;
   String get transactionTypeStr => _transactionTypeStr ?? '';
   set transactionTypeStr(String? val) => _transactionTypeStr = val;
+
   bool hasTransactionTypeStr() => _transactionTypeStr != null;
 
   // "investor_balance" field.
   double? _investorBalance;
   double get investorBalance => _investorBalance ?? 0.0;
   set investorBalance(double? val) => _investorBalance = val;
+
   void incrementInvestorBalance(double amount) =>
-      _investorBalance = investorBalance + amount;
+      investorBalance = investorBalance + amount;
+
   bool hasInvestorBalance() => _investorBalance != null;
 
   static InvestmentDataMapStruct fromMap(Map<String, dynamic> data) =>
@@ -130,8 +146,9 @@ class InvestmentDataMapStruct extends FFFirebaseStruct {
         amount: castToType<double>(data['amount']),
         createdTime: data['created_time'] as DateTime?,
         investorEvaluation: castToType<double>(data['investor_evaluation']),
-        transactionType:
-            deserializeEnum<TransactionType>(data['transaction_type']),
+        transactionType: data['transaction_type'] is TransactionType
+            ? data['transaction_type']
+            : deserializeEnum<TransactionType>(data['transaction_type']),
         transactionTypeStr: data['transaction_type_str'] as String?,
         investorBalance: castToType<double>(data['investor_balance']),
       );

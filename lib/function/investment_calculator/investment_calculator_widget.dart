@@ -5,12 +5,14 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'investment_calculator_model.dart';
 export 'investment_calculator_model.dart';
 
 class InvestmentCalculatorWidget extends StatefulWidget {
   const InvestmentCalculatorWidget({super.key});
+
+  static String routeName = 'InvestmentCalculator';
+  static String routePath = '/investmentCalculator';
 
   @override
   State<InvestmentCalculatorWidget> createState() =>
@@ -28,31 +30,29 @@ class _InvestmentCalculatorWidgetState
     super.initState();
     _model = createModel(context, () => InvestmentCalculatorModel());
 
-    _model.monthlyAmountController ??= TextEditingController();
+    _model.monthlyAmountTextController ??= TextEditingController();
     _model.monthlyAmountFocusNode ??= FocusNode();
     _model.monthlyAmountFocusNode!.addListener(
       () async {
-        setState(() {
-          _model.billFocused = false;
-          _model.profitFocused = true;
-        });
+        _model.billFocused = false;
+        _model.profitFocused = true;
+        safeSetState(() {});
       },
     );
-    _model.billAmountController ??= TextEditingController();
+    _model.billAmountTextController ??= TextEditingController();
     _model.billAmountFocusNode ??= FocusNode();
     _model.billAmountFocusNode!.addListener(
       () async {
-        setState(() {
-          _model.billFocused = true;
-          _model.profitFocused = false;
-        });
+        _model.billFocused = true;
+        _model.profitFocused = false;
+        safeSetState(() {});
       },
     );
-    _model.yieldPercentageController ??= TextEditingController();
+    _model.yieldPercentageTextController ??= TextEditingController();
     _model.yieldPercentageFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
-          _model.yieldPercentageController?.text =
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
+          _model.yieldPercentageTextController?.text =
               FFLocalizations.of(context).getText(
             '4zujzxgg' /* Yield Percentage (8%) */,
           );
@@ -68,21 +68,11 @@ class _InvestmentCalculatorWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -90,7 +80,7 @@ class _InvestmentCalculatorWidgetState
           top: true,
           child: Container(
             width: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0x32E45604), Color(0x4C26577C)],
                 stops: [0.4, 0.8],
@@ -104,10 +94,10 @@ class _InvestmentCalculatorWidgetState
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'v3x568tj' /* Investment Calculator */,
@@ -116,6 +106,7 @@ class _InvestmentCalculatorWidgetState
                       style: FlutterFlowTheme.of(context).titleLarge.override(
                             fontFamily: 'Inter',
                             fontSize: 21.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,
                             lineHeight: 1.5,
                           ),
@@ -123,10 +114,10 @@ class _InvestmentCalculatorWidgetState
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  alignment: AlignmentDirectional(-1.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,28 +129,30 @@ class _InvestmentCalculatorWidgetState
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
-                                    color: const Color(0xA3000000),
+                                    color: Color(0xA3000000),
                                     fontSize: 20.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
                         TextFormField(
-                          controller: _model.monthlyAmountController,
+                          controller: _model.monthlyAmountTextController,
                           focusNode: _model.monthlyAmountFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
-                            '_model.monthlyAmountController',
-                            const Duration(milliseconds: 100),
+                            '_model.monthlyAmountTextController',
+                            Duration(milliseconds: 100),
                             () async {
-                              if (_model.monthlyAmountController.text == '') {
-                                setState(() {
-                                  _model.billAmountController?.text = '0';
+                              if (_model.monthlyAmountTextController.text ==
+                                      '') {
+                                safeSetState(() {
+                                  _model.billAmountTextController?.text = '0';
                                 });
                               } else {
-                                setState(() {
-                                  _model.billAmountController?.text =
+                                safeSetState(() {
+                                  _model.billAmountTextController?.text =
                                       formatNumber(
                                     double.parse(_model
-                                            .monthlyAmountController.text) /
+                                            .monthlyAmountTextController.text) /
                                         (0.08 *
                                             () {
                                               if (_model.dropDownValue == 3) {
@@ -183,6 +176,7 @@ class _InvestmentCalculatorWidgetState
                               }
                             },
                           ),
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelStyle: FlutterFlowTheme.of(context)
@@ -190,6 +184,7 @@ class _InvestmentCalculatorWidgetState
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 21.0,
+                                  letterSpacing: 0.0,
                                 ),
                             hintText: FFLocalizations.of(context).getText(
                               'a9jox3tw' /* $0 */,
@@ -199,6 +194,7 @@ class _InvestmentCalculatorWidgetState
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 50.0,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -209,6 +205,7 @@ class _InvestmentCalculatorWidgetState
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     fontSize: 50.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                           maxLength: 7,
@@ -219,21 +216,21 @@ class _InvestmentCalculatorWidgetState
                                   maxLength}) =>
                               null,
                           keyboardType: TextInputType.number,
-                          validator: _model.monthlyAmountControllerValidator
+                          validator: _model.monthlyAmountTextControllerValidator
                               .asValidator(context),
                         ),
-                      ].divide(const SizedBox(height: 25.0)),
+                      ].divide(SizedBox(height: 25.0)),
                     ),
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 1.0),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: Container(
                     width: double.infinity,
                     height: 400.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
                         topLeft: Radius.circular(25.0),
@@ -241,9 +238,9 @@ class _InvestmentCalculatorWidgetState
                       ),
                     ),
                     child: Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 30.0, 20.0, 30.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -254,29 +251,30 @@ class _InvestmentCalculatorWidgetState
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  decoration: const BoxDecoration(),
-                                  child: SizedBox(
+                                  decoration: BoxDecoration(),
+                                  child: Container(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      controller: _model.billAmountController,
+                                      controller:
+                                          _model.billAmountTextController,
                                       focusNode: _model.billAmountFocusNode,
                                       onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.billAmountController',
-                                        const Duration(milliseconds: 100),
+                                        '_model.billAmountTextController',
+                                        Duration(milliseconds: 100),
                                         () async {
-                                          if (_model.billAmountController
+                                          if (_model.billAmountTextController
                                                       .text ==
                                                   '') {
-                                            setState(() {
-                                              _model.monthlyAmountController
+                                            safeSetState(() {
+                                              _model.monthlyAmountTextController
                                                   ?.text = '0';
                                             });
                                           } else {
-                                            setState(() {
-                                              _model.monthlyAmountController
+                                            safeSetState(() {
+                                              _model.monthlyAmountTextController
                                                   ?.text = formatNumber(
                                                 double.parse(_model
-                                                        .billAmountController
+                                                        .billAmountTextController
                                                         .text) *
                                                     0.08 *
                                                     () {
@@ -322,6 +320,7 @@ class _InvestmentCalculatorWidgetState
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 21.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
                                               lineHeight: 1.25,
                                             ),
@@ -329,6 +328,7 @@ class _InvestmentCalculatorWidgetState
                                             .labelMedium
                                             .override(
                                               fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
                                             ),
                                         errorStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -337,6 +337,7 @@ class _InvestmentCalculatorWidgetState
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .error,
+                                              letterSpacing: 0.0,
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -374,13 +375,14 @@ class _InvestmentCalculatorWidgetState
                                           borderRadius:
                                               BorderRadius.circular(18.0),
                                         ),
-                                        contentPadding: const EdgeInsets.all(16.0),
+                                        contentPadding: EdgeInsets.all(16.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
                                             fontSize: 21.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             lineHeight: 2.0,
                                           ),
@@ -394,7 +396,7 @@ class _InvestmentCalculatorWidgetState
                                           null,
                                       keyboardType: TextInputType.number,
                                       validator: _model
-                                          .billAmountControllerValidator
+                                          .billAmountTextControllerValidator
                                           .asValidator(context),
                                       inputFormatters: [
                                         FilteringTextInputFormatter.allow(
@@ -406,7 +408,7 @@ class _InvestmentCalculatorWidgetState
                                 Container(
                                   height: 70.0,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFE0E0E0),
+                                    color: Color(0xFFE0E0E0),
                                     borderRadius: BorderRadius.circular(16.0),
                                     border: Border.all(
                                       color: FlutterFlowTheme.of(context)
@@ -414,24 +416,29 @@ class _InvestmentCalculatorWidgetState
                                     ),
                                   ),
                                   child: Align(
-                                    alignment: const AlignmentDirectional(-1.0, 0.0),
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           12.0, 0.0, 0.0, 0.0),
-                                      child: SizedBox(
+                                      child: Container(
                                         width: double.infinity,
                                         child: TextFormField(
-                                          controller:
-                                              _model.yieldPercentageController,
+                                          controller: _model
+                                              .yieldPercentageTextController,
                                           focusNode:
                                               _model.yieldPercentageFocusNode,
                                           autofocus: true,
                                           readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
+                                            isDense: false,
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Tajawal',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             errorStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -442,6 +449,7 @@ class _InvestmentCalculatorWidgetState
                                                                   context)
                                                               .error,
                                                       fontSize: 18.0,
+                                                      letterSpacing: 0.0,
                                                     ),
                                             enabledBorder: InputBorder.none,
                                             focusedBorder: InputBorder.none,
@@ -455,14 +463,15 @@ class _InvestmentCalculatorWidgetState
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Inter',
-                                                color: const Color(0xFF6D6D6D),
+                                                color: Color(0xFF6D6D6D),
                                                 fontSize: 21.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                                 lineHeight: 1.5,
                                               ),
                                           keyboardType: TextInputType.number,
                                           validator: _model
-                                              .yieldPercentageControllerValidator
+                                              .yieldPercentageTextControllerValidator
                                               .asValidator(context),
                                           inputFormatters: [
                                             FilteringTextInputFormatter.allow(
@@ -494,13 +503,15 @@ class _InvestmentCalculatorWidgetState
                                     )
                                   ],
                                   onChanged: (val) async {
-                                    setState(() => _model.dropDownValue = val);
+                                    safeSetState(
+                                        () => _model.dropDownValue = val);
                                     if (_model.billFocused == true) {
-                                      setState(() {
-                                        _model.monthlyAmountController?.text =
-                                            formatNumber(
+                                      safeSetState(() {
+                                        _model.monthlyAmountTextController
+                                            ?.text = formatNumber(
                                           double.parse(_model
-                                                  .billAmountController.text) *
+                                                  .billAmountTextController
+                                                  .text) *
                                               0.08 *
                                               () {
                                                 if (_model.dropDownValue == 3) {
@@ -524,11 +535,11 @@ class _InvestmentCalculatorWidgetState
                                         );
                                       });
                                     } else if (_model.profitFocused == true) {
-                                      setState(() {
-                                        _model.billAmountController?.text =
+                                      safeSetState(() {
+                                        _model.billAmountTextController?.text =
                                             formatNumber(
                                           double.parse(_model
-                                                  .monthlyAmountController
+                                                  .monthlyAmountTextController
                                                   .text) /
                                               (0.08 *
                                                   () {
@@ -554,11 +565,12 @@ class _InvestmentCalculatorWidgetState
                                         );
                                       });
                                     } else {
-                                      setState(() {
-                                        _model.monthlyAmountController?.text =
-                                            formatNumber(
+                                      safeSetState(() {
+                                        _model.monthlyAmountTextController
+                                            ?.text = formatNumber(
                                           double.parse(_model
-                                                  .billAmountController.text) *
+                                                  .billAmountTextController
+                                                  .text) *
                                               0.08 *
                                               () {
                                                 if (_model.dropDownValue == 3) {
@@ -592,6 +604,7 @@ class _InvestmentCalculatorWidgetState
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 21.0,
+                                        letterSpacing: 0.0,
                                       ),
                                   hintText: FFLocalizations.of(context).getText(
                                     'ujv7ojr1' /* Period */,
@@ -609,16 +622,16 @@ class _InvestmentCalculatorWidgetState
                                       FlutterFlowTheme.of(context).alternate,
                                   borderWidth: 1.0,
                                   borderRadius: 16.0,
-                                  margin: const EdgeInsetsDirectional.fromSTEB(
+                                  margin: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 4.0, 16.0, 4.0),
                                   hidesUnderline: true,
                                   isOverButton: true,
                                   isSearchable: false,
                                   isMultiSelect: false,
                                 ),
-                              ].divide(const SizedBox(height: 20.0)),
+                              ].divide(SizedBox(height: 20.0)),
                             ),
-                          ].divide(const SizedBox(height: 35.0)),
+                          ].divide(SizedBox(height: 35.0)),
                         ),
                       ),
                     ),

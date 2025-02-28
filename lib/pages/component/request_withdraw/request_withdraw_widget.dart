@@ -8,7 +8,6 @@ import 'dart:ui';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'request_withdraw_model.dart';
 export 'request_withdraw_model.dart';
 
@@ -46,15 +45,13 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return BackdropFilter(
       filter: ImageFilter.blur(
         sigmaX: 4.0,
         sigmaY: 6.0,
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
         child: Material(
           color: Colors.transparent,
           elevation: 4.0,
@@ -68,25 +65,25 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: Container(
                       width: 75.0,
                       height: 75.0,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F1FA),
+                        color: Color(0xFFF1F1FA),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Stack(
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.04, 0.1),
+                            alignment: AlignmentDirectional(0.04, 0.1),
                             child: Icon(
                               FFIcons.kvector,
                               color: FlutterFlowTheme.of(context).primary,
@@ -94,7 +91,7 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Icon(
                               FFIcons.kvector1,
                               color: FlutterFlowTheme.of(context).primary,
@@ -115,6 +112,7 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 22.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -126,20 +124,21 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0.0,
                               lineHeight: 1.5,
                             ),
                       ),
-                    ].divide(const SizedBox(height: 10.0)),
+                    ].divide(SizedBox(height: 10.0)),
                   ),
-                  SizedBox(
+                  Container(
                     width: double.infinity,
                     child: TextFormField(
                       controller: _model.textController,
                       focusNode: _model.textFieldFocusNode,
                       onChanged: (_) => EasyDebounce.debounce(
                         '_model.textController',
-                        const Duration(milliseconds: 100),
-                        () => setState(() {}),
+                        Duration(milliseconds: 100),
+                        () => safeSetState(() {}),
                       ),
                       autofocus: true,
                       obscureText: false,
@@ -151,12 +150,14 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                         errorStyle:
                             FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Tajawal',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -186,11 +187,12 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                           ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        contentPadding: const EdgeInsets.all(16.0),
+                        contentPadding: EdgeInsets.all(16.0),
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             fontSize: 16.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
                       textAlign: TextAlign.center,
@@ -210,13 +212,13 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Align(
-                          alignment: const AlignmentDirectional(1.0, -1.0),
+                          alignment: AlignmentDirectional(1.0, -1.0),
                           child: Builder(
                             builder: (context) => FFButtonWidget(
                               onPressed: (_model.textController.text == '')
@@ -229,11 +231,19 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                         to: 'tradeyplus@gmail.com',
                                         message: createMailMessageStruct(
                                           subject:
-                                              'Withdrawal Request From $currentUserDisplayName',
+                                              'Withdrawal Request From ${currentUserDisplayName}',
                                           html: (String userName,
                                                   String userEmail,
                                                   String withdrawalAmount) {
-                                            return "Dear TradeyPlus,<br>My name is $userName and my email is $userEmail. I would like to request a withdrawal of $withdrawalAmount USD<br>Sincerely,<br>$userName";
+                                            return "Dear TradeyPlus," +
+                                                "<br>" +
+                                                "My name is $userName and my email is $userEmail. I would like to request a withdrawal of " +
+                                                withdrawalAmount +
+                                                " USD" +
+                                                "<br>" +
+                                                "Sincerely," +
+                                                "<br>" +
+                                                userName;
                                           }(
                                               currentUserDisplayName,
                                               currentUserEmail,
@@ -249,11 +259,19 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                                 message:
                                                     createMailMessageStruct(
                                                   subject:
-                                                      'Withdrawal Request From $currentUserDisplayName',
+                                                      'Withdrawal Request From ${currentUserDisplayName}',
                                                   html: (String userName,
                                                           String userEmail,
                                                           String withdrawalAmount) {
-                                                    return "Dear TradeyPlus,<br>My name is $userName and my email is $userEmail. I would like to request a withdrawal of $withdrawalAmount USD<br>Sincerely,<br>$userName";
+                                                    return "Dear TradeyPlus," +
+                                                        "<br>" +
+                                                        "My name is $userName and my email is $userEmail. I would like to request a withdrawal of " +
+                                                        withdrawalAmount +
+                                                        " USD" +
+                                                        "<br>" +
+                                                        "Sincerely," +
+                                                        "<br>" +
+                                                        userName;
                                                   }(
                                                       currentUserDisplayName,
                                                       currentUserEmail,
@@ -266,32 +284,32 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                               mailRecordReference);
                                       Navigator.pop(context);
                                       await showDialog(
-                                        barrierColor: const Color(0x28000000),
+                                        barrierColor: Color(0x28000000),
                                         context: context,
                                         builder: (dialogContext) {
                                           return Dialog(
                                             elevation: 0,
                                             insetPadding: EdgeInsets.zero,
                                             backgroundColor: Colors.transparent,
-                                            alignment: const AlignmentDirectional(
+                                            alignment: AlignmentDirectional(
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: const SuccessDialogWidget(),
+                                            child: SuccessDialogWidget(),
                                           );
                                         },
-                                      ).then((value) => setState(() {}));
+                                      );
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                               text: FFLocalizations.of(context).getText(
                                 '1dctyijw' /* Withdrawal */,
                               ),
                               options: FFButtonOptions(
                                 height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -299,15 +317,16 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                     .override(
                                       fontFamily: 'Inter',
                                       color: Colors.white,
+                                      letterSpacing: 0.0,
                                       lineHeight: 1.0,
                                     ),
                                 elevation: 3.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(16.0),
-                                disabledColor: const Color(0xFFA1A1A1),
+                                disabledColor: Color(0xFFA1A1A1),
                               ),
                             ),
                           ),
@@ -321,9 +340,9 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                           ),
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).secondary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -331,10 +350,11 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
+                                  letterSpacing: 0.0,
                                   lineHeight: 1.0,
                                 ),
                             elevation: 3.0,
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -344,7 +364,7 @@ class _RequestWithdrawWidgetState extends State<RequestWithdrawWidget> {
                       ],
                     ),
                   ),
-                ].divide(const SizedBox(height: 20.0)),
+                ].divide(SizedBox(height: 20.0)),
               ),
             ),
           ),

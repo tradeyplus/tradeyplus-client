@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'deposit_model.dart';
 export 'deposit_model.dart';
 
@@ -44,15 +43,13 @@ class _DepositWidgetState extends State<DepositWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return BackdropFilter(
       filter: ImageFilter.blur(
         sigmaX: 4.0,
         sigmaY: 6.0,
       ),
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
         child: Material(
           color: Colors.transparent,
           elevation: 4.0,
@@ -70,23 +67,23 @@ class _DepositWidgetState extends State<DepositWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                         child: Container(
                           width: 78.0,
                           height: 74.32,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF1F1FA),
+                            color: Color(0xFFF1F1FA),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           child: Align(
-                            alignment: const AlignmentDirectional(-0.3, 0.0),
+                            alignment: AlignmentDirectional(-0.3, 0.0),
                             child: Icon(
                               FFIcons.kdeposit,
                               color: FlutterFlowTheme.of(context).primary,
@@ -107,6 +104,7 @@ class _DepositWidgetState extends State<DepositWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 22.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -121,12 +119,13 @@ class _DepositWidgetState extends State<DepositWidget> {
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
+                                  letterSpacing: 0.0,
                                   lineHeight: 1.5,
                                 ),
                           ),
-                        ].divide(const SizedBox(height: 10.0)),
+                        ].divide(SizedBox(height: 10.0)),
                       ),
-                      SizedBox(
+                      Container(
                         width: double.infinity,
                         child: TextFormField(
                           controller: _model.textController,
@@ -139,6 +138,7 @@ class _DepositWidgetState extends State<DepositWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 18.0,
+                                  letterSpacing: 0.0,
                                 ),
                             hintText: FFLocalizations.of(context).getText(
                               'wgqjlfu4' /* Amount of Money */,
@@ -148,6 +148,7 @@ class _DepositWidgetState extends State<DepositWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   fontSize: 16.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                   lineHeight: 1.0,
                                 ),
@@ -156,6 +157,7 @@ class _DepositWidgetState extends State<DepositWidget> {
                                 .override(
                                   fontFamily: 'Tajawal',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -185,12 +187,13 @@ class _DepositWidgetState extends State<DepositWidget> {
                               ),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            contentPadding: const EdgeInsets.all(16.0),
+                            contentPadding: EdgeInsets.all(16.0),
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                     lineHeight: 1.0,
                                   ),
@@ -215,11 +218,19 @@ class _DepositWidgetState extends State<DepositWidget> {
                                         to: 'tradeyplus@gmail.com',
                                         message: createMailMessageStruct(
                                           subject:
-                                              'Deposit Request From $currentUserDisplayName',
+                                              'Deposit Request From ${currentUserDisplayName}',
                                           html: (String userName,
                                                   String userEmail,
                                                   String depositAmount) {
-                                            return "Dear TradeyPlus,<br>My name is $userName and my email is $userEmail. I would like to request a deposit of $depositAmount USD to my TradeyPlus account.<br>Sincerely,<br>$userName";
+                                            return "Dear TradeyPlus," +
+                                                "<br>" +
+                                                "My name is $userName and my email is $userEmail. I would like to request a deposit of " +
+                                                depositAmount +
+                                                " USD to my TradeyPlus account." +
+                                                "<br>" +
+                                                "Sincerely," +
+                                                "<br>" +
+                                                userName;
                                           }(
                                               currentUserDisplayName,
                                               currentUserEmail,
@@ -235,11 +246,19 @@ class _DepositWidgetState extends State<DepositWidget> {
                                                 message:
                                                     createMailMessageStruct(
                                                   subject:
-                                                      'Deposit Request From $currentUserDisplayName',
+                                                      'Deposit Request From ${currentUserDisplayName}',
                                                   html: (String userName,
                                                           String userEmail,
                                                           String depositAmount) {
-                                                    return "Dear TradeyPlus,<br>My name is $userName and my email is $userEmail. I would like to request a deposit of $depositAmount USD to my TradeyPlus account.<br>Sincerely,<br>$userName";
+                                                    return "Dear TradeyPlus," +
+                                                        "<br>" +
+                                                        "My name is $userName and my email is $userEmail. I would like to request a deposit of " +
+                                                        depositAmount +
+                                                        " USD to my TradeyPlus account." +
+                                                        "<br>" +
+                                                        "Sincerely," +
+                                                        "<br>" +
+                                                        userName;
                                                   }(
                                                       currentUserDisplayName,
                                                       currentUserEmail,
@@ -252,32 +271,32 @@ class _DepositWidgetState extends State<DepositWidget> {
                                               mailRecordReference);
                                       Navigator.pop(context);
                                       await showDialog(
-                                        barrierColor: const Color(0x28000000),
+                                        barrierColor: Color(0x28000000),
                                         context: context,
                                         builder: (dialogContext) {
                                           return Dialog(
                                             elevation: 0,
                                             insetPadding: EdgeInsets.zero,
                                             backgroundColor: Colors.transparent,
-                                            alignment: const AlignmentDirectional(
+                                            alignment: AlignmentDirectional(
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: const SuccessDialogWidget(),
+                                            child: SuccessDialogWidget(),
                                           );
                                         },
-                                      ).then((value) => setState(() {}));
+                                      );
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                               text: FFLocalizations.of(context).getText(
                                 '8qdqp60o' /* Deposit */,
                               ),
                               options: FFButtonOptions(
                                 height: 40.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -285,15 +304,16 @@ class _DepositWidgetState extends State<DepositWidget> {
                                     .override(
                                       fontFamily: 'Inter',
                                       color: Colors.white,
+                                      letterSpacing: 0.0,
                                       lineHeight: 1.0,
                                     ),
                                 elevation: 3.0,
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(16.0),
-                                disabledColor: const Color(0xFFA1A1A1),
+                                disabledColor: Color(0xFFA1A1A1),
                               ),
                             ),
                           ),
@@ -306,9 +326,9 @@ class _DepositWidgetState extends State<DepositWidget> {
                             ),
                             options: FFButtonOptions(
                               height: 40.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).secondary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -316,10 +336,11 @@ class _DepositWidgetState extends State<DepositWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     color: Colors.white,
+                                    letterSpacing: 0.0,
                                     lineHeight: 1.0,
                                   ),
                               elevation: 3.0,
-                              borderSide: const BorderSide(
+                              borderSide: BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -328,7 +349,7 @@ class _DepositWidgetState extends State<DepositWidget> {
                           ),
                         ],
                       ),
-                    ].divide(const SizedBox(height: 20.0)),
+                    ].divide(SizedBox(height: 20.0)),
                   ),
                 ),
               ],

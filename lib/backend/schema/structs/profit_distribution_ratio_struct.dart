@@ -3,9 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
-import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class ProfitDistributionRatioStruct extends FFFirebaseStruct {
@@ -21,14 +19,18 @@ class ProfitDistributionRatioStruct extends FFFirebaseStruct {
   double? _commission;
   double get commission => _commission ?? 0.3;
   set commission(double? val) => _commission = val;
-  void incrementCommission(double amount) => _commission = commission + amount;
+
+  void incrementCommission(double amount) => commission = commission + amount;
+
   bool hasCommission() => _commission != null;
 
   // "profit" field.
   double? _profit;
   double get profit => _profit ?? 0.7;
   set profit(double? val) => _profit = val;
-  void incrementProfit(double amount) => _profit = profit + amount;
+
+  void incrementProfit(double amount) => profit = profit + amount;
+
   bool hasProfit() => _profit != null;
 
   static ProfitDistributionRatioStruct fromMap(Map<String, dynamic> data) =>

@@ -1,17 +1,19 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'register_model.dart';
 export 'register_model.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({super.key});
+
+  static String routeName = 'Register';
+  static String routePath = '/register';
 
   @override
   State<RegisterWidget> createState() => _RegisterWidgetState();
@@ -37,21 +39,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -60,7 +52,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0x66E45604), Color(0x6726577C)],
                 stops: [0.4, 0.8],
@@ -69,14 +61,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bsogqt17' /* Sign Up */,
@@ -85,6 +77,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             fontFamily: 'Inter',
                             color: Colors.white,
                             fontSize: 21.0,
+                            letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                           ),
                     ),
@@ -92,7 +85,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +94,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -122,25 +115,26 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     .override(
                                       fontFamily: 'Tajawal',
                                       fontSize: 60.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                       lineHeight: 1.5,
                                     ),
                                 colors: [
                                   FlutterFlowTheme.of(context).primary,
-                                  const Color(0x35E45604)
+                                  Color(0x35E45604)
                                 ],
                                 gradientDirection: GradientDirection.ttb,
                                 gradientType: GradientType.linear,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 60.0, 0.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Container(
                                         width: 220.0,
                                         height: 30.0,
@@ -155,7 +149,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                         ),
                                         child: Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
@@ -163,13 +157,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              const Icon(
+                                              Icon(
                                                 Icons.search_sharp,
                                                 color: Colors.white,
                                                 size: 21.0,
                                               ),
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         10.0, 0.0, 10.0, 0.0),
                                                 child: Text(
@@ -184,6 +178,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                         fontFamily: 'Inter',
                                                         color: Colors.white,
                                                         fontSize: 16.0,
+                                                        letterSpacing: 0.0,
                                                         lineHeight: 1.0,
                                                       ),
                                                 ),
@@ -194,7 +189,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 15.0, 0.0, 0.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -209,10 +204,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           width: double.infinity,
                                           height: 50.0,
                                           padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           iconPadding:
-                                              const EdgeInsetsDirectional.fromSTEB(
+                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
@@ -223,11 +218,12 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                                     fontFamily: 'Inter',
                                                     color: Colors.white,
                                                     fontSize: 16.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                     lineHeight: 1.0,
                                                   ),
                                           elevation: 3.0,
-                                          borderSide: const BorderSide(
+                                          borderSide: BorderSide(
                                             color: Colors.transparent,
                                             width: 0.0,
                                           ),
@@ -242,11 +238,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 60.0),
                             child: RichText(
-                              textScaleFactor:
-                                  MediaQuery.of(context).textScaleFactor,
+                              textScaler: MediaQuery.of(context).textScaler,
                               text: TextSpan(
                                 children: [
                                   TextSpan(
@@ -260,6 +255,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
                                           fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           lineHeight: 1.5,
                                         ),
@@ -280,11 +276,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                     mouseCursor: SystemMouseCursors.click,
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () async {
-                                        context.goNamed('Login');
+                                        context.goNamed(LoginWidget.routeName);
                                       },
                                   )
                                 ],
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Tajawal',
+                                      letterSpacing: 0.0,
+                                    ),
                               ),
                             ),
                           ),

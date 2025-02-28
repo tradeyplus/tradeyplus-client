@@ -21,18 +21,21 @@ class MailMessageStruct extends FFFirebaseStruct {
   String? _subject;
   String get subject => _subject ?? '';
   set subject(String? val) => _subject = val;
+
   bool hasSubject() => _subject != null;
 
   // "text" field.
   String? _text;
   String get text => _text ?? '';
   set text(String? val) => _text = val;
+
   bool hasText() => _text != null;
 
   // "html" field.
   String? _html;
   String get html => _html ?? '';
   set html(String? val) => _html = val;
+
   bool hasHtml() => _html != null;
 
   static MailMessageStruct fromMap(Map<String, dynamic> data) =>

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'flutter_flow_util.dart';
 
 export 'package:data_table_2/data_table_2.dart' show DataColumn2;
 
@@ -136,6 +137,8 @@ class FlutterFlowDataTable<T> extends StatefulWidget {
     this.sortIconColor,
     this.borderRadius,
     this.addHorizontalDivider = true,
+    this.addTopAndBottomDivider = false,
+    this.hideDefaultHorizontalDivider = false,
     this.addVerticalDivider = false,
     this.horizontalDividerColor,
     this.horizontalDividerThickness,
@@ -175,6 +178,8 @@ class FlutterFlowDataTable<T> extends StatefulWidget {
   final Color? sortIconColor;
   final BorderRadius? borderRadius;
   final bool addHorizontalDivider;
+  final bool addTopAndBottomDivider;
+  final bool hideDefaultHorizontalDivider;
   final Color? horizontalDividerColor;
   final double? horizontalDividerThickness;
   final bool addVerticalDivider;
@@ -210,7 +215,11 @@ class _FlutterFlowDataTableState<T> extends State<FlutterFlowDataTable<T>> {
       initialNumRows: widget.numRows,
     );
     // ignore: cascade_invocations
-    controller.addListener(() => setState(() {}));
+    controller.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -236,6 +245,34 @@ class _FlutterFlowDataTableState<T> extends State<FlutterFlowDataTable<T>> {
       },
     );
 
+    final checkboxThemeData = CheckboxThemeData(
+      checkColor: WidgetStateProperty.all(
+        widget.checkboxCheckColor ?? Colors.black54,
+      ),
+      fillColor: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.selected)
+            ? widget.checkboxSelectedFillColor ?? Colors.white.applyAlpha(0.01)
+            : widget.checkboxUnselectedFillColor ??
+                Colors.white.applyAlpha(0.01),
+      ),
+      side: WidgetStateBorderSide.resolveWith(
+        (states) => BorderSide(
+          width: 2.0,
+          color: states.contains(WidgetState.selected)
+              ? widget.checkboxSelectedBorderColor ?? Colors.black54
+              : widget.checkboxUnselectedBorderColor ?? Colors.black54,
+        ),
+      ),
+      overlayColor: WidgetStateProperty.all(Colors.transparent),
+    );
+
+    final horizontalBorder = widget.addHorizontalDivider
+        ? BorderSide(
+            color: widget.horizontalDividerColor ?? Colors.transparent,
+            width: widget.horizontalDividerThickness ?? 1.0,
+          )
+        : BorderSide.none;
+
     return ClipRRect(
       borderRadius: widget.borderRadius ?? BorderRadius.zero,
       child: SizedBox(
@@ -246,27 +283,6 @@ class _FlutterFlowDataTableState<T> extends State<FlutterFlowDataTable<T>> {
             iconTheme: widget.sortIconColor != null
                 ? IconThemeData(color: widget.sortIconColor)
                 : null,
-            checkboxTheme: CheckboxThemeData(
-              checkColor: MaterialStateProperty.all(
-                widget.checkboxCheckColor ?? Colors.black54,
-              ),
-              fillColor: MaterialStateProperty.resolveWith(
-                (states) => states.contains(MaterialState.selected)
-                    ? widget.checkboxSelectedFillColor ??
-                        Colors.white.withOpacity(0.01)
-                    : widget.checkboxUnselectedFillColor ??
-                        Colors.white.withOpacity(0.01),
-              ),
-              side: MaterialStateBorderSide.resolveWith(
-                (states) => BorderSide(
-                  width: 2.0,
-                  color: states.contains(MaterialState.selected)
-                      ? widget.checkboxSelectedBorderColor ?? Colors.black54
-                      : widget.checkboxUnselectedBorderColor ?? Colors.black54,
-                ),
-              ),
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-            ),
           ),
           child: PaginatedDataTable2(
             source: controller,
@@ -291,25 +307,25 @@ class _FlutterFlowDataTableState<T> extends State<FlutterFlowDataTable<T>> {
             sortColumnIndex: controller.sortColumnIndex,
             sortAscending: controller.sortAscending,
             showCheckboxColumn: widget.selectable,
+            datarowCheckboxTheme: checkboxThemeData,
+            headingCheckboxTheme: checkboxThemeData,
             hidePaginator: !widget.paginated || widget.hidePaginator,
             wrapInCard: false,
             renderEmptyRowsInTheEnd: false,
             border: TableBorder(
-              horizontalInside: widget.addHorizontalDivider
-                  ? BorderSide(
-                      color:
-                          widget.horizontalDividerColor ?? Colors.transparent,
-                      width: widget.horizontalDividerThickness ?? 1.0,
-                    )
-                  : BorderSide.none,
+              horizontalInside: horizontalBorder,
               verticalInside: widget.addVerticalDivider
                   ? BorderSide(
                       color: widget.verticalDividerColor ?? Colors.transparent,
                       width: widget.verticalDividerThickness ?? 1.0,
                     )
                   : BorderSide.none,
+              bottom: widget.addTopAndBottomDivider
+                  ? horizontalBorder
+                  : BorderSide.none,
             ),
-            headingRowColor: MaterialStateProperty.all(widget.headingRowColor),
+            dividerThickness: widget.hideDefaultHorizontalDivider ? 0.0 : null,
+            headingRowColor: WidgetStateProperty.all(widget.headingRowColor),
             headingRowHeight: widget.headingRowHeight,
             dataRowHeight: widget.dataRowHeight,
             showFirstLastButtons: widget.showFirstLastButtons,

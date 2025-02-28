@@ -5,13 +5,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
+
+  static String routeName = 'HomePage';
+  static String routePath = '/homePage';
 
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
@@ -37,38 +38,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: SizedBox(
+          child: Container(
             width: double.infinity,
             height: double.infinity,
             child: Stack(
-              alignment: const AlignmentDirectional(0.0, -1.0),
+              alignment: AlignmentDirectional(0.0, -1.0),
               children: [
                 Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 0.3,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           Color(0x32E45604),
@@ -95,7 +86,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 3.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -107,7 +98,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  alignment: AlignmentDirectional(-1.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       'dzmqd1ya' /* Total Balance */,
@@ -120,13 +111,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           fontSize: 16.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           lineHeight: 1.5,
                                         ),
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                                  alignment: AlignmentDirectional(-1.0, 0.0),
                                   child: AuthUserStreamWidget(
                                     builder: (context) => Text(
                                       valueOrDefault<String>(
@@ -149,21 +141,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 32.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
                                   ),
                                 ),
-                              ].divide(const SizedBox(height: 10.0)),
+                              ].divide(SizedBox(height: 10.0)),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(1.0, 0.0),
+                              alignment: AlignmentDirectional(1.0, 0.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
+                                  gradient: LinearGradient(
                                     colors: [
-                                      Color(0xFF26577C),
-                                      Color(0xCCE45604)
+                                      FlutterFlowTheme.of(context).primary,
+                                      FlutterFlowTheme.of(context).tertiary
                                     ],
                                     stops: [0.2, 1.0],
                                     begin: AlignmentDirectional(0.87, 1.0),
@@ -171,20 +164,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(14.0),
                                 ),
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(4.0),
                                     child: AuthUserStreamWidget(
                                       builder: (context) => ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                         child: CachedNetworkImage(
                                           fadeInDuration:
-                                              const Duration(milliseconds: 500),
+                                              Duration(milliseconds: 500),
                                           fadeOutDuration:
-                                              const Duration(milliseconds: 500),
+                                              Duration(milliseconds: 500),
                                           imageUrl: currentUserPhoto,
                                           width: 45.0,
                                           height: 45.0,
@@ -209,7 +202,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       Padding(
                         padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                         child: SingleChildScrollView(
                           primary: false,
                           child: Column(
@@ -218,7 +211,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -235,7 +228,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexAUDUSDCall
                                             .call(),
@@ -260,6 +253,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexAUDUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -277,7 +271,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -309,6 +303,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .secondary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -324,6 +320,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -335,7 +333,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -364,6 +362,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .primary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -379,6 +379,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -388,16 +390,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 10.0)),
+                                                        SizedBox(width: 10.0)),
                                                   ),
                                                 ],
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -407,22 +409,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -434,11 +436,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -448,7 +450,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -456,17 +458,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -475,7 +477,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -485,10 +487,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -506,6 +508,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -526,6 +530,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -540,6 +546,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -548,7 +556,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -571,6 +585,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -581,7 +597,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -590,7 +606,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -607,7 +623,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexEURUSDCall
                                             .call(),
@@ -632,6 +648,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexEURUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -649,7 +666,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -681,6 +698,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .secondary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -696,6 +715,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -707,7 +728,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -736,6 +757,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .primary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -751,6 +774,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -760,16 +785,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 10.0)),
+                                                        SizedBox(width: 10.0)),
                                                   ),
                                                 ],
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -779,22 +804,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -806,11 +831,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -820,7 +845,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -828,17 +853,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -847,7 +872,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -857,10 +882,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -878,6 +903,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -898,6 +925,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -912,6 +941,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -920,7 +951,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -941,6 +978,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -951,7 +990,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -960,7 +999,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -977,7 +1016,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexGBPUSDCall
                                             .call(),
@@ -1002,6 +1041,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexGBPUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -1019,7 +1059,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1051,6 +1091,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .secondary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -1066,6 +1108,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -1077,7 +1121,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1106,6 +1150,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .primary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -1121,6 +1167,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -1130,16 +1178,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 10.0)),
+                                                        SizedBox(width: 10.0)),
                                                   ),
                                                 ],
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -1149,22 +1197,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -1176,11 +1224,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -1190,7 +1238,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -1198,17 +1246,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -1217,7 +1265,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -1227,10 +1275,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -1248,6 +1296,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1268,6 +1318,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -1282,6 +1334,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1290,7 +1344,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -1313,6 +1373,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -1323,7 +1385,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -1332,7 +1394,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -1349,7 +1411,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexNZDUSDCall
                                             .call(),
@@ -1374,6 +1436,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexNZDUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -1391,7 +1454,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1420,6 +1483,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .secondary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -1435,6 +1500,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -1446,7 +1513,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -1475,6 +1542,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .primary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -1490,6 +1559,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -1499,16 +1570,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 10.0)),
+                                                        SizedBox(width: 10.0)),
                                                   ),
                                                 ],
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -1518,22 +1589,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -1545,11 +1616,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -1559,7 +1630,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -1567,17 +1638,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -1586,7 +1657,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -1596,10 +1667,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -1617,6 +1688,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1637,6 +1710,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -1651,6 +1726,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1659,7 +1736,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -1682,6 +1765,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -1692,7 +1777,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -1701,7 +1786,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -1718,7 +1803,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexCADUSDCall
                                             .call(),
@@ -1743,6 +1828,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexCADUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -1755,7 +1841,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 children: [
                                                   Container(
                                                     width: 100.0,
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -1783,6 +1869,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         context)
                                                                     .secondary,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1797,6 +1885,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontFamily:
                                                                     'Inter',
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1807,7 +1897,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                   Container(
                                                     width: 100.0,
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -1835,6 +1925,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         context)
                                                                     .primary,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -1849,6 +1941,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontFamily:
                                                                     'Inter',
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -1857,14 +1951,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       ],
                                                     ),
                                                   ),
-                                                ].divide(const SizedBox(width: 10.0)),
+                                                ].divide(SizedBox(width: 10.0)),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -1874,22 +1968,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -1901,11 +1995,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -1915,7 +2009,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -1923,17 +2017,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -1942,7 +2036,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -1952,10 +2046,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -1973,6 +2067,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1993,6 +2089,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -2007,6 +2105,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2015,7 +2115,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -2038,6 +2144,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -2048,7 +2156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -2057,7 +2165,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -2074,7 +2182,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexCHFUSDCall
                                             .call(),
@@ -2099,6 +2207,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexCHFUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -2116,7 +2225,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2145,6 +2254,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .secondary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -2160,6 +2271,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -2171,7 +2284,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Container(
                                                         width: 100.0,
                                                         decoration:
-                                                            const BoxDecoration(),
+                                                            BoxDecoration(),
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
@@ -2200,6 +2313,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         .primary,
                                                                     fontSize:
                                                                         16.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -2215,6 +2330,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         'Inter',
                                                                     fontSize:
                                                                         12.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -2224,16 +2341,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                     ].divide(
-                                                        const SizedBox(width: 10.0)),
+                                                        SizedBox(width: 10.0)),
                                                   ),
                                                 ],
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -2243,22 +2360,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -2270,11 +2387,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -2284,7 +2401,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -2292,17 +2409,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -2311,7 +2428,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -2321,10 +2438,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -2342,6 +2459,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2362,6 +2481,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -2376,6 +2497,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2384,7 +2507,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -2407,6 +2536,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -2417,7 +2548,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -2426,7 +2557,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 20.0, 0.0),
                                 child: Material(
                                   color: Colors.transparent,
@@ -2443,7 +2574,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(5.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: GetHistoricalDataForexJPYUSDCall
                                             .call(),
@@ -2468,6 +2599,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           final rowGetHistoricalDataForexJPYUSDResponse =
                                               snapshot.data!;
+
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -2482,7 +2614,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 children: [
                                                   Container(
                                                     width: 100.0,
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -2513,6 +2645,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         context)
                                                                     .secondary,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -2527,18 +2661,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontFamily:
                                                                     'Inter',
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
                                                               ),
                                                         ),
-                                                      ].divide(const SizedBox(
+                                                      ].divide(SizedBox(
                                                           height: 5.0)),
                                                     ),
                                                   ),
                                                   Container(
                                                     width: 100.0,
-                                                    decoration: const BoxDecoration(),
+                                                    decoration: BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -2566,6 +2702,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         context)
                                                                     .primary,
                                                                 fontSize: 16.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -2580,23 +2718,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 fontFamily:
                                                                     'Inter',
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
                                                               ),
                                                         ),
-                                                      ].divide(const SizedBox(
+                                                      ].divide(SizedBox(
                                                           height: 5.0)),
                                                     ),
                                                   ),
-                                                ].divide(const SizedBox(width: 10.0)),
+                                                ].divide(SizedBox(width: 10.0)),
                                               ),
                                               Align(
-                                                alignment: const AlignmentDirectional(
+                                                alignment: AlignmentDirectional(
                                                     -1.0, 0.0),
                                                 child: Container(
                                                   width: 85.0,
-                                                  decoration: const BoxDecoration(),
+                                                  decoration: BoxDecoration(),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.min,
@@ -2606,22 +2746,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
+                                                            EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
                                                                     8.0),
-                                                        child: SizedBox(
+                                                        child: Container(
                                                           width: 50.0,
                                                           child: Stack(
                                                             alignment:
-                                                                const AlignmentDirectional(
+                                                                AlignmentDirectional(
                                                                     -1.0, 0.0),
                                                             children: [
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         0.0,
                                                                         0.0),
                                                                 child:
@@ -2633,11 +2773,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   child:
                                                                       CachedNetworkImage(
                                                                     fadeInDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     fadeOutDuration:
-                                                                        const Duration(
+                                                                        Duration(
                                                                             milliseconds:
                                                                                 500),
                                                                     imageUrl:
@@ -2647,7 +2787,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     fit: BoxFit
                                                                         .cover,
                                                                     alignment:
-                                                                        const Alignment(
+                                                                        Alignment(
                                                                             0.0,
                                                                             0.0),
                                                                   ),
@@ -2655,17 +2795,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                    const AlignmentDirectional(
+                                                                    AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child:
                                                                     CachedNetworkImage(
                                                                   fadeInDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   fadeOutDuration:
-                                                                      const Duration(
+                                                                      Duration(
                                                                           milliseconds:
                                                                               500),
                                                                   imageUrl:
@@ -2674,7 +2814,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   fit: BoxFit
                                                                       .cover,
                                                                   alignment:
-                                                                      const Alignment(
+                                                                      Alignment(
                                                                           0.0,
                                                                           0.0),
                                                                 ),
@@ -2684,10 +2824,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                       ),
                                                       RichText(
-                                                        textScaleFactor:
+                                                        textScaler:
                                                             MediaQuery.of(
                                                                     context)
-                                                                .textScaleFactor,
+                                                                .textScaler,
                                                         text: TextSpan(
                                                           children: [
                                                             TextSpan(
@@ -2702,6 +2842,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2722,6 +2864,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                   ),
                                                             ),
                                                             TextSpan(
@@ -2736,6 +2880,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Tajawal',
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -2744,7 +2890,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ],
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Tajawal',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
                                                       ),
                                                       Text(
@@ -2767,6 +2919,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .of(context)
                                                                   .darkGrey,
                                                               fontSize: 10.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500,
@@ -2777,7 +2931,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                 ),
                                               ),
-                                            ].divide(const SizedBox(width: 5.0)),
+                                            ].divide(SizedBox(width: 5.0)),
                                           );
                                         },
                                       ),
@@ -2786,8 +2940,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                               ),
                             ]
-                                .divide(const SizedBox(height: 10.0))
-                                .addToEnd(const SizedBox(height: 40.0)),
+                                .divide(SizedBox(height: 10.0))
+                                .addToEnd(SizedBox(height: 40.0)),
                           ),
                         ),
                       ),

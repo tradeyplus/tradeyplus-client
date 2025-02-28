@@ -7,14 +7,15 @@ import '/pages/component/deposit/deposit_widget.dart';
 import '/pages/component/request_withdraw/request_withdraw_widget.dart';
 import '/pages/component/yield_transfer/yield_transfer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'transaction_model.dart';
 export 'transaction_model.dart';
 
 class TransactionWidget extends StatefulWidget {
   const TransactionWidget({super.key});
+
+  static String routeName = 'Transaction';
+  static String routePath = '/transaction';
 
   @override
   State<TransactionWidget> createState() => _TransactionWidgetState();
@@ -40,21 +41,11 @@ class _TransactionWidgetState extends State<TransactionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -83,10 +74,11 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                   fontFamily: 'Inter',
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -95,7 +87,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,10 +95,10 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(
+                    Container(
                       width: double.infinity,
                       child: Stack(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
@@ -118,16 +110,16 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 15.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Align(
                                     alignment:
-                                        const AlignmentDirectional(-0.01, -0.06),
+                                        AlignmentDirectional(-0.01, -0.06),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         '3xwurb9k' /* Account Balance */,
@@ -139,13 +131,14 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                             color: FlutterFlowTheme.of(context)
                                                 .secondaryText,
                                             fontSize: 18.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
                                   ),
                                   Align(
                                     alignment:
-                                        const AlignmentDirectional(-0.01, -0.06),
+                                        AlignmentDirectional(-0.01, -0.06),
                                     child: AuthUserStreamWidget(
                                       builder: (context) => Text(
                                         valueOrDefault<String>(
@@ -168,12 +161,13 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 50.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
                                     ),
                                   ),
-                                ].divide(const SizedBox(height: 10.0)),
+                                ].divide(SizedBox(height: 10.0)),
                               ),
                             ),
                           ),
@@ -182,14 +176,14 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Builder(
                               builder: (context) => Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     15.0, 0.0, 15.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -204,23 +198,22 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                           elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
-                                          alignment: const AlignmentDirectional(
+                                          alignment: AlignmentDirectional(
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: const RequestWithdrawWidget(),
+                                            onTap: () {
+                                              FocusScope.of(dialogContext)
+                                                  .unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: RequestWithdrawWidget(),
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -234,18 +227,18 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                             width: 55.0,
                                             height: 55.0,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFF1F1FA),
+                                              color: Color(0xFFF1F1FA),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Stack(
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -0.03, 0.17),
                                                     child: Icon(
                                                       FFIcons.kvector,
@@ -258,7 +251,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                                   ),
                                                   Align(
                                                     alignment:
-                                                        const AlignmentDirectional(
+                                                        AlignmentDirectional(
                                                             -0.15, 0.0),
                                                     child: Icon(
                                                       FFIcons.kvector1,
@@ -282,17 +275,18 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                                 .override(
                                                   fontFamily: 'Inter',
                                                   fontSize: 18.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
-                                        ].divide(const SizedBox(width: 10.0)),
+                                        ].divide(SizedBox(width: 10.0)),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            const Divider(
+                            Divider(
                               thickness: 1.0,
                               indent: 5.0,
                               endIndent: 5.0,
@@ -300,7 +294,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                             ),
                             Builder(
                               builder: (context) => Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     15.0, 0.0, 15.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -315,23 +309,22 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                           elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
-                                          alignment: const AlignmentDirectional(
+                                          alignment: AlignmentDirectional(
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: const DepositWidget(),
+                                            onTap: () {
+                                              FocusScope.of(dialogContext)
+                                                  .unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: DepositWidget(),
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -345,12 +338,12 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                             width: 55.0,
                                             height: 55.0,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFF1F1FA),
+                                              color: Color(0xFFF1F1FA),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   -0.5, 0.0),
                                               child: Icon(
                                                 FFIcons.kdeposit,
@@ -370,17 +363,18 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                                 .override(
                                                   fontFamily: 'Inter',
                                                   fontSize: 18.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
-                                        ].divide(const SizedBox(width: 10.0)),
+                                        ].divide(SizedBox(width: 10.0)),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            const Divider(
+                            Divider(
                               thickness: 1.0,
                               indent: 5.0,
                               endIndent: 5.0,
@@ -388,7 +382,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                             ),
                             Builder(
                               builder: (context) => Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     15.0, 0.0, 15.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -403,23 +397,22 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                           elevation: 0,
                                           insetPadding: EdgeInsets.zero,
                                           backgroundColor: Colors.transparent,
-                                          alignment: const AlignmentDirectional(
+                                          alignment: AlignmentDirectional(
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: const YieldTransferWidget(),
+                                            onTap: () {
+                                              FocusScope.of(dialogContext)
+                                                  .unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: YieldTransferWidget(),
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -433,12 +426,12 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                             width: 55.0,
                                             height: 55.0,
                                             decoration: BoxDecoration(
-                                              color: const Color(0xFFF1F1FA),
+                                              color: Color(0xFFF1F1FA),
                                               borderRadius:
                                                   BorderRadius.circular(16.0),
                                             ),
                                             child: Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   -0.45, 0.0),
                                               child: Icon(
                                                 FFIcons.kyiel,
@@ -458,33 +451,34 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                                                 .override(
                                                   fontFamily: 'Inter',
                                                   fontSize: 18.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
-                                        ].divide(const SizedBox(width: 10.0)),
+                                        ].divide(SizedBox(width: 10.0)),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            const Divider(
+                            Divider(
                               thickness: 1.0,
                               indent: 5.0,
                               endIndent: 5.0,
                               color: Color(0x24000000),
                             ),
-                          ].divide(const SizedBox(height: 10.0)),
+                          ].divide(SizedBox(height: 10.0)),
                         ),
                       ),
                     ),
                   ],
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 20.0),
+                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 20.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await launchURL('https://tradeyplus.com/');
@@ -492,26 +486,27 @@ class _TransactionWidgetState extends State<TransactionWidget> {
                       text: FFLocalizations.of(context).getText(
                         'myfmqba2' /* Contact Us */,
                       ),
-                      icon: const FaIcon(
+                      icon: FaIcon(
                         FontAwesomeIcons.paperPlane,
                         size: 18.0,
                       ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 60.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Inter',
                                   color: Colors.white,
                                   fontSize: 20.0,
+                                  letterSpacing: 0.0,
                                 ),
                         elevation: 3.0,
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

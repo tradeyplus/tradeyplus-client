@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
@@ -38,14 +37,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: double.infinity,
       height: 120.0,
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Stack(
-        alignment: const AlignmentDirectional(0.0, 1.0),
+        alignment: AlignmentDirectional(0.0, 1.0),
         children: [
           Material(
             color: Colors.transparent,
@@ -53,12 +50,12 @@ class _NavBarWidgetState extends State<NavBarWidget> {
             child: Container(
               width: double.infinity,
               height: 80.0,
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: Stack(
-                alignment: const AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(0.0),
                       bottomRight: Radius.circular(0.0),
                       topLeft: Radius.circular(8.0),
@@ -73,7 +70,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -142,7 +139,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
             ),
           ),
           Align(
-            alignment: const AlignmentDirectional(0.0, -0.8),
+            alignment: AlignmentDirectional(0.0, -0.8),
             child: FlutterFlowIconButton(
               borderColor: Colors.transparent,
               borderRadius: 30.0,

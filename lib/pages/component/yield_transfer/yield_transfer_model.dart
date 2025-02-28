@@ -17,8 +17,6 @@ class YieldTransferModel extends FlutterFlowModel<YieldTransferWidget> {
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MailRecord? outputCreateDocMail;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
@@ -27,8 +25,4 @@ class YieldTransferModel extends FlutterFlowModel<YieldTransferWidget> {
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

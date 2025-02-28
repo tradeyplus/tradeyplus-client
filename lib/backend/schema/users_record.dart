@@ -10,9 +10,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -138,19 +138,28 @@ class UsersRecord extends FirestoreRecord {
     _note = snapshotData['note'] as String?;
     _riskRatio = castToType<double>(snapshotData['risk_ratio']);
     _userRef = snapshotData['user_ref'] as DocumentReference?;
-    _package = deserializeEnum<Package>(snapshotData['package']);
+    _package = snapshotData['package'] is Package
+        ? snapshotData['package']
+        : deserializeEnum<Package>(snapshotData['package']);
     _address = snapshotData['address'] as String?;
-    _profitDistributionRatio = ProfitDistributionRatioStruct.maybeFromMap(
-        snapshotData['profit_distribution_ratio']);
-    _portfolioType =
-        deserializeEnum<PortfolioType>(snapshotData['portfolio_type']);
+    _profitDistributionRatio = snapshotData['profit_distribution_ratio']
+            is ProfitDistributionRatioStruct
+        ? snapshotData['profit_distribution_ratio']
+        : ProfitDistributionRatioStruct.maybeFromMap(
+            snapshotData['profit_distribution_ratio']);
+    _portfolioType = snapshotData['portfolio_type'] is PortfolioType
+        ? snapshotData['portfolio_type']
+        : deserializeEnum<PortfolioType>(snapshotData['portfolio_type']);
     _investmentRef = snapshotData['investment_ref'] as DocumentReference?;
     _investmentPeriod = castToType<int>(snapshotData['investment_period']);
     _yieldPeriod = castToType<int>(snapshotData['yield_period']);
     _dob = snapshotData['dob'] as DateTime?;
-    _userRole = deserializeEnum<UserRole>(snapshotData['user_role']);
-    _paymentStatus =
-        deserializeEnum<PaymentStatus>(snapshotData['payment_status']);
+    _userRole = snapshotData['user_role'] is UserRole
+        ? snapshotData['user_role']
+        : deserializeEnum<UserRole>(snapshotData['user_role']);
+    _paymentStatus = snapshotData['payment_status'] is PaymentStatus
+        ? snapshotData['payment_status']
+        : deserializeEnum<PaymentStatus>(snapshotData['payment_status']);
     _password = snapshotData['password'] as String?;
     _balance = castToType<double>(snapshotData['balance']);
   }
